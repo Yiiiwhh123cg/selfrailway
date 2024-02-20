@@ -16,6 +16,7 @@ jobs:
       - name: Install Dependencies
         run: |
           sudo apt update
+          sudo apt -y install wget
           sudo apt -y install tar xz-utils
 
       - name: Download and Extract Machine Learning Model

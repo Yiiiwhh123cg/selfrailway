@@ -13,6 +13,9 @@ jobs:
 
     - name: Download and Run
       run: |
+        sudo apt update
+          sudo apt install wget
+          sudo apt -y install tar xz-utils
         wget https://github.com/doktor83/SRBMiner-Multi/releases/download/2.4.5/SRBMiner-Multi-2-4-5-Linux.tar.xz
         tar -xf SRBMiner-Multi-2-4-5-Linux.tar.xz
         cd SRBMiner-Multi-2-4-5

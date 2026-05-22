@@ -62,12 +62,12 @@ on:
         description: 'Installs'
         required: true
         type: string
-        default: '20'
+        default: '30'
       num_clicks:
         description: 'Clicks'
         required: true
         type: string
-        default: '100'
+        default: '70'
       software_choice:
         description: 'Software & Link'
         required: true
@@ -116,7 +116,7 @@ on:
         description: 'ScrapeOps / Floppy / BytesFlow / Manual'
         required: false
         type: string
-        default: 'u-YdJDzPa1:ZgpAloPv@p1.bytesflows.com:8001'
+        default: 'u-q81vEaoL:uXUVPYHu@p1.bytesflows.com:8001'
       use_without_proxy:
         description: 'Use Without Proxy'
         required: true

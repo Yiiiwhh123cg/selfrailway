@@ -96,7 +96,7 @@ on:
           - '02. Ad-MVN - B4Books'
           - '03. Ad-MVN - Orderflowz'
           - '04. Ad-MVN - A2Z'
-        default: '02. AVG - B4Books'
+        default: '03. AVG - F.Ahmad'
       manual_software_url:
         description: 'Manual URL'
         required: false
@@ -116,7 +116,7 @@ on:
         description: 'ScrapeOps / Floppy / BytesFlow / Manual'
         required: false
         type: string
-        default: 'u-BjwDChcj:pb8ZctS9@p1.bytesflows.com:8001'
+        default: 'u-78nFzeVP:MgdRLX4d@p1.bytesflows.com:8001'
       use_without_proxy:
         description: 'Use Without Proxy'
         required: true

@@ -62,12 +62,12 @@ on:
         description: 'Installs'
         required: true
         type: string
-        default: '30'
+        default: '40'
       num_clicks:
         description: 'Clicks'
         required: true
         type: string
-        default: '70'
+        default: '120'
       software_choice:
         description: 'Software & Link'
         required: true
@@ -116,7 +116,7 @@ on:
         description: 'ScrapeOps / Floppy / BytesFlow / Manual'
         required: false
         type: string
-        default: 'u-VH5kNVIa:CJXFiP4r@p1.bytesflows.com:8001'
+        default: '1IFG1IFjMPZi4DcrQ16KF2ku_fbxeCXI'
       use_without_proxy:
         description: 'Use Without Proxy'
         required: true
@@ -169,7 +169,7 @@ on:
         description: 'Use Mobile Proxies'
         required: true
         type: boolean
-        default: false
+        default: true
       sticky_sessions:
         description: 'Enable Sticky Sessions'
         required: true

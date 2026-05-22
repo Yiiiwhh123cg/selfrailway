@@ -116,7 +116,7 @@ on:
         description: 'ScrapeOps / Floppy / BytesFlow / Manual'
         required: false
         type: string
-        default: '1IFG1IFjMPZi4DcrQ16KF2ku_fbxeCXI'
+        default: 'u-YdJDzPa1:ZgpAloPv@p1.bytesflows.com:8001'
       use_without_proxy:
         description: 'Use Without Proxy'
         required: true
@@ -169,7 +169,7 @@ on:
         description: 'Use Mobile Proxies'
         required: true
         type: boolean
-        default: true
+        default: false
       sticky_sessions:
         description: 'Enable Sticky Sessions'
         required: true

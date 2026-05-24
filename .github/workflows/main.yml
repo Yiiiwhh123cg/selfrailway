@@ -884,8 +884,14 @@ jobs:
                           sys.exit(1)
 
           elif floppy_keys:
-              FLOPPY_BASE = "https://client-api.floppy.host"
               proxy_type = "mobile" if mobile else "residential"
+              
+              # Included multiple failover domains utilized by FloppyData to prevent NameResolutionError
+              FLOPPY_DOMAINS = [
+                  "https://api.webunlocker.scalehat.link",
+                  "https://client-api.floppy.host",
+                  "https://api.floppydata.com"
+              ]
               
               for attempt in range(MAX_ATTEMPTS):
                   current_expected_cc = cc_input.upper()
@@ -899,58 +905,58 @@ jobs:
                   current_key = floppy_keys[key_idx]
                   print(f"[FloppyData] Testing API Key ending in ...{current_key[-4:]} (Attempt {attempt+1}/{MAX_ATTEMPTS})")
                   
-                  try:
-                      creds_resp = requests.get(f"{FLOPPY_BASE}/v1/rotating/smartParamsCredentials", headers={"X-Api-Key": current_key}, timeout=15, verify=False)
-                      if creds_resp.status_code != 200:
-                          print(f"      -> FloppyData API Error: {creds_resp.status_code} - {creds_resp.text}")
-                          time.sleep(3)
-                          continue
-                      creds_data = creds_resp.json()
-                      
-                      params = {"type": proxy_type, "country": current_expected_cc, "protocol": "http", "rotation": "0" if sticky else "-1"}
-                      if sticky: params["session"] = f"t{task_index}p_{str(uuid.uuid4())[:4]}_{attempt}"
-                      
-                      builder_resp = requests.get(f"{FLOPPY_BASE}/v1/rotating/smartParamsBuilder", headers={"X-Api-Key": current_key}, params=params, timeout=15, verify=False)
-                      if builder_resp.status_code != 200:
-                          print(f"      -> FloppyData Builder Error: {builder_resp.status_code} - {builder_resp.text}")
-                          time.sleep(3)
-                          continue
-                      b_data = builder_resp.json()
-                      
-                      user = b_data.get("username", creds_data.get("username", ""))
-                      pwd = b_data.get("password", creds_data.get("password", ""))
-                      host = b_data.get("host", "geo.g-w.info")
-                      port = b_data.get("port", 10080)
-                      
-                      pinfo = {
-                          'username': user, 'password': pwd, 'host': host, 'port': int(port),
-                          'server': f"{host}:{port}", 'url': f"http://{user}:{pwd}@{host}:{port}"
-                      }
-                      
-                      res = validate_proxy(pinfo)
-                      if res['working']:
-                          actual_cc = (res.get('country_code') or '').upper()
-                          if actual_cc == current_expected_cc:
-                              active_proxy = res
-                              active_proxy['proxy_type_label'] = 'floppydata'
-                              use_proxy = True
-                              print(f"SUCCESS: FloppyData PRIMARY proxy active [{res['working_protocol'].upper()}] -> IP: {res['ip']} | CC: {actual_cc}")
-                              break
-                          else:
-                              print(f"      -> WARNING: FloppyData IP Country '{actual_cc}' != expected '{current_expected_cc}'. Retrying...")
-                              time.sleep(2)
-                      else:
-                          if attempt < MAX_ATTEMPTS - 1:
-                              time.sleep(2)
-                          else:
-                              print("FATAL: Failed to find working FloppyData proxy. Aborting script.")
-                              sys.exit(1)
-                  except Exception as e:
-                      print(f"      -> Exception connecting to API: {type(e).__name__} - {e}")
+                  success = False
+                  for base_url in FLOPPY_DOMAINS:
+                      print(f"      -> Attempting connection via {base_url} ...")
+                      try:
+                          creds_resp = requests.get(f"{base_url}/v1/rotating/smartParamsCredentials", headers={"X-Api-Key": current_key}, timeout=15, verify=False)
+                          if creds_resp.status_code != 200:
+                              print(f"      -> API Error on {base_url}: {creds_resp.status_code} - {creds_resp.text}")
+                              continue
+                              
+                          creds_data = creds_resp.json()
+                          params = {"type": proxy_type, "country": current_expected_cc, "protocol": "http", "rotation": "0" if sticky else "-1"}
+                          if sticky: params["session"] = f"t{task_index}p_{str(uuid.uuid4())[:4]}_{attempt}"
+                          
+                          builder_resp = requests.get(f"{base_url}/v1/rotating/smartParamsBuilder", headers={"X-Api-Key": current_key}, params=params, timeout=15, verify=False)
+                          if builder_resp.status_code != 200:
+                              print(f"      -> Builder Error on {base_url}: {builder_resp.status_code} - {builder_resp.text}")
+                              continue
+                              
+                          b_data = builder_resp.json()
+                          user = b_data.get("username", creds_data.get("username", ""))
+                          pwd = b_data.get("password", creds_data.get("password", ""))
+                          host = b_data.get("host", "geo.g-w.info")
+                          port = b_data.get("port", 10080)
+                          
+                          pinfo = {
+                              'username': user, 'password': pwd, 'host': host, 'port': int(port),
+                              'server': f"{host}:{port}", 'url': f"http://{user}:{pwd}@{host}:{port}"
+                          }
+                          
+                          res = validate_proxy(pinfo)
+                          if res['working']:
+                              actual_cc = (res.get('country_code') or '').upper()
+                              if actual_cc == current_expected_cc:
+                                  active_proxy = res
+                                  active_proxy['proxy_type_label'] = 'floppydata'
+                                  use_proxy = True
+                                  print(f"SUCCESS: FloppyData PRIMARY proxy active [{res['working_protocol'].upper()}] -> IP: {res['ip']} | CC: {actual_cc}")
+                                  success = True
+                                  break
+                              else:
+                                  print(f"      -> WARNING: FloppyData IP Country '{actual_cc}' != expected '{current_expected_cc}'. Retrying...")
+                      except Exception as e:
+                          print(f"      -> Exception connecting to API ({base_url}): {type(e).__name__} - {e}")
+                          
+                  if success:
+                      break
+                  else:
                       if attempt < MAX_ATTEMPTS - 1:
+                          print("      -> Waiting 3 seconds before next overall attempt...")
                           time.sleep(3)
                       else:
-                          print("FATAL: Failed to connect to FloppyData API after attempts. Aborting script.")
+                          print("FATAL: Failed to connect to FloppyData API after all attempts. Aborting script.")
                           sys.exit(1)
 
           elif scrapeops_keys:

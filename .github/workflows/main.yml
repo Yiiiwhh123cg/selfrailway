@@ -62,12 +62,12 @@ on:
         description: 'Installs'
         required: true
         type: string
-        default: '60'
+        default: '20'
       num_clicks:
         description: 'Clicks'
         required: true
         type: string
-        default: '180'
+        default: '80'
       software_choice:
         description: 'Software & Link'
         required: true
@@ -96,7 +96,7 @@ on:
           - '02. Ad-MVN - B4Books'
           - '03. Ad-MVN - Orderflowz'
           - '04. Ad-MVN - A2Z'
-        default: '01. AVG - TechxTrader'
+        default: '03. AVG - F.Ahmad'
       manual_software_url:
         description: 'Manual URL'
         required: false
@@ -116,7 +116,7 @@ on:
         description: 'ScrapeOps / Floppy / BytesFlow / Manual'
         required: false
         type: string
-        default: '1IFG1IFjMPZi4DcrQ16KF2ku_fbxeCXI'
+        default: 'geolocation://V0WGb9pDmCQKGfiJ:tf03MvHxX58PhkBg@geo.floppydata.com:10080:United geolocation://XY7HBOZ794GUqjAO:vR3rd5nHR1TS4NHo@geo.floppydata.com:10080:United geolocation://ZfKuDFCrwVRFWcGV:cxwnK9EPTfabNZ5a@geo.floppydata.com:10080:United geolocation://jzvLRZhce2NNwoMc:bw5AS6PqF6nwL96e@geo.floppydata.com:10080:United geolocation://W5FoQkU448a6Zhiw:QN7ncDn2TRE9R8ac@geo.floppydata.com:10080:United geolocation://dGKXc1xQMWVgpB5i:eYm8OV01nl0HcqEU@geo.floppydata.com:10080:France geolocation://w2bFvophAgMIjW7t:ioXyVRtlieZs7DeN@geo.floppydata.com:10080:United geolocation://2WcKnJZ7OuMpv3cO:2TD9ZDUEiVnyDblX@geo.floppydata.com:10080:United geolocation://9yPLIr8lWZRyK9b5:vdCrxgDHSJMiLHMW@geo.floppydata.com:10080:United geolocation://e4FaoPRbLi5xBGKg:tSSiPh3m0teph5B3@geo.floppydata.com:10080:United geolocation://Hm6Ex6WPA7cPXubX:sxWFclAvGdwVL1a3@geo.floppydata.com:10080:United geolocation://6r6zbA1pEfef01PZ:XEd8fWhzQBxni4yO@geo.floppydata.com:10080:United geolocation://mIFRSUTymIPGAeQD:skzyiM8We6OEyG99@geo.floppydata.com:10080:United geolocation://rGaMtd5TKfPMsjRv:8e3nitT7dia4Ti5o@geo.floppydata.com:10080:United geolocation://akQCwWr6FkcYsHVO:pvzHAIuLQgNbBEae@geo.floppydata.com:10080:United geolocation://Sm1GAlxjuEwZZz4E:1RU4r484mUWPEVnu@geo.floppydata.com:10080:United geolocation://l9jpdH8dHoYSu0Bu:dU9dqZXQKnI3JogQ@geo.floppydata.com:10080:United geolocation://tDP1PMeMQJfImcS9:GfXezSzHSfZE2mAt@geo.floppydata.com:10080:United geolocation://HjFxpTxL9VI2EIl0:Led4K7o6ExKIpCVr@geo.floppydata.com:10080:United geolocation://sFkQfxV3qM41oqKH:mjZDDGD1CnP3Qpsf@geo.floppydata.com:10080:United geolocation://ewuz3l2O7RcqCpYT:EOQGKFUivXYPjUjn@geo.floppydata.com:10080:United geolocation://zrSfAp1H72n90cVt:oiFN0QIOIrBPhON3@geo.floppydata.com:10080:United geolocation://Sul96ZF4aZfl1Fjg:jDRjEejpl4GXLpHd@geo.floppydata.com:10080:United geolocation://ICoGriuQhzmCs2wU:QBPNC100XlVRRUtx@geo.floppydata.com:10080:United geolocation://Uve9WRGAGiqYUABK:8bDPRZ0RiATFkgM3@geo.floppydata.com:10080:United geolocation://X7HHgV2TODPXVuOF:Oltsd7d2dzBDqcRs@geo.floppydata.com:10080:United geolocation://O06gbYmZYlxSLD8d:wCyQ0bL2XSJSvUwF@geo.floppydata.com:10080:United geolocation://qhzbMYKF96CVRiNo:nX6FPiQOH2SETh6K@geo.floppydata.com:10080:United geolocation://ybcQZ00yBDXiWG2N:ffX2gsgKvzd9utB7@geo.floppydata.com:10080:United geolocation://QUq4E200XTA61nHG:32DFVAiIEyOsNCs6@geo.floppydata.com:10080:United geolocation://cmXPl5nQBVKJR8eM:c7x3LRUzVA5uSBoc@geo.floppydata.com:10080:United geolocation://cBU8j57K7Ld149Gr:XthSK9aVNnAniNGH@geo.floppydata.com:10080:United geolocation://whbKwHULhVLQGC58:V5jOSGTMyLN6G7KW@geo.floppydata.com:10080:United geolocation://rhcWtC3gq3xYioEr:DR0cVQiShcHuOGUw@geo.floppydata.com:10080:United geolocation://mUidYTt0E1ii8lnE:j3iaGbhEEp61ztW9@geo.floppydata.com:10080:United geolocation://VBjT8dHLHO3PaePy:wWCOtiWG6aI6on2k@geo.floppydata.com:10080:United geolocation://R6v87ZFRRSOxuq4y:wJ1UiAkeLUznOP0j@geo.floppydata.com:10080:United geolocation://gYDiexNvwaZ65Asv:TfEeecXEF1GaBCVJ@geo.floppydata.com:10080:United geolocation://thxCari7HCDLAP3E:FOYg45G7FQqnm1C5@geo.floppydata.com:10080:United geolocation://glnDQRFxx5XJnqnw:f34YcjK871dgFZBD@geo.floppydata.com:10080:United geolocation://KtiwVSHXLtsHmmF0:gwJZIYoq3uKYQdoP@geo.floppydata.com:10080:United geolocation://4cPNZ2VME0JGixdT:cj3heMIXFAax10uj@geo.floppydata.com:10080:United geolocation://VUAWjHAyD53BTOix:56PY1oJwFq2UCr2K@geo.floppydata.com:10080:United geolocation://ESOdIAjnf7lguScF:LYpbZVG8DcDAlWyK@geo.floppydata.com:10080:United geolocation://jG2BYZ9qaACmC8y0:Cp9E6XxqxUdVvjmC@geo.floppydata.com:10080:United geolocation://66RWdV6KonDSdXuy:IE0hvxy3CsEfGBuh@geo.floppydata.com:10080:United geolocation://bmwGmr8etADNxnL2:z6oW49JihPql2ioZ@geo.floppydata.com:10080:United geolocation://ALTkizwVniVELc6X:01xkaEvw1CVZ8BWx@geo.floppydata.com:10080:United geolocation://ZMLJgTIjkg6PokDD:VcIuxpJ6Lnb01x4b@geo.floppydata.com:10080:United geolocation://PBx5nFJ56v4LXxju:MV4cv2fPxmEL6BIq@geo.floppydata.com:10080:United geolocation://ba2YsekgG7XgWyaR:NO8w6bXn8Wh9mEva@geo.floppydata.com:10080:United geolocation://bAARc4aPcoNG5d9P:4noSlKZn064hBxkX@geo.floppydata.com:10080:United geolocation://FNqh0QX3YWs0LTqI:nLk95C70rzc5DvQz@geo.floppydata.com:10080:United geolocation://2NUnwOm6gR5Fo7CC:gj7PhCpxqjrcC6R1@geo.floppydata.com:10080:United geolocation://CRP6uzupxq3efiAN:JKE5LWMTi04WMYCl@geo.floppydata.com:10080:United geolocation://BfprMrqXlNZQuX9h:JQlyJ7FwVevMzMcR@geo.floppydata.com:10080:United geolocation://HWJpRHwu3UBLT5Me:RMHA7qXp4E7nlEWK@geo.floppydata.com:10080:United geolocation://I00E89Bi7HAWIEUe:Dlrj4fNBFyd4rdbA@geo.floppydata.com:10080:United geolocation://BIGPYd7agygyAOzz:10BvT9Cu39NzLBRG@geo.floppydata.com:10080:United geolocation://Ptk5fcsvafUvXKUf:iboFUrh8iWdQp7mq@geo.floppydata.com:10080:United geolocation://pnKxgHbuGWuszQjz:n7eriz5twNYFsd0N@geo.floppydata.com:10080:United geolocation://jgG0Y46g7jQqXL2a:HYkt9pPLYYKTgcyY@geo.floppydata.com:10080:United geolocation://tvKtsqX1zHJvkmdP:nBMFseZ8iwxHKW1F@geo.floppydata.com:10080:United geolocation://DYLR9drtz3bksG6N:uD1VNtbf7FlpdrmV@geo.floppydata.com:10080:United geolocation://qzod2ZXHZPf8w6jX:KRyGgcRCebJetphh@geo.floppydata.com:10080:United geolocation://Kr6El8Wi03qj7lcX:Z27OZJ1QeW8edHxz@geo.floppydata.com:10080:United geolocation://ZsdsyLuRsMRO6KVu:zZd3gIucmI8ASQnG@geo.floppydata.com:10080:United geolocation://AMqw7dliQwJLxfrT:iF9JoS7FrYgqdUNs@geo.floppydata.com:10080:United geolocation://7wMjmZIvJNZY20o0:NVekuHDqIWyTPGOE@geo.floppydata.com:10080:United geolocation://5O4okFeY2oomzjo3:sCXxWo3MA6Pr06G6@geo.floppydata.com:10080:United geolocation://cL9qJd6mh6KXQtET:h7gKS22qGUZXvBIz@geo.floppydata.com:10080:United geolocation://SXqCTKXeLrbU0684:r0WkzERACpfrAwlU@geo.floppydata.com:10080:United geolocation://CZwRsd1oelH1wj1C:dpFBm4roAakGYwtw@geo.floppydata.com:10080:United geolocation://aLFCLXqcnKL4jDyZ:tPIEKxAfv5JuyE2k@geo.floppydata.com:10080:United geolocation://FLTYtB85qC4e7uys:GU35TBHMnBy9salY@geo.floppydata.com:10080:United geolocation://AxqNY7iIIJahGWRT:GVFDBp2n9Pqwlz3a@geo.floppydata.com:10080:United geolocation://NUBGwz5ljgfXfC8n:CEChQD45PR8AmKcY@geo.floppydata.com:10080:United geolocation://rkp1Q91fmQXmnUZw:Ch5PpUAiZiBQGx5f@geo.floppydata.com:10080:United geolocation://NiRodhPMgdc9G8ns:oLzegKoY6fNUh7oy@geo.floppydata.com:10080:United geolocation://AdAsICHOgLZK9lj4:5g3zEdvjXuygXyez@geo.floppydata.com:10080:United geolocation://8qTTftFOsQL32esg:GUgIt8CfJ0vOxWwF@geo.floppydata.com:10080:United geolocation://AvIXABtFl5ja4ber:e2SKftA9k2XwURr0@geo.floppydata.com:10080:United geolocation://7qPikpl899uDNbLl:BeP1NFwfacoCaYNK@geo.floppydata.com:10080:United geolocation://qsTcXSJoJYNyEh9e:G4x8jhe70gWMZHuE@geo.floppydata.com:10080:United geolocation://cEW2zb269yWUxjq1:iWYzNaIxekFUKkhD@geo.floppydata.com:10080:United geolocation://q9USblyE02AFoOjs:3KiBm0mWEfhE9pxb@geo.floppydata.com:10080:United geolocation://lbHTjHLS5VNWKxy4:7iZdvt5pw9YrKVw9@geo.floppydata.com:10080:United geolocation://3RBtPEAQLgE9plGB:B9oR1d5SBp6NmWfC@geo.floppydata.com:10080:United geolocation://3wXhhuW6sSWREWFf:ScRH3mhb93HLb6UF@geo.floppydata.com:10080:United geolocation://B6aUTF2VIErsR534:GhYNF6BEth8oD9C6@geo.floppydata.com:10080:United geolocation://jhKI43rmzwGXZ8mF:VPgmGSvJhEapcenq@geo.floppydata.com:10080:United geolocation://hzCaxNfgwMVIom8D:1Gix6vfrd09QPA3h@geo.floppydata.com:10080:United geolocation://3OD0RjoBzaEZFGGt:uLoDzXMKfcRWHqhD@geo.floppydata.com:10080:United geolocation://uZtIf4EoAUifG71S:FLwmCnwfZ5VZQ6Ji@geo.floppydata.com:10080:United geolocation://qwtRu6HdXNpqnfhX:YHcLH1ElYYwCUHA0@geo.floppydata.com:10080:United geolocation://s8IjRexwa08dVtab:Ey9ZSO0HK68Tq5RB@geo.floppydata.com:10080:United geolocation://SkDSEJ7cNP9MUSei:kv2227nM64ShE4xa@geo.floppydata.com:10080:United geolocation://xM9b8kzjPVGzCUMn:b0gaDKtTsLBbkHZ1@geo.floppydata.com:10080:United geolocation://af4zYfE6Rh34f06d:mVzeVGDMG61uNFwi@geo.floppydata.com:10080:United geolocation://t33irArl3OCQl88h:dZqt7frOPXviTUeg@geo.floppydata.com:10080:United'
       use_without_proxy:
         description: 'Use Without Proxy'
         required: true
@@ -164,12 +164,12 @@ on:
           - 'Italy'
           - 'Netherlands'
           - 'Poland'
-        default: 'No Fallback'
+        default: 'Germany'
       mobile_proxies:
         description: 'Use Mobile Proxies'
         required: true
         type: boolean
-        default: true
+        default: false
       sticky_sessions:
         description: 'Enable Sticky Sessions'
         required: true
@@ -884,14 +884,8 @@ jobs:
                           sys.exit(1)
 
           elif floppy_keys:
+              FLOPPY_BASE = "https://api.floppydata.net"
               proxy_type = "mobile" if mobile else "residential"
-              
-              # Included multiple failover domains utilized by FloppyData to prevent NameResolutionError
-              FLOPPY_DOMAINS = [
-                  "https://api.webunlocker.scalehat.link",
-                  "https://client-api.floppy.host",
-                  "https://api.floppydata.com"
-              ]
               
               for attempt in range(MAX_ATTEMPTS):
                   current_expected_cc = cc_input.upper()
@@ -905,58 +899,48 @@ jobs:
                   current_key = floppy_keys[key_idx]
                   print(f"[FloppyData] Testing API Key ending in ...{current_key[-4:]} (Attempt {attempt+1}/{MAX_ATTEMPTS})")
                   
-                  success = False
-                  for base_url in FLOPPY_DOMAINS:
-                      print(f"      -> Attempting connection via {base_url} ...")
-                      try:
-                          creds_resp = requests.get(f"{base_url}/v1/rotating/smartParamsCredentials", headers={"X-Api-Key": current_key}, timeout=15, verify=False)
-                          if creds_resp.status_code != 200:
-                              print(f"      -> API Error on {base_url}: {creds_resp.status_code} - {creds_resp.text}")
-                              continue
-                              
-                          creds_data = creds_resp.json()
-                          params = {"type": proxy_type, "country": current_expected_cc, "protocol": "http", "rotation": "0" if sticky else "-1"}
-                          if sticky: params["session"] = f"t{task_index}p_{str(uuid.uuid4())[:4]}_{attempt}"
-                          
-                          builder_resp = requests.get(f"{base_url}/v1/rotating/smartParamsBuilder", headers={"X-Api-Key": current_key}, params=params, timeout=15, verify=False)
-                          if builder_resp.status_code != 200:
-                              print(f"      -> Builder Error on {base_url}: {builder_resp.status_code} - {builder_resp.text}")
-                              continue
-                              
-                          b_data = builder_resp.json()
-                          user = b_data.get("username", creds_data.get("username", ""))
-                          pwd = b_data.get("password", creds_data.get("password", ""))
-                          host = b_data.get("host", "geo.g-w.info")
-                          port = b_data.get("port", 10080)
-                          
-                          pinfo = {
-                              'username': user, 'password': pwd, 'host': host, 'port': int(port),
-                              'server': f"{host}:{port}", 'url': f"http://{user}:{pwd}@{host}:{port}"
-                          }
-                          
-                          res = validate_proxy(pinfo)
-                          if res['working']:
-                              actual_cc = (res.get('country_code') or '').upper()
-                              if actual_cc == current_expected_cc:
-                                  active_proxy = res
-                                  active_proxy['proxy_type_label'] = 'floppydata'
-                                  use_proxy = True
-                                  print(f"SUCCESS: FloppyData PRIMARY proxy active [{res['working_protocol'].upper()}] -> IP: {res['ip']} | CC: {actual_cc}")
-                                  success = True
-                                  break
-                              else:
-                                  print(f"      -> WARNING: FloppyData IP Country '{actual_cc}' != expected '{current_expected_cc}'. Retrying...")
-                      except Exception as e:
-                          print(f"      -> Exception connecting to API ({base_url}): {type(e).__name__} - {e}")
-                          
-                  if success:
-                      break
-                  else:
-                      if attempt < MAX_ATTEMPTS - 1:
-                          print("      -> Waiting 3 seconds before next overall attempt...")
-                          time.sleep(3)
+                  try:
+                      creds_resp = requests.get(f"{FLOPPY_BASE}/v1/rotating/smartParamsCredentials", headers={"X-Api-Key": current_key}, timeout=12)
+                      if creds_resp.status_code != 200: continue
+                      creds_data = creds_resp.json()
+                      
+                      params = {"type": proxy_type, "country": current_expected_cc, "protocol": "http", "rotation": "0" if sticky else "-1"}
+                      if sticky: params["session"] = f"t{task_index}p_{str(uuid.uuid4())[:4]}_{attempt}"
+                      
+                      builder_resp = requests.get(f"{FLOPPY_BASE}/v1/rotating/smartParamsBuilder", headers={"X-Api-Key": current_key}, params=params, timeout=12)
+                      b_data = builder_resp.json()
+                      
+                      user = b_data.get("username", creds_data.get("username", ""))
+                      pwd = b_data.get("password", creds_data.get("password", ""))
+                      host = b_data.get("host", "geo.g-w.info")
+                      port = b_data.get("port", 10080)
+                      
+                      pinfo = {
+                          'username': user, 'password': pwd, 'host': host, 'port': int(port),
+                          'server': f"{host}:{port}", 'url': f"http://{user}:{pwd}@{host}:{port}"
+                      }
+                      
+                      res = validate_proxy(pinfo)
+                      if res['working']:
+                          actual_cc = (res.get('country_code') or '').upper()
+                          if actual_cc == current_expected_cc:
+                              active_proxy = res
+                              active_proxy['proxy_type_label'] = 'floppydata'
+                              use_proxy = True
+                              print(f"SUCCESS: FloppyData PRIMARY proxy active [{res['working_protocol'].upper()}] -> IP: {res['ip']} | CC: {actual_cc}")
+                              break
+                          else:
+                              print(f"      -> WARNING: FloppyData IP Country '{actual_cc}' != expected '{current_expected_cc}'. Retrying...")
+                              time.sleep(2)
                       else:
-                          print("FATAL: Failed to connect to FloppyData API after all attempts. Aborting script.")
+                          if attempt < MAX_ATTEMPTS - 1:
+                              time.sleep(2)
+                          else:
+                              print("FATAL: Failed to find working FloppyData proxy. Aborting script.")
+                              sys.exit(1)
+                  except Exception as e:
+                      if attempt == MAX_ATTEMPTS - 1:
+                          print("FATAL: Failed to connect to FloppyData API after attempts. Aborting script.")
                           sys.exit(1)
 
           elif scrapeops_keys:
@@ -3449,4 +3433,4 @@ jobs:
           $durationSecs = $durationMins * 60
           
           Write-Host "Leaving runner online to exhaust selected keep alive margin: $durationMins minutes ($durationSecs seconds)..." -ForegroundColor Cyan
-          Start-Sleep -Seconds $durationSecs
+          Start-Sleep -Seconds $durationSecsbbbbbbbbbbbbbbbbbbbhhhhhhhhhhhhhhhhhhhhhhhhhhhhh

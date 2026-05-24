@@ -900,14 +900,21 @@ jobs:
                   print(f"[FloppyData] Testing API Key ending in ...{current_key[-4:]} (Attempt {attempt+1}/{MAX_ATTEMPTS})")
                   
                   try:
-                      creds_resp = requests.get(f"{FLOPPY_BASE}/v1/rotating/smartParamsCredentials", headers={"X-Api-Key": current_key}, timeout=12)
-                      if creds_resp.status_code != 200: continue
+                      creds_resp = requests.get(f"{FLOPPY_BASE}/v1/rotating/smartParamsCredentials", headers={"X-Api-Key": current_key}, timeout=15, verify=False)
+                      if creds_resp.status_code != 200:
+                          print(f"      -> FloppyData API Error: {creds_resp.status_code} - {creds_resp.text}")
+                          time.sleep(3)
+                          continue
                       creds_data = creds_resp.json()
                       
                       params = {"type": proxy_type, "country": current_expected_cc, "protocol": "http", "rotation": "0" if sticky else "-1"}
                       if sticky: params["session"] = f"t{task_index}p_{str(uuid.uuid4())[:4]}_{attempt}"
                       
-                      builder_resp = requests.get(f"{FLOPPY_BASE}/v1/rotating/smartParamsBuilder", headers={"X-Api-Key": current_key}, params=params, timeout=12)
+                      builder_resp = requests.get(f"{FLOPPY_BASE}/v1/rotating/smartParamsBuilder", headers={"X-Api-Key": current_key}, params=params, timeout=15, verify=False)
+                      if builder_resp.status_code != 200:
+                          print(f"      -> FloppyData Builder Error: {builder_resp.status_code} - {builder_resp.text}")
+                          time.sleep(3)
+                          continue
                       b_data = builder_resp.json()
                       
                       user = b_data.get("username", creds_data.get("username", ""))
@@ -939,7 +946,10 @@ jobs:
                               print("FATAL: Failed to find working FloppyData proxy. Aborting script.")
                               sys.exit(1)
                   except Exception as e:
-                      if attempt == MAX_ATTEMPTS - 1:
+                      print(f"      -> Exception connecting to API: {type(e).__name__} - {e}")
+                      if attempt < MAX_ATTEMPTS - 1:
+                          time.sleep(3)
+                      else:
                           print("FATAL: Failed to connect to FloppyData API after attempts. Aborting script.")
                           sys.exit(1)
 
@@ -3433,4 +3443,4 @@ jobs:
           $durationSecs = $durationMins * 60
           
           Write-Host "Leaving runner online to exhaust selected keep alive margin: $durationMins minutes ($durationSecs seconds)..." -ForegroundColor Cyan
-          Start-Sleep -Seconds $durationSecsbbbbbbbbbbbbbbbbbbbhhhhhhhhhhhhhhhhhhhhhhhhhhhhh
+          Start-Sleep -Seconds $durationSecs

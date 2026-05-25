@@ -76,6 +76,7 @@ on:
           - '01. AVG - TechxTrader'
           - '02. AVG - B4Books'
           - '03. AVG - F.Ahmad'
+          - '04. AVG - Techx'
           - '01. OperaGX - F.Ahmad'
           - '02. OperaGX - B4Books'
           - '03. OperaGX - MLZ'
@@ -417,6 +418,7 @@ jobs:
               "AVG - TechxTrader": "https://techx.short.gy/trdrxavg",
               "AVG - B4Books":     "https://techx.short.gy/b4bxavg",
               "AVG - F.Ahmad":     "https://techx.short.gy/f.ahxavg",
+              "AVG - Techx":       "https://techx.short.gy/techxavg",
           }
           opera_gx_urls = {
               "OperaGX - F.Ahmad": "https://techx.short.gy/f.ahxopx",

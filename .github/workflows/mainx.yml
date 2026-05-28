@@ -32,7 +32,7 @@ on:
           - '8'
           - '9'
           - '10'
-        default: '1'
+        default: '5'
       delay_between_devices:
         description: 'Delay Between Devices'
         required: true
@@ -44,7 +44,7 @@ on:
           - '3-6 minutes'
           - '4-8 minutes'
           - '5-10 minutes'
-        default: '2-4 minutes'
+        default: '0 minutes'
       keep_alive_duration:
         description: 'Timeout / Keep Runner Alive'
         required: true
@@ -97,7 +97,7 @@ on:
           - '02. Ad-MVN - B4Books'
           - '03. Ad-MVN - Orderflowz'
           - '04. Ad-MVN - A2Z'
-        default: '04. AVG - Techx'
+        default: '01. Opera - Techx'
       manual_software_url:
         description: 'Manual URL'
         required: false
@@ -112,7 +112,7 @@ on:
         description: 'Apply Fingerprint Masking'
         required: true
         type: boolean
-        default: true
+        default: false
       scrapeops_api_key:
         description: 'ScrapeOps / Floppy / BytesFlow / Manual'
         required: false
@@ -143,7 +143,7 @@ on:
           - 'Italy'
           - 'Netherlands'
           - 'Poland'
-        default: 'USA'
+        default: 'Netherlands'
       fallback_country:
         description: 'Fallback Country'
         required: true
@@ -165,12 +165,12 @@ on:
           - 'Italy'
           - 'Netherlands'
           - 'Poland'
-        default: 'USA'
+        default: 'No Fallback'
       mobile_proxies:
         description: 'Use Mobile Proxies'
         required: true
         type: boolean
-        default: true
+        default: false
       sticky_sessions:
         description: 'Enable Sticky Sessions'
         required: true

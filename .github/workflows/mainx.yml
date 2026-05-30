@@ -143,7 +143,7 @@ on:
           - 'Italy'
           - 'Netherlands'
           - 'Poland'
-        default: 'USA'
+        default: 'Germany'
       fallback_country:
         description: 'Fallback Country'
         required: true
@@ -165,7 +165,7 @@ on:
           - 'Italy'
           - 'Netherlands'
           - 'Poland'
-        default: 'No Fallback'
+        default: 'Germany'
       mobile_proxies:
         description: 'Use Mobile Proxies'
         required: true

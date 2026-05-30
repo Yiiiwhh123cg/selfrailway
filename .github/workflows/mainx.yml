@@ -1043,7 +1043,6 @@ jobs:
           if (-not (Test-Path $edgePolicy)) { New-Item -Path $edgePolicy -Force | Out-Null; Write-Host "[Registry] Created $edgePolicy" }
           Set-ItemProperty -Path $edgePolicy -Name "SmartScreenEnabled" -Value 0
           Set-ItemProperty -Path $edgePolicy -Name "SmartScreenPuaEnabled" -Value 0
-          Set-ItemProperty -Path $edgePolicy -Name "DownloadRestrictions" -Value 0
           Set-ItemProperty -Path $edgePolicy -Name "PreventSmartScreenPromptOverride" -Value 0
           Set-ItemProperty -Path $edgePolicy -Name "PreventSmartScreenPromptOverrideForFiles" -Value 0
 
@@ -1190,6 +1189,20 @@ jobs:
           ACTION_MODE: ${{ matrix.action_mode }}
           APPLY_MASKING: ${{ inputs.apply_masking }}
         run: |
+          # ══════════════════════════════════════════════════════════════════════
+          # DYNAMIC DOWNLOAD RESTRICTION (CLICK PATH SAFETY)
+          # ══════════════════════════════════════════════════════════════════════
+          $edgePolicy = "HKLM:\SOFTWARE\Policies\Microsoft\Edge"
+          if (-not (Test-Path $edgePolicy)) { New-Item -Path $edgePolicy -Force | Out-Null }
+          if ($env:ACTION_MODE -eq "click") {
+              Write-Host "============================================================" -ForegroundColor Red
+              Write-Host " [SAFETY] Click Path Detected: Enforcing strict Anti-Download Policy" -ForegroundColor Red
+              Write-Host "============================================================" -ForegroundColor Red
+              Set-ItemProperty -Path $edgePolicy -Name "DownloadRestrictions" -Value 3
+          } else {
+              Set-ItemProperty -Path $edgePolicy -Name "DownloadRestrictions" -Value 0
+          }
+
           $useProxy    = $env:USE_PROXY -eq "true"
           $proxyType   = $env:PROXY_TYPE
           $proxyUser   = $env:PROXY_USER
@@ -3399,6 +3412,13 @@ jobs:
               for ($w = 0; $w -lt $clickTotal; $w += $step) {
                   Write-Host "[$env:SOFTWARE_TYPE] Click tracker: $w / $clickTotal seconds elapsed..." -ForegroundColor Yellow
 
+                  # FALLBACK SAFETY: Nuke any files that somehow completely bypassed the Edge registry engine policy
+                  $unexpectedDownloads = Get-ChildItem -Path $dlFolder -File -ErrorAction SilentlyContinue
+                  if ($unexpectedDownloads.Count -gt 0) {
+                      Write-Host "[Safety-Purge] Blocked an auto-download leak! Purging $($unexpectedDownloads.Count) unexpected file(s)..." -ForegroundColor Red
+                      Remove-Item -Path "$dlFolder\*" -Force -Recurse -ErrorAction SilentlyContinue
+                  }
+
                   if (-not $reloadFired) {
                       $elapsed = [int]((Get-Date) - $clickStart).TotalSeconds
                       if ($elapsed -ge $reloadThreshold) {
@@ -3435,4 +3455,4 @@ jobs:
           $durationSecs = $durationMins * 60
           
           Write-Host "Leaving runner online to exhaust selected keep alive margin: $durationMins minutes ($durationSecs seconds)..." -ForegroundColor Cyan
-          Start-Sleep -Seconds $durationSecsbbbbbbbbbbbbbbbbbbbhhhhhhhhhhhhhhhhhhhhhhhhhhhhh
+          Start-Sleep -Seconds $durationSecs

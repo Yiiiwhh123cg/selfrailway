@@ -92,7 +92,7 @@ on:
           - '07. Opera - Peggy'
           - '08. Opera - Harrari'
           - '01. Ad-MVN - Orderflowz'
-        default: '01. Mob Opera - Techx'
+        default: '02. Mob Opera - B4Books'
       manual_software_url:
         description: 'Manual URL'
         required: false

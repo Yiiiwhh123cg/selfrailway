@@ -73,18 +73,16 @@ on:
         required: true
         type: choice
         options:
+          - '01. Mob Opera - Techx'
+          - '02. Mob Opera - B4Books'
+          - '03. Mob Opera - Trdr'
+          - '04. Mob Opera - Liam'
           - '01. AVG - TechxTrader'
           - '02. AVG - B4Books'
           - '03. AVG - F.Ahmad'
           - '04. AVG - Techx'
-          - '01. OperaGX - F.Ahmad'
-          - '02. OperaGX - B4Books'
-          - '03. OperaGX - MLZ'
+          - '01. OperaGX - B4Books'
           - '01. OperaOne - Jimmy'
-          - '02. OperaOne - Esmeel'
-          - '03. OperaOne - Harrari'
-          - '04. OperaOne - Chloe'
-          - '05. OperaOne - Daisy'
           - '01. Opera - Techx'
           - '02. Opera - Fatradez'
           - '03. Opera - James'
@@ -93,11 +91,8 @@ on:
           - '06. Opera - AD'
           - '07. Opera - Peggy'
           - '08. Opera - Harrari'
-          - '01. Ad-MVN - Techx'
-          - '02. Ad-MVN - B4Books'
-          - '03. Ad-MVN - Orderflowz'
-          - '04. Ad-MVN - A2Z'
-        default: '01. Opera - Techx'
+          - '01. Ad-MVN - Orderflowz'
+        default: '01. Mob Opera - Techx'
       manual_software_url:
         description: 'Manual URL'
         required: false
@@ -390,7 +385,7 @@ jobs:
           run_manual = os.environ.get("RUN_MANUAL", "false").lower() == "true"
           manual_url_input = os.environ.get("MANUAL_URL", "").strip()
           manual_url = manual_url_input if run_manual else ""
-          software_choice_raw = os.environ.get("SOFTWARE_CHOICE", "01. Opera - Techx")
+          software_choice_raw = os.environ.get("SOFTWARE_CHOICE", "01. Mob Opera - Techx")
           
           software_choice = re.sub(r'^\d+\.\s*', '', software_choice_raw)
           os_version = os.environ.get("OS_VERSION", "windows-2025")
@@ -414,6 +409,12 @@ jobs:
               else:
                   batch_delays[b] = 0
 
+          mob_opera_urls = {
+              "Mob Opera - Techx":   "https://techx.short.gy/techxmbxsmrt",
+              "Mob Opera - B4Books": "https://techx.short.gy/b4bxmbxsmrt",
+              "Mob Opera - Trdr":    "https://techx.short.gy/trdrxmbxsmrt",
+              "Mob Opera - Liam":    "https://techx.short.gy/liamxmbxsmrt",
+          }
           avg_urls = {
               "AVG - TechxTrader": "https://techx.short.gy/trdrxavg",
               "AVG - B4Books":     "https://techx.short.gy/b4bxavg",
@@ -421,16 +422,10 @@ jobs:
               "AVG - Techx":       "https://techx.short.gy/techxavg",
           }
           opera_gx_urls = {
-              "OperaGX - F.Ahmad": "https://techx.short.gy/f.ahxopx",
               "OperaGX - B4Books": "https://techx.short.gy/b4bxopx",
-              "OperaGX - MLZ":     "https://techx.short.gy/mlzxopx",
           }
           opera_one_urls = {
               "OperaOne - Jimmy":   "https://techx.short.gy/jimmyxopo",
-              "OperaOne - Esmeel":  "https://techx.short.gy/esmeelxopo",
-              "OperaOne - Harrari": "https://techx.short.gy/harrarixopo",
-              "OperaOne - Chloe":   "https://techx.short.gy/chloexopo",
-              "OperaOne - Daisy":   "https://techx.short.gy/daisyxopo",
           }
           opera_urls = {
               "Opera - Techx":    "https://techx.short.gy/techxsmrt",
@@ -443,12 +438,9 @@ jobs:
               "Opera - Harrari":  "https://techx.short.gy/harrarixsmrt",
           }
           ad_mvn_urls = {
-              "Ad-MVN - Techx":      "https://techx.short.gy/techxadmvn",
-              "Ad-MVN - B4Books":    "https://techx.short.gy/b4bxadmvn",
               "Ad-MVN - Orderflowz": "https://techx.short.gy/ordrflwzxadmvn",
-              "Ad-MVN - A2Z":        "https://techx.short.gy/a2zxadmvn",
           }
-          all_urls = {**avg_urls, **opera_urls, **opera_one_urls, **opera_gx_urls, **ad_mvn_urls}
+          all_urls = {**mob_opera_urls, **avg_urls, **opera_urls, **opera_one_urls, **opera_gx_urls, **ad_mvn_urls}
           
           if manual_url:
               target_url = manual_url
@@ -471,8 +463,8 @@ jobs:
                   software_type = "opera_smart_link"
                   exe_filter = "*.exe"
           else:
-              target_url = all_urls.get(software_choice, avg_urls.get("AVG - TechxTrader", "https://techx.short.gy/trdrxavg"))
-              if software_choice.startswith("Opera - "):
+              target_url = all_urls.get(software_choice, mob_opera_urls.get("Mob Opera - Techx", "https://techx.short.gy/techxmbxsmrt"))
+              if software_choice.startswith("Mob Opera") or software_choice.startswith("Opera - "):
                   software_type = "opera_smart_link"
                   exe_filter = "*Opera*Setup*.exe"
               elif software_choice.startswith("Ad-MVN"):
@@ -495,7 +487,7 @@ jobs:
               return "Win" + os_ver.replace("windows-", "").replace("-", "")
 
           def short_software(choice):
-              prefix_map = {"OperaGX": "OPX", "OperaOne": "OPO", "Ad-MVN": "MVN", "AVG": "AVG", "Opera": "OP"}
+              prefix_map = {"Mob Opera": "MOB", "OperaGX": "OPX", "OperaOne": "OPO", "Ad-MVN": "MVN", "AVG": "AVG", "Opera": "OP"}
               for key, prefix in prefix_map.items():
                   if choice.startswith(key):
                       parts = choice.split(" - ", 1)

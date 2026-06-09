@@ -93,7 +93,7 @@ on:
           - '08. Opera - Harrari'
           - '01. Ad-MVN - Orderflowz'
           - '02. Ad-MVN - WillDougly'
-        default: '01. Mob Opera - Techx'
+        default: '01. Ad-MVN - Orderflowz'
       manual_software_url:
         description: 'Manual URL'
         required: false

@@ -25,7 +25,7 @@ on:
         description: 'GoLogin Account Email'
         required: true
         type: string
-        default: 'mzkodja@mnb.net' # Do not remove the single quotes
+        default: 'maajdakjd@mnb.net' # Do not remove the single quotes
       gologin_password:
         description: 'GoLogin Account Password'
         required: true
@@ -41,7 +41,7 @@ on:
           - '3'
           - '4'
           - '5'
-        default: '1'
+        default: '3'
 
 jobs:
   prepare_matrix:

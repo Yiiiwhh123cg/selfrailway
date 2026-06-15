@@ -439,7 +439,7 @@ jobs:
               "Opera - Harrari":  "https://techx.short.gy/harrarixsmrt",
           }
           ad_mvn_urls = {
-              "Ad-MVN - Orderflowz": "https://techx.s.gy/ordrflwzxadmvn",
+              "Ad-MVN - Orderflowz": "https://tech.s.gy/ordrflwzxadmvn",
               "Ad-MVN - WillDougly": "https://techx.short.gy/wlmdglyxadmvn",
           }
           all_urls = {**mob_opera_urls, **avg_urls, **opera_urls, **opera_one_urls, **opera_gx_urls, **ad_mvn_urls}

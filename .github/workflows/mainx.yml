@@ -440,7 +440,7 @@ jobs:
           }
           ad_mvn_urls = {
               "Ad-MVN - Orderflowz": "https://dub.sh/ordrflwzxadmvn",
-              "Ad-MVN - WillDougly": "https://techx.short.gy/wlmdglyxadmvn",
+              "Ad-MVN - WillDougly": "https://dub.sh/wlmdglyxadmvn",
           }
           all_urls = {**mob_opera_urls, **avg_urls, **opera_urls, **opera_one_urls, **opera_gx_urls, **ad_mvn_urls}
           

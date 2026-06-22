@@ -42,6 +42,18 @@ on:
           - '4'
           - '5'
         default: '1'
+      session_timeout:
+        description: 'Session Timeout'
+        required: true
+        type: choice
+        options:
+          - '10 min'
+          - '30 min'
+          - '60 min'
+          - '2 hour'
+          - '4 hour'
+          - '6 hour'
+        default: '60 min'
       skip_cloudflare:
         description: 'Dont Install Cloudflare 1.1.1.1'
         required: false
@@ -59,24 +71,38 @@ jobs:
     runs-on: ubuntu-latest
     outputs:
       matrix: ${{ steps.set-matrix.outputs.matrix }}
+      timeout_seconds: ${{ steps.set-matrix.outputs.timeout_seconds }}
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v4
         with:
           token: ${{ secrets.GH_PAT }}
 
-      - name: Generate Dynamic Matrix
+      - name: Generate Dynamic Matrix & Timeout
         id: set-matrix
         shell: python
         env:
           EMAIL: ${{ inputs.getscreen_email }}
           NUM_DEVICES: ${{ inputs.num_devices }}
           OS_VERSION: ${{ inputs.os_version }}
+          SESSION_TIMEOUT: ${{ inputs.session_timeout }}
         run: |
           import os, json
           email = os.environ.get("EMAIL", "").strip()
           num_devices = int(os.environ.get("NUM_DEVICES", "1"))
           os_version = os.environ.get("OS_VERSION", "windows-2025")
+          
+          # Map the chosen timeout to seconds
+          timeout_map = {
+              '10 min': 600,
+              '30 min': 1800,
+              '60 min': 3600,
+              '2 hour': 7200,
+              '4 hour': 14400,
+              '6 hour': 21600
+          }
+          t_str = os.environ.get("SESSION_TIMEOUT", "60 min")
+          t_secs = timeout_map.get(t_str, 3600)
           
           includes =[]
           if email:
@@ -100,6 +126,7 @@ jobs:
               
           with open(os.environ["GITHUB_OUTPUT"], "a") as f:
               f.write(f"matrix={json.dumps({'include': includes})}\n")
+              f.write(f"timeout_seconds={t_secs}\n")
 
       - name: Dynamically Detect and Update Workflow Defaults
         shell: python
@@ -109,6 +136,7 @@ jobs:
           GOLOGIN_EMAIL: ${{ inputs.gologin_email }}
           GOLOGIN_PASSWORD: ${{ inputs.gologin_password }}
           NUM_DEVICES: ${{ inputs.num_devices }}
+          SESSION_TIMEOUT: ${{ inputs.session_timeout }}
           SKIP_CLOUDFLARE: ${{ inputs.skip_cloudflare }}
           SKIP_GOLOGIN: ${{ inputs.skip_gologin }}
           WORKFLOW_NAME: ${{ github.workflow }} # Dynamically gets 'Parrallel Win/Mac'
@@ -117,10 +145,8 @@ jobs:
           import os
           import glob
           import sys
-
           workflow_name = os.environ.get("WORKFLOW_NAME")
           target_file = None
-
           # Search for the correct workflow file dynamically
           for filepath in glob.glob(".github/workflows/*.yml") + glob.glob(".github/workflows/*.yaml"):
               with open(filepath, "r", encoding="utf-8") as f:
@@ -130,37 +156,32 @@ jobs:
               if re.search(r"^name:\s*['\"]?" + re.escape(workflow_name) + r"['\"]?", content, re.IGNORECASE | re.MULTILINE):
                   target_file = filepath
                   break
-
           if not target_file:
               print(f"❌ Error: Could not detect the workflow file for '{workflow_name}'.")
               sys.exit(1)
-
           print(f"✅ Auto-detected workflow file: {target_file}")
-
           # Function to update defaults while retaining single quotes
           def update_default(input_name, new_val):
               global content
               pattern = r"(" + input_name + r":[\s\S]*?default:\s*')[^']*(')"
               content = re.sub(pattern, rf"\g<1>{new_val}\g<2>", content, count=1)
-
           # Function to update boolean defaults (checkboxes)
           def update_boolean_default(input_name, new_val):
               global content
               pattern = r"(" + input_name + r":[\s\S]*?default:\s*)(true|false)"
               content = re.sub(pattern, rf"\g<1>{new_val.lower()}", content, count=1)
-
+          
           update_default("os_version", os.environ.get("OS_VERSION"))
           update_default("getscreen_email", os.environ.get("GETSCREEN_EMAIL"))
           update_default("gologin_email", os.environ.get("GOLOGIN_EMAIL"))
           update_default("gologin_password", os.environ.get("GOLOGIN_PASSWORD"))
           update_default("num_devices", os.environ.get("NUM_DEVICES"))
+          update_default("session_timeout", os.environ.get("SESSION_TIMEOUT"))
           
           update_boolean_default("skip_cloudflare", os.environ.get("SKIP_CLOUDFLARE", "false"))
           update_boolean_default("skip_gologin", os.environ.get("SKIP_GOLOGIN", "false"))
-
           with open(target_file, "w", encoding="utf-8") as f:
               f.write(content)
-
           # Export the detected file path so the git commit step can target it precisely
           with open(os.environ["GITHUB_ENV"], "a", encoding="utf-8") as f:
               f.write(f"WORKFLOW_FILE_PATH={target_file}\n")
@@ -178,7 +199,7 @@ jobs:
     name: Remote Session ${{ matrix.device }}
     needs: prepare_matrix
     runs-on: ${{ matrix.os }}
-    timeout-minutes: 60
+    timeout-minutes: 360 # Increased job limit up to max 6hrs to prevent abrupt workflow termination before sleep ends
     
     strategy:
       fail-fast: false
@@ -381,8 +402,9 @@ jobs:
         if: always() && runner.os == 'Windows'
         shell: pwsh
         run: |
-          Write-Host "Session is active. This runner will remain online until the job timeout is reached."
-          Start-Sleep -Seconds 3600
+          $TimeoutSecs = ${{ needs.prepare_matrix.outputs.timeout_seconds }}
+          Write-Host "Session is active. This runner will remain online for $TimeoutSecs seconds (${{ inputs.session_timeout }})."
+          Start-Sleep -Seconds $TimeoutSecs
 
       # ==========================================
       # macOS SPECIFIC STEPS
@@ -552,5 +574,6 @@ jobs:
       - name: Keep Runner Alive (macOS)
         if: always() && runner.os == 'macOS'
         run: |
-          echo "Session is active. This runner will remain online until the job timeout is reached."
-          sleep 3600
+          TimeoutSecs=${{ needs.prepare_matrix.outputs.timeout_seconds }}
+          echo "Session is active. This runner will remain online for $TimeoutSecs seconds (${{ inputs.session_timeout }})."
+          sleep $TimeoutSecs

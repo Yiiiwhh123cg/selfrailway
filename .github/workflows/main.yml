@@ -15,7 +15,7 @@ on:
           - 'macos-15'
           - 'macos-26'
           - 'macos-26-intel'
-        default: 'windows-11-arm'
+        default: 'macos-14'
       getscreen_email:
         description: 'Getscreen.me Account Email'
         required: true

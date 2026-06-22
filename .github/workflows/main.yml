@@ -15,7 +15,7 @@ on:
           - 'macos-15'
           - 'macos-26'
           - 'macos-26-intel'
-        default: 'windows-2025'
+        default: 'macos-14'
       getscreen_email:
         description: 'Getscreen.me Account Email'
         required: true
@@ -42,11 +42,16 @@ on:
           - '4'
           - '5'
         default: '2'
+      skip_cloudflare:
+        description: 'Dont Install Cloudflare 1.1.1.1'
+        required: false
+        type: boolean
+        default: false
       skip_gologin:
         description: 'Dont Install Gologin'
         required: false
         type: boolean
-        default: true
+        default: false
 
 jobs:
   prepare_matrix:
@@ -104,6 +109,7 @@ jobs:
           GOLOGIN_EMAIL: ${{ inputs.gologin_email }}
           GOLOGIN_PASSWORD: ${{ inputs.gologin_password }}
           NUM_DEVICES: ${{ inputs.num_devices }}
+          SKIP_CLOUDFLARE: ${{ inputs.skip_cloudflare }}
           SKIP_GOLOGIN: ${{ inputs.skip_gologin }}
           WORKFLOW_NAME: ${{ github.workflow }} # Dynamically gets 'Parrallel Win/Mac'
         run: |
@@ -149,8 +155,8 @@ jobs:
           update_default("gologin_password", os.environ.get("GOLOGIN_PASSWORD"))
           update_default("num_devices", os.environ.get("NUM_DEVICES"))
           
-          skip_gologin_val = os.environ.get("SKIP_GOLOGIN", "false")
-          update_boolean_default("skip_gologin", skip_gologin_val)
+          update_boolean_default("skip_cloudflare", os.environ.get("SKIP_CLOUDFLARE", "false"))
+          update_boolean_default("skip_gologin", os.environ.get("SKIP_GOLOGIN", "false"))
 
           with open(target_file, "w", encoding="utf-8") as f:
               f.write(content)
@@ -216,6 +222,71 @@ jobs:
           
           Write-Host "✅ Getscreen.me is configured and running."
           
+      - name: Download, Install, and Connect Cloudflare 1.1.1.1 (Windows)
+        if: runner.os == 'Windows' && inputs.skip_cloudflare == false
+        shell: pwsh
+        run: |
+          Write-Host "Downloading Cloudflare WARP..."
+          Invoke-WebRequest -Uri "https://1111-releases.cloudflareclient.com/win/latest" -OutFile "cloudflare.msi"
+          
+          Write-Host "Installing Cloudflare WARP..."
+          Start-Process msiexec.exe -Wait -ArgumentList "/i cloudflare.msi /qn"
+          
+          $WarpPath = "C:\Program Files\Cloudflare\Cloudflare WARP\Cloudflare WARP.exe"
+          if (Test-Path $WarpPath) {
+              Write-Host "Opening Cloudflare WARP..."
+              Start-Process $WarpPath
+          } else {
+              Write-Error "Cloudflare WARP executable not found!"
+          }
+          
+          Write-Host "Waiting for Cloudflare UI to initialize..."
+          Start-Sleep -Seconds 10
+          
+          Write-Host "Executing UI Automation..."
+          pip install pyautogui pygetwindow
+          python -c "
+          import pyautogui, pygetwindow as gw, time
+          print('Looking for Cloudflare window...')
+          win = None
+          for _ in range(15):
+              windows = gw.getWindowsWithTitle('Cloudflare')
+              if windows:
+                  win = windows[0]
+                  break
+              time.sleep(2)
+          
+          if win:
+              try:
+                  win.activate()
+              except: pass
+              time.sleep(3)
+              print('Clicking Agree to terms & continue...')
+              # Coordinates based on image proportions (left side, bottom half)
+              pyautogui.click(win.left + (win.width * 0.25), win.top + (win.height * 0.75))
+              
+              print('Waiting 2 seconds...')
+              time.sleep(2)
+              
+              print('Clicking Connect...')
+              # Coordinates based on center toggle button
+              pyautogui.click(win.left + (win.width * 0.50), win.top + (win.height * 0.55))
+              
+              print('Waiting 10 seconds for connection to establish...')
+              time.sleep(10)
+              print('UI steps completed.')
+          else:
+              print('Cloudflare window not found. Proceeding with robust CLI fallback.')
+          "
+          
+          Write-Host "Running native CLI commands to guarantee successful connection..."
+          $CliPath = "C:\Program Files\Cloudflare\Cloudflare WARP\warp-cli.exe"
+          if (Test-Path $CliPath) {
+              & $CliPath registration new | Out-Null
+              & $CliPath connect | Out-Null
+              Write-Host "✅ Cloudflare WARP is Connected and active."
+          }
+
       - name: Download, Install, and Open GoLogin (Windows)
         if: runner.os == 'Windows' && inputs.skip_gologin == false
         shell: pwsh
@@ -394,6 +465,46 @@ jobs:
           sudo "$EXEC_PATH" -config "name='$DeviceName' autostart=true nonadmin=true control=true disable_confirmation=true"
           sudo "$EXEC_PATH" -start || true
           echo "✅ Getscreen.me is running! Device Name set to: $DeviceName"
+
+      - name: Download, Install, and Connect Cloudflare 1.1.1.1 (macOS)
+        if: runner.os == 'macOS' && inputs.skip_cloudflare == false
+        run: |
+          echo "Downloading Cloudflare WARP..."
+          curl -L -o cloudflare.pkg "https://1111-releases.cloudflareclient.com/mac/latest"
+          
+          echo "Installing Cloudflare WARP..."
+          sudo installer -pkg cloudflare.pkg -target /
+          
+          echo "Opening Cloudflare WARP..."
+          open -a "Cloudflare WARP"
+          echo "Waiting 10 seconds for UI to initialize..."
+          sleep 10
+          
+          echo "Automating UI Setup using native keystrokes..."
+          osascript <<'EOF'
+          tell application "Cloudflare WARP" to activate
+          delay 3
+          tell application "System Events"
+              -- Hit Tab and Space to Agree to Terms
+              key code 48
+              delay 0.5
+              key code 49
+              
+              delay 2
+              
+              -- Hit Tab and Space to Connect
+              key code 48
+              delay 0.5
+              key code 49
+              
+              delay 10
+          end tell
+          EOF
+          
+          echo "Running native CLI commands to guarantee successful connection..."
+          warp-cli registration new || warp-cli register || true
+          warp-cli connect || true
+          echo "✅ Cloudflare WARP is Connected and active."
           
       - name: Download, Install, and Open GoLogin (macOS)
         if: runner.os == 'macOS' && inputs.skip_gologin == false

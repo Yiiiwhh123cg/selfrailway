@@ -15,7 +15,7 @@ on:
           - 'macos-15'
           - 'macos-26'
           - 'macos-26-intel'
-        default: 'windows-2025'
+        default: 'windows-2022'
       getscreen_email:
         description: 'Getscreen.me Account Email'
         required: true
@@ -41,7 +41,7 @@ on:
           - '3'
           - '4'
           - '5'
-        default: '5'
+        default: '2'
 
 jobs:
   prepare_matrix:

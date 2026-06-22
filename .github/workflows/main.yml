@@ -20,12 +20,12 @@ on:
         description: 'Getscreen.me Account Email'
         required: true
         type: string
-        default: 'techx@ccmail.online' # Do not remove the single quotes
+        default: 'tx@ccmail.online' # Do not remove the single quotes
       gologin_email:
         description: 'GoLogin Account Email'
         required: true
         type: string
-        default: 'maajdakjd@mnb.net' # Do not remove the single quotes
+        default: 'newgl1@mnb.net' # Do not remove the single quotes
       gologin_password:
         description: 'GoLogin Account Password'
         required: true
@@ -41,7 +41,7 @@ on:
           - '3'
           - '4'
           - '5'
-        default: '3'
+        default: '5'
 
 jobs:
   prepare_matrix:

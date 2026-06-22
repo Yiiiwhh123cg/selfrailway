@@ -42,6 +42,11 @@ on:
           - '4'
           - '5'
         default: '2'
+      skip_gologin:
+        description: 'Dont Install Gologin'
+        required: false
+        type: boolean
+        default: false
 
 jobs:
   prepare_matrix:
@@ -99,6 +104,7 @@ jobs:
           GOLOGIN_EMAIL: ${{ inputs.gologin_email }}
           GOLOGIN_PASSWORD: ${{ inputs.gologin_password }}
           NUM_DEVICES: ${{ inputs.num_devices }}
+          SKIP_GOLOGIN: ${{ inputs.skip_gologin }}
           WORKFLOW_NAME: ${{ github.workflow }} # Dynamically gets 'Parrallel Win/Mac'
         run: |
           import re
@@ -131,11 +137,20 @@ jobs:
               pattern = r"(" + input_name + r":[\s\S]*?default:\s*')[^']*(')"
               content = re.sub(pattern, rf"\g<1>{new_val}\g<2>", content, count=1)
 
+          # Function to update boolean defaults (checkboxes)
+          def update_boolean_default(input_name, new_val):
+              global content
+              pattern = r"(" + input_name + r":[\s\S]*?default:\s*)(true|false)"
+              content = re.sub(pattern, rf"\g<1>{new_val.lower()}", content, count=1)
+
           update_default("os_version", os.environ.get("OS_VERSION"))
           update_default("getscreen_email", os.environ.get("GETSCREEN_EMAIL"))
           update_default("gologin_email", os.environ.get("GOLOGIN_EMAIL"))
           update_default("gologin_password", os.environ.get("GOLOGIN_PASSWORD"))
           update_default("num_devices", os.environ.get("NUM_DEVICES"))
+          
+          skip_gologin_val = os.environ.get("SKIP_GOLOGIN", "false")
+          update_boolean_default("skip_gologin", skip_gologin_val)
 
           with open(target_file, "w", encoding="utf-8") as f:
               f.write(content)
@@ -202,7 +217,7 @@ jobs:
           Write-Host "✅ Getscreen.me is configured and running."
           
       - name: Download, Install, and Open GoLogin (Windows)
-        if: runner.os == 'Windows'
+        if: runner.os == 'Windows' && inputs.skip_gologin == false
         shell: pwsh
         run: |
           Write-Host "Downloading GoLogin for Windows..."
@@ -256,7 +271,7 @@ jobs:
           Write-Host "✅ GoLogin installed and opened!"
           
       - name: Automate GoLogin Login (Windows)
-        if: runner.os == 'Windows'
+        if: runner.os == 'Windows' && inputs.skip_gologin == false
         shell: pwsh
         env:
           GOLOGIN_EMAIL: ${{ inputs.gologin_email }}
@@ -317,6 +332,13 @@ jobs:
               sys.exit(1)
           "
 
+      - name: Copy GoLogin Email to Clipboard (Windows)
+        if: runner.os == 'Windows'
+        shell: pwsh
+        run: |
+          Set-Clipboard -Value "${{ inputs.gologin_email }}"
+          Write-Host "✅ GoLogin email copied to the remote system clipboard!"
+
       - name: Keep Runner Alive (Windows)
         if: always() && runner.os == 'Windows'
         shell: pwsh
@@ -374,7 +396,7 @@ jobs:
           echo "✅ Getscreen.me is running! Device Name set to: $DeviceName"
           
       - name: Download, Install, and Open GoLogin (macOS)
-        if: runner.os == 'macOS'
+        if: runner.os == 'macOS' && inputs.skip_gologin == false
         run: |
           OS_VERSION="${{ matrix.os }}"
           
@@ -400,7 +422,7 @@ jobs:
           echo "✅ GoLogin installed and opened!"
           
       - name: Automate GoLogin Login (macOS Native)
-        if: runner.os == 'macOS'
+        if: runner.os == 'macOS' && inputs.skip_gologin == false
         env:
           GOLOGIN_EMAIL: ${{ inputs.gologin_email }}
           GOLOGIN_PASSWORD: ${{ inputs.gologin_password }}
@@ -456,6 +478,12 @@ jobs:
           EOF
           
           echo "✅ Login automation completed."
+
+      - name: Copy GoLogin Email to Clipboard (macOS)
+        if: runner.os == 'macOS'
+        run: |
+          printf "%s" "${{ inputs.gologin_email }}" | pbcopy
+          echo "✅ GoLogin email copied to the remote system clipboard!"
           
       - name: Keep Runner Alive (macOS)
         if: always() && runner.os == 'macOS'

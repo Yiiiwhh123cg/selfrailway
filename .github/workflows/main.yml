@@ -15,7 +15,7 @@ on:
           - 'macos-15'
           - 'macos-26'
           - 'macos-26-intel'
-        default: 'macos-14'
+        default: 'windows-2025'
       getscreen_email:
         description: 'Getscreen.me Account Email'
         required: true
@@ -46,7 +46,7 @@ on:
         description: 'Dont Install Gologin'
         required: false
         type: boolean
-        default: false
+        default: true
 
 jobs:
   prepare_matrix:

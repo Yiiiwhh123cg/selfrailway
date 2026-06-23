@@ -32,7 +32,7 @@ on:
           - '8'
           - '9'
           - '10'
-        default: '1'
+        default: '2'
       delay_between_devices:
         description: 'Delay Between Devices'
         required: true
@@ -44,7 +44,7 @@ on:
           - '3-6 minutes'
           - '4-8 minutes'
           - '5-10 minutes'
-        default: '2-4 minutes'
+        default: '0 minutes'
       keep_alive_duration:
         description: 'Timeout / Keep Runner Alive'
         required: true
@@ -62,12 +62,12 @@ on:
         description: 'Installs'
         required: true
         type: string
-        default: '10'
+        default: '3'
       num_clicks:
         description: 'Clicks'
         required: true
         type: string
-        default: '90'
+        default: '4'
       software_choice:
         description: 'Software & Link'
         required: true
@@ -113,7 +113,7 @@ on:
         description: 'ScrapeOps / Floppy / BytesFlow / Manual'
         required: false
         type: string
-        default: 'geolocation://NDlaWPuOevKUwnHn:Ooj0VkFaG7rgneIB@geo.floppydata.com:10080:United geolocation://MABWQo9KRqxwDXos:fYAVJixFITDR23nL@geo.floppydata.com:10080:United geolocation://W1QnQGn9rXJ0yT3C:bI3OH8fJnjV87rVj@geo.floppydata.com:10080:United geolocation://4yZxhDjLzSO0b771:EbwzcH8uB8G7bJ1M@geo.floppydata.com:10080:United geolocation://BxEvBxZzBv0JCZGQ:Y20DeFrbCqvebIBB@geo.floppydata.com:10080:United geolocation://6uDQDlxBJIoxuC57:aN3U1HsA1Wfx56Za@geo.floppydata.com:10080:United geolocation://cnqyWwRxP9pxZ6eK:HBfwMC98isuMMCns@geo.floppydata.com:10080:United geolocation://ppk6QH4U4wwsjgpW:qEq85XmLbPnoEi62@geo.floppydata.com:10080:United geolocation://LBKGeHGv3gzTQv9p:64b66GXm2b8yLqU8@geo.floppydata.com:10080:United geolocation://1pPWwV1Wrjg2kTCT:2s5tz1MwpQ8WGugk@geo.floppydata.com:10080:United geolocation://TYt43qhwB0Z8delC:ZrXE92yT2psgUClH@geo.floppydata.com:10080:United geolocation://U5BrDb75f9aKWJxH:iKoLljP3l7ZsOfai@geo.floppydata.com:10080:United geolocation://2K9BvxNYDhifTOJ7:EmjBGdJP1UxtcYR6@geo.floppydata.com:10080:United geolocation://xq7ASRDTcsJA822s:S1pib16ZU1GwuDHZ@geo.floppydata.com:10080:United geolocation://4qd7xI8ZzFX6BUwR:hebUt8M6UhJCTRGd@geo.floppydata.com:10080:United geolocation://hppfmCXVJUDAWmoV:zMZm9Ib53ZXoQeY1@geo.floppydata.com:10080:United geolocation://0TaibY8k6BkqnBBK:uLgXldoQzgtfdaIu@geo.floppydata.com:10080:United geolocation://1uuCF6MeLCOYloZm:mvEbkH0jbmtFYTh3@geo.floppydata.com:10080:United geolocation://4yqVpxL1V75zEhgf:alU6J1QJRAXmPdT4@geo.floppydata.com:10080:United geolocation://Cf35tgQzFbXYrZLw:bIE5FhBNVz09jpTY@geo.floppydata.com:10080:United geolocation://Ola1JbhlR1cVMPET:IwN5R57KuqPGfSnV@geo.floppydata.com:10080:United geolocation://EEu7AJdMP68xcQ00:mE97t3dvQ0NEnVVm@geo.floppydata.com:10080:United geolocation://EMBp0d0z5dCrBTXP:VPEp2Sq5e7uUuwW6@geo.floppydata.com:10080:United geolocation://ltmHREWZBGJnVnef:BjM5Q9ztIk0soOmo@geo.floppydata.com:10080:United geolocation://AiwjDZtjRg1bezIh:2FZGHu2jxYAu41gw@geo.floppydata.com:10080:United geolocation://KJ92R73WRulMyWke:32cxvmsPBOxpYp6R@geo.floppydata.com:10080:United geolocation://HH85wI5CaOfpnnFG:9mhGukvXlFFHUtvZ@geo.floppydata.com:10080:United geolocation://AXrVSiXD1wjSnTmU:nqnS33ZFcp0AtySx@geo.floppydata.com:10080:United geolocation://POgjO51rpjHuynMC:f0ebM0hvEkMEtKTe@geo.floppydata.com:10080:United geolocation://QyOr6B3mUt3Jvani:3JIUHJyG73Uj84bK@geo.floppydata.com:10080:United geolocation://cvijirunQHVpAaYh:pBiy6rGiVGblpfLD@geo.floppydata.com:10080:United geolocation://Q6F9Xlqj1NS8mJQK:zKkxHoPy9VAx24Zt@geo.floppydata.com:10080:United geolocation://PLi7BhnJB846DfGC:P6T28j8hO1dofpeH@geo.floppydata.com:10080:United geolocation://FWr0rTsBSTsWNtkv:YgSEBXN5D1FXpBrF@geo.floppydata.com:10080:United geolocation://Ecw6Sa50xzm3LBSD:Vlu8a6oPqOIqiAvL@geo.floppydata.com:10080:United geolocation://VqquGI6211ssbcaI:CacFqQWkrxCfQzcy@geo.floppydata.com:10080:United geolocation://MOlUEwfuGDv7Wn9G:eod1UDbL1m9m2ln6@geo.floppydata.com:10080:United geolocation://Jux8cwi22VpWDHiU:zSbyTkmYVMak1Tns@geo.floppydata.com:10080:United geolocation://ooMZpq5rmtinNmDW:7lf35757tWomKQ8l@geo.floppydata.com:10080:United geolocation://31SNqIg1jt5wYpA4:w7GUMjgy5qgCBYOb@geo.floppydata.com:10080:United geolocation://YCR7mX2Q360sB2Ga:pDsVoqPl7OiOKwJe@geo.floppydata.com:10080:United geolocation://yIYuBHtFBdMZq0RC:apkcKy6nr6LmbcgR@geo.floppydata.com:10080:United geolocation://VuaS2dHOX7mpyWhe:bXNnMdrL3kyufKOZ@geo.floppydata.com:10080:United geolocation://4AiiVHgWHdMskeeQ:NN8aYdk2S3VpCd3k@geo.floppydata.com:10080:United geolocation://MBLvWXkuEkxJcTKr:V9cnNF7BcyrdAT74@geo.floppydata.com:10080:United geolocation://IBGzsnWHE4aWI2fh:f1OqqZt5vRvW5Wxk@geo.floppydata.com:10080:United geolocation://9I3kqZbw9kP4SBRc:2aWPaMlOMRHGsYsu@geo.floppydata.com:10080:United geolocation://4crm2M0MwyTmChko:2fIonIemxzweftx5@geo.floppydata.com:10080:United geolocation://X97x3xR4nOAzhGMR:oRZjTAD0owECme4G@geo.floppydata.com:10080:United geolocation://DY9t1ycudyMqmIBH:FhaK7RByqbzbjs1o@geo.floppydata.com:10080:United geolocation://SrrpATWOU224sQle:OJZP6iFAkWbRf0e9@geo.floppydata.com:10080:United geolocation://FeHA5OXPvPeoN0SK:lgQxoo1jVunO2l4P@geo.floppydata.com:10080:United geolocation://FQjeoDx0n8ip1PIC:L1ZwtFHpuXlMSN8h@geo.floppydata.com:10080:United geolocation://zzVp7FiMgdDnXq2X:RG0xumVsg5zd3kHV@geo.floppydata.com:10080:United geolocation://YTmw9HouMhWdIiTK:YzbZasUMckvBZQQW@geo.floppydata.com:10080:United geolocation://TEAq3J0rNCQwXMhw:VIwXS0BGSMwkptvz@geo.floppydata.com:10080:United geolocation://vcTdeY0a5fMozQjA:fI94KAEGPfZSlRiP@geo.floppydata.com:10080:United geolocation://GUNRI9K6Si7hqM5F:12iPcvsjMxDNjvWT@geo.floppydata.com:10080:United geolocation://X1qg27KcMURFXUlq:8VQu1KswquaP84aA@geo.floppydata.com:10080:United geolocation://GW6DzbgHJzZJpNBm:c3b0l7YVw7J1ubdT@geo.floppydata.com:10080:United geolocation://kNicDXoRsSkKqwt8:PzdTB1HTwnjhTIFZ@geo.floppydata.com:10080:United geolocation://NWZ0WuBX3IrMygP3:vKICPA1wzcYTZvt6@geo.floppydata.com:10080:United geolocation://ugFJH6tN4gd7C6Ip:33N5axGRsobjiQDu@geo.floppydata.com:10080:United geolocation://IXVm5wZGh1uqcDw1:HDpCopMqHIwPXzJV@geo.floppydata.com:10080:United geolocation://pqCFyBGZw8givSVy:9rkLusp283JNATgp@geo.floppydata.com:10080:United geolocation://wPsZ17Szuw4rCcNG:iAFPkp2O22KT8JTT@geo.floppydata.com:10080:United geolocation://eBc5RKPpoxDOweV6:5UmfDgtABzsfB9yW@geo.floppydata.com:10080:United geolocation://R9Gtgo6xaIhE6dfr:auwgjX5O2dcQ8Gdo@geo.floppydata.com:10080:United geolocation://pCRmH7Y4s8RNNyiR:88824rByKFroBFCh@geo.floppydata.com:10080:United geolocation://DPIY3FUENzxpk4JJ:SgjxJD3qzCeHm0oz@geo.floppydata.com:10080:United geolocation://xOrbj8gYbgWwDhLA:NLSnLUrMr0KLOS7j@geo.floppydata.com:10080:United geolocation://S5UXWoc9Mq5CHOj0:Vm0KthhPptTkZFmE@geo.floppydata.com:10080:United geolocation://gXeKRJtg6A4gRJMH:lw1wQmlh9dheuD2i@geo.floppydata.com:10080:United geolocation://FB8ItqqJr4E9jq8C:SjCmv2e4BhbhHZdH@geo.floppydata.com:10080:United geolocation://zR1T8Sjpgi92C1cx:rljS25RSSPBoyEjN@geo.floppydata.com:10080:United geolocation://unef8m4CD40TUMge:mJarWfhjNCbojQTa@geo.floppydata.com:10080:United geolocation://vvNjsjixtb9SU1kp:0O5d5c31XHnSEp8y@geo.floppydata.com:10080:United geolocation://Dl5XinYoPpHKe58Y:AuPT4Lad0KM5O0G7@geo.floppydata.com:10080:United geolocation://mqQ8mYdcTmB7he4s:XQHI9IMQ5HnXGyaz@geo.floppydata.com:10080:United geolocation://rcPbA2uZ6B90C5IC:iORwOV9SETPmsg1z@geo.floppydata.com:10080:United geolocation://qr6S3Zsbwris8oH2:aACe8SRB5bL1sel1@geo.floppydata.com:10080:United geolocation://VBKZMTdDzyRKMgx0:fANUztgU5Dzpc8OH@geo.floppydata.com:10080:United geolocation://CycQZyo301jtlufl:T8Lpxpis2zWGKd3M@geo.floppydata.com:10080:United geolocation://VfIAXnDDOqhUKXH0:qtM7ajMDHZQ5OuDo@geo.floppydata.com:10080:United geolocation://jPbylH74NnbdKSoy:cd3EZ4qNSZc6285I@geo.floppydata.com:10080:United geolocation://9DjOQtugxRDdqa6J:yJNh3VhdwO7qWX6S@geo.floppydata.com:10080:United geolocation://L7cHyKpXKRJVnYC6:vXFNbFmK3sMhldCb@geo.floppydata.com:10080:United geolocation://FDpupKnXPc88N1D0:iEKXLtuwu4E7u0Cg@geo.floppydata.com:10080:United geolocation://uKDSB7KXYX54aRnq:upZtNwrSm1gVIMlr@geo.floppydata.com:10080:United geolocation://PVCtBnfQseVXrfQc:2Em7MaxHqc5ef4sK@geo.floppydata.com:10080:United geolocation://1tUiD8O7kIZNesPX:Brhx2hyl01k5p20l@geo.floppydata.com:10080:United geolocation://g0dkA7BfwaNqI7fk:nNiuDhDn3qrA7BJg@geo.floppydata.com:10080:United geolocation://XMJwIbyTkGcg7cum:8Rur5BjGjc7cNrWB@geo.floppydata.com:10080:United geolocation://PRYT5Vvs7dFwKb3P:F9InWgOkthHsvmKX@geo.floppydata.com:10080:United geolocation://EwSv0VKKscSAvVya:4pMqd2RnbPLFP3t6@geo.floppydata.com:10080:United geolocation://pauNycwBCpVhugoG:epi5NXXoZgxFf8cn@geo.floppydata.com:10080:United geolocation://rcaYy8W4gxL4KAUT:Mop0eRcXtXj9HUmj@geo.floppydata.com:10080:United geolocation://wVVjd7lPrFBNteCU:a4CUJj5YMH9jUQEx@geo.floppydata.com:10080:United geolocation://Imbypfz3pJzcAp73:aklNZHYEZZ7epN4P@geo.floppydata.com:10080:United geolocation://g5Yswh0XleU1Wjkk:rT6ZKnzkX3yQrRIO@geo.floppydata.com:10080:United'
+        default: 'geolocation://5jzcS4MY0cK9xtWo:T4HvemzEdIue9wPS@geo.floppydata.com:10080:Germany geolocation://s4jSEMn1lfxSfofh:YPR07nS3BpIt4TPm@geo.floppydata.com:10080:Germany geolocation://mIA2mfEEetojeh3Z:zX3E9eSYeVCKYpfl@geo.floppydata.com:10080:Germany geolocation://rcGRlhJ3kcRxt9rc:8kh35lcuu4wpxodM@geo.floppydata.com:10080:Germany geolocation://v2xeyIezQgJ1Axoi:9KQvC1iSMjBKqdzY@geo.floppydata.com:10080:Germany geolocation://r1B4bgPEjNXNjPUi:E2oCsyYzQaLMF4Kd@geo.floppydata.com:10080:Germany geolocation://3jjYcCoRTwUeVzC1:nS5Ax7sWNFfQsBAB@geo.floppydata.com:10080:Germany'
       use_without_proxy:
         description: 'Use Without Proxy'
         required: true
@@ -139,7 +139,7 @@ on:
           - 'Italy'
           - 'Netherlands'
           - 'Poland'
-        default: 'USA'
+        default: 'Germany'
       fallback_country:
         description: 'Fallback Country'
         required: true

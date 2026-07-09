@@ -62,12 +62,12 @@ on:
         description: 'Installs'
         required: true
         type: string
-        default: '5'
+        default: '00'
       num_clicks:
         description: 'Clicks'
         required: true
         type: string
-        default: '5'
+        default: '50'
       software_choice:
         description: 'Software & Link'
         required: true
@@ -79,7 +79,7 @@ on:
           - '04. Mob Opera - Techx'
           - '05. AVG - Techx'
           - '06. Opera - Techx'
-        default: '02. Ad-MVN - Orderflowz'
+        default: '01. OperaGX - Fahmad'
       manual_software_url:
         description: 'Manual URL'
         required: false

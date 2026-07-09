@@ -62,12 +62,12 @@ on:
         description: 'Installs'
         required: true
         type: string
-        default: '00'
+        default: '10'
       num_clicks:
         description: 'Clicks'
         required: true
         type: string
-        default: '50'
+        default: '90'
       software_choice:
         description: 'Software & Link'
         required: true
@@ -99,7 +99,7 @@ on:
         description: 'ScrapeOps / Floppy / BytesFlow / Manual'
         required: false
         type: string
-        default: '004889fb-ed9d-4cc6-9fc0-6ab7df326235'
+        default: 'e5ca5c81-b73d-40e8-8522-8878ef34e20c'
       use_without_proxy:
         description: 'Use Without Proxy'
         required: true

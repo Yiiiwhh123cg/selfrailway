@@ -73,7 +73,7 @@ on:
         required: true
         type: choice
         options:
-          - '01. OperaGX - AdblueMedia - FA'
+          - '01. OperaGX - Fahmad'
           - '02. Ad-MVN - Orderflowz'
           - '03. Ad-MVN - WillDougly'
           - '04. Mob Opera - Techx'
@@ -403,7 +403,7 @@ jobs:
               "AVG - Techx":       "https://techx.short.gy/techxavg",
           }
           opera_gx_urls = {
-              "OperaGX - AdblueMedia - FA": "https://dub.sh/adbfaxopx",
+              "OperaGX - Fahmad": "https://dub.sh/fahmadxopx",
           }
           opera_one_urls = {}
           opera_urls = {

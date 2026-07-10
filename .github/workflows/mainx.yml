@@ -78,7 +78,7 @@ on:
           - '03. Ad-MVN - WillDougly'
           - '04. Mob Opera - Techx'
           - '05. AVG - Techx'
-          - '06. Opera - Techx'
+          - '06. Opera - Harrari'
         default: '02. Ad-MVN - Orderflowz'
       manual_software_url:
         description: 'Manual URL'
@@ -407,7 +407,7 @@ jobs:
           }
           opera_one_urls = {}
           opera_urls = {
-              "Opera - Techx":    "https://techx.short.gy/techxsmrt",
+              "Opera - Harrari":    "https://dub.sh/harrarixsmrt",
           }
           ad_mvn_urls = {
               "Ad-MVN - Orderflowz": "https://dub.sh/ordrflwzxadmvn",

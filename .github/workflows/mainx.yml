@@ -67,7 +67,7 @@ on:
         description: 'Clicks'
         required: true
         type: string
-        default: '5'
+        default: '95'
       software_choice:
         description: 'Software & Link'
         required: true
@@ -79,7 +79,7 @@ on:
           - '04. Mob Opera - Techx'
           - '05. AVG - Techx'
           - '06. Opera - Harrari'
-        default: '01. OperaGX - Fahmad'
+        default: '02. Ad-MVN - Orderflowz'
       manual_software_url:
         description: 'Manual URL'
         required: false
@@ -94,12 +94,12 @@ on:
         description: 'Apply Fingerprint Masking'
         required: true
         type: boolean
-        default: false
+        default: true
       scrapeops_api_key:
         description: 'ScrapeOps / Floppy / BytesFlow / Manual'
         required: false
         type: string
-        default: 'bff2469d-fec5-4b82-88e6-612f482a8739'
+        default: '01b4d740-528d-48b1-b4a9-73dbc75b5b57'
       use_without_proxy:
         description: 'Use Without Proxy'
         required: true
@@ -125,7 +125,7 @@ on:
           - 'Italy'
           - 'Netherlands'
           - 'Poland'
-        default: 'Netherlands'
+        default: 'USA'
       fallback_country:
         description: 'Fallback Country'
         required: true

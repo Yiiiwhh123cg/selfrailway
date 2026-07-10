@@ -11,7 +11,7 @@ on:
           - 'windows-2025'
           - 'windows-2022'
           - 'windows-11-arm'
-        default: 'windows-2022'
+        default: 'windows-2025'
       getscreen_email:
         description: 'Getscreen.me Account Email'
         required: true
@@ -79,7 +79,7 @@ on:
           - '04. Mob Opera - Techx'
           - '05. AVG - Techx'
           - '06. Opera - Harrari'
-        default: '06. Opera - Harrari'
+        default: '01. OperaGX - Fahmad'
       manual_software_url:
         description: 'Manual URL'
         required: false

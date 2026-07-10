@@ -11,7 +11,7 @@ on:
           - 'windows-2025'
           - 'windows-2022'
           - 'windows-11-arm'
-        default: 'windows-2025'
+        default: 'windows-2022'
       getscreen_email:
         description: 'Getscreen.me Account Email'
         required: true
@@ -94,12 +94,12 @@ on:
         description: 'Apply Fingerprint Masking'
         required: true
         type: boolean
-        default: false
+        default: true
       scrapeops_api_key:
         description: 'ScrapeOps / Floppy / BytesFlow / Manual'
         required: false
         type: string
-        default: '5e2766ba-9d14-4130-93c0-fd0fe14cd69f'
+        default: 'bff2469d-fec5-4b82-88e6-612f482a8739'
       use_without_proxy:
         description: 'Use Without Proxy'
         required: true

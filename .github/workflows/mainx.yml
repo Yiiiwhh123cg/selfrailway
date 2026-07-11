@@ -74,8 +74,8 @@ on:
         type: choice
         options:
           - '01. OperaGX - Fahmad'
-          - '02. Ad-MVN - Orderflowz'
-          - '03. Ad-MVN - WillDougly'
+          - '02. OP - Orderflowz'
+          - '03. OP - WillDougly'
           - '04. Mob Opera - Techx'
           - '05. AVG - Techx'
           - '06. Opera - Harrari'

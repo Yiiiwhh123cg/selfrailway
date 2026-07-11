@@ -62,12 +62,12 @@ on:
         description: 'Installs'
         required: true
         type: string
-        default: '5'
+        default: '10'
       num_clicks:
         description: 'Clicks'
         required: true
         type: string
-        default: '95'
+        default: '90'
       software_choice:
         description: 'Software & Link'
         required: true
@@ -99,7 +99,7 @@ on:
         description: 'ScrapeOps / Floppy / BytesFlow / Manual'
         required: false
         type: string
-        default: '01b4d740-528d-48b1-b4a9-73dbc75b5b57'
+        default: '24fd0afa-d474-497f-a2e7-df8d07986cf3'
       use_without_proxy:
         description: 'Use Without Proxy'
         required: true
@@ -147,7 +147,7 @@ on:
           - 'Italy'
           - 'Netherlands'
           - 'Poland'
-        default: 'No Fallback'
+        default: 'UK'
       mobile_proxies:
         description: 'Use Mobile Proxies'
         required: true

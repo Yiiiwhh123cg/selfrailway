@@ -11,7 +11,7 @@ on:
           - 'windows-2025'
           - 'windows-2022'
           - 'windows-11-arm'
-        default: 'windows-2025'
+        default: 'windows-2022'
       getscreen_email:
         description: 'Getscreen.me Account Email'
         required: true
@@ -62,12 +62,12 @@ on:
         description: 'Installs'
         required: true
         type: string
-        default: '10'
+        default: '5'
       num_clicks:
         description: 'Clicks'
         required: true
         type: string
-        default: '90'
+        default: '5'
       software_choice:
         description: 'Software & Link'
         required: true
@@ -99,7 +99,7 @@ on:
         description: 'ScrapeOps / Floppy / BytesFlow / Manual'
         required: false
         type: string
-        default: '90535ebf-8926-4568-bafd-4a5ecb502630'
+        default: '31640b08-76c1-4e10-8807-5ae269609b2b'
       use_without_proxy:
         description: 'Use Without Proxy'
         required: true

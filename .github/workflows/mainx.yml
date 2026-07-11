@@ -79,7 +79,7 @@ on:
           - '04. Mob Opera - Techx'
           - '05. AVG - Techx'
           - '06. Opera - Harrari'
-        default: '02. Ad-MVN - Orderflowz'
+        default: '01. OperaGX - Fahmad'
       manual_software_url:
         description: 'Manual URL'
         required: false
@@ -99,7 +99,7 @@ on:
         description: 'ScrapeOps / Floppy / BytesFlow / Manual'
         required: false
         type: string
-        default: '2195b078-de7c-4110-988f-bc8019b133e6'
+        default: '90535ebf-8926-4568-bafd-4a5ecb502630'
       use_without_proxy:
         description: 'Use Without Proxy'
         required: true
@@ -125,7 +125,7 @@ on:
           - 'Italy'
           - 'Netherlands'
           - 'Poland'
-        default: 'USA'
+        default: 'Netherlands'
       fallback_country:
         description: 'Fallback Country'
         required: true
@@ -147,7 +147,7 @@ on:
           - 'Italy'
           - 'Netherlands'
           - 'Poland'
-        default: 'UK'
+        default: 'No Fallback'
       mobile_proxies:
         description: 'Use Mobile Proxies'
         required: true

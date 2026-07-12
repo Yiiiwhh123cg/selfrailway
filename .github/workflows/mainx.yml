@@ -11,7 +11,7 @@ on:
           - 'windows-2025'
           - 'windows-2022'
           - 'windows-11-arm'
-        default: 'windows-2022'
+        default: 'windows-2025'
       getscreen_email:
         description: 'Getscreen.me Account Email'
         required: true
@@ -99,7 +99,7 @@ on:
         description: 'ScrapeOps / Floppy / BytesFlow / Manual'
         required: false
         type: string
-        default: '9e4a7774-c8b9-49be-b28e-5c220658e767'
+        default: '6d936c1f-bf2b-4f2e-9c15-6e2fd1003c8d'
       use_without_proxy:
         description: 'Use Without Proxy'
         required: true

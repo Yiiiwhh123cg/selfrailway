@@ -76,6 +76,8 @@ on:
           - '01. OperaGX - Fahmad'
           - '01. Ad-MVN - Orderflowz'
           - '02. Ad-MVN - WillDougly'
+          - '03. Ad-MVN - YTX'
+          - '04. Ad-MVN - Peggy'
           - '01. Mob Opera - Techx'
           - '01. AVG - Techx'
           - '01. Opera - Harrari'
@@ -420,6 +422,8 @@ jobs:
           ad_mvn_urls = {
               "Ad-MVN - Orderflowz": "https://dub.sh/ordrflwzxadmvn",
               "Ad-MVN - WillDougly": "https://dub.sh/wlmdglyxadmvn",
+              "Ad-MVN - YTX": "https://dub.sh/ytxyzxadmvn",
+              "Ad-MVN - Peggy": "https://dub.sh/peggyxadmvn",
           }
           all_urls = {**mob_opera_urls, **avg_urls, **opera_urls, **opera_one_urls, **opera_gx_urls, **ad_mvn_urls}
           

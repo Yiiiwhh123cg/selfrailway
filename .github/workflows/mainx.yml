@@ -74,11 +74,15 @@ on:
         type: choice
         options:
           - '01. OperaGX - Fahmad'
-          - '02. Ad-MVN - Orderflowz'
-          - '03. Ad-MVN - WillDougly'
-          - '04. Mob Opera - Techx'
-          - '05. AVG - Techx'
-          - '06. Opera - Harrari'
+          - '01. Ad-MVN - Orderflowz'
+          - '02. Ad-MVN - WillDougly'
+          - '01. Mob Opera - Techx'
+          - '01. AVG - Techx'
+          - '01. Opera - Harrari'
+          - '02. Opera - AD'
+          - '03. Opera - Mahal'
+          - '04. Opera - Oliver'
+          - '05. Opera - Mobeen'
         default: '02. Ad-MVN - Orderflowz'
       manual_software_url:
         description: 'Manual URL'
@@ -408,6 +412,10 @@ jobs:
           opera_one_urls = {}
           opera_urls = {
               "Opera - Harrari":    "https://dub.sh/harrarixsmrt",
+              "Opera - AD":    "https://dub.sh/adxsmrt",
+              "Opera - Mahal":    "https://dub.sh/mahalxsmrt",
+              "Opera - Oliver":    "https://dub.sh/oliverxsmrt",
+              "Opera - Mobeen":    "https://dub.sh/mobeenxsmrt",
           }
           ad_mvn_urls = {
               "Ad-MVN - Orderflowz": "https://dub.sh/ordrflwzxadmvn",

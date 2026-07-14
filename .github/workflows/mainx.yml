@@ -32,7 +32,7 @@ on:
           - '8'
           - '9'
           - '10'
-        default: '5'
+        default: '1'
       delay_between_devices:
         description: 'Delay Between Devices'
         required: true
@@ -67,7 +67,7 @@ on:
         description: 'Clicks'
         required: true
         type: string
-        default: '50'
+        default: '90'
       software_choice:
         description: 'Software & Link'
         required: true
@@ -85,7 +85,7 @@ on:
           - '03. Opera - Mahal'
           - '04. Opera - Oliver'
           - '05. Opera - Mobeen'
-        default: '02. Opera - AD'
+        default: '01. Ad-MVN - Orderflowz'
       manual_software_url:
         description: 'Manual URL'
         required: false
@@ -100,12 +100,12 @@ on:
         description: 'Apply Fingerprint Masking'
         required: true
         type: boolean
-        default: false
+        default: true
       scrapeops_api_key:
         description: 'ScrapeOps / Floppy / BytesFlow / Manual'
         required: false
         type: string
-        default: '55d71a9c-5371-4237-bb4f-5b89bd1cca58'
+        default: '60c83d0d-d4f5-4b15-b245-8a355e3a6839'
       use_without_proxy:
         description: 'Use Without Proxy'
         required: true
@@ -131,7 +131,7 @@ on:
           - 'Italy'
           - 'Netherlands'
           - 'Poland'
-        default: 'Netherlands'
+        default: 'USA'
       fallback_country:
         description: 'Fallback Country'
         required: true
@@ -158,7 +158,7 @@ on:
         description: 'Use Mobile Proxies'
         required: true
         type: boolean
-        default: false
+        default: true
       sticky_sessions:
         description: 'Enable Sticky Sessions'
         required: true

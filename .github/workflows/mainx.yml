@@ -646,18 +646,14 @@ jobs:
                   'windows_keyboard': country_code_to_keyboard(cc)
               }
 
-          # ===== ENHANCED PROXY VALIDATION WITH MULTIPLE PROTOCOLS & ENDPOINTS =====
-          def validate_proxy(pinfo, max_retries=3):
-              protocols_to_test = ['http', 'https', 'socks5']
+          def validate_proxy(pinfo):
+              protocols_to_test = ['http', 'socks5']
               
-              # Expanded reliable endpoints
               endpoints = [
                   ("http://ip-api.com/json/", "ip-api.com"),
                   ("https://ipinfo.io/json", "ipinfo.io"),
                   ("http://ipwho.is/", "ipwho.is"),
-                  ("https://api.myip.com", "myip.com"),
-                  ("http://httpbin.org/ip", "httpbin"),
-                  ("https://api.ipify.org?format=json", "ipify")
+                  ("https://api.myip.com", "myip.com")
               ]
               
               for proto in protocols_to_test:
@@ -667,88 +663,43 @@ jobs:
                   
                   print(f"      -> Ping testing via {proto.upper()}: {pinfo['host']}:{pinfo['port']}")
                   
-                  for attempt in range(max_retries):
-                      for url, name in endpoints:
-                          try:
-                              resp = requests.get(url, proxies=proxies_cfg, timeout=20, verify=False)
-                              if resp.status_code == 200:
-                                  data = resp.json()
-                                  cc = tz = city = region = ""
-                                  ip = "unknown"
+                  for url, name in endpoints:
+                      try:
+                          resp = requests.get(url, proxies=proxies_cfg, timeout=15, verify=False)
+                          if resp.status_code == 200:
+                              data = resp.json()
+                              cc = tz = city = region = ""
+                              ip = "unknown"
+                              
+                              if name == "ip-api.com" and data.get('status') == 'success':
+                                  cc = data.get('countryCode')
+                                  tz = data.get('timezone')
+                                  ip = data.get('query')
+                                  city = data.get('city')
+                                  region = data.get('regionName')
+                              elif name == "ipinfo.io" and "ip" in data:
+                                  cc = data.get('country')
+                                  tz = data.get('timezone')
+                                  ip = data.get('ip')
+                                  city = data.get('city')
+                                  region = data.get('region')
+                              elif name == "ipwho.is" and data.get('success'):
+                                  cc = data.get('country_code')
+                                  tz = data.get('timezone', {}).get('id')
+                                  ip = data.get('ip')
+                                  city = data.get('city')
+                                  region = data.get('region')
+                              elif name == "myip.com" and "ip" in data:
+                                  cc = data.get('cc')
+                                  ip = data.get('ip')
                                   
-                                  if name == "ip-api.com" and data.get('status') == 'success':
-                                      cc = data.get('countryCode')
-                                      tz = data.get('timezone')
-                                      ip = data.get('query')
-                                      city = data.get('city')
-                                      region = data.get('regionName')
-                                  elif name == "ipinfo.io" and "ip" in data:
-                                      cc = data.get('country')
-                                      tz = data.get('timezone')
-                                      ip = data.get('ip')
-                                      city = data.get('city')
-                                      region = data.get('region')
-                                  elif name == "ipwho.is" and data.get('success'):
-                                      cc = data.get('country_code')
-                                      tz = data.get('timezone', {}).get('id')
-                                      ip = data.get('ip')
-                                      city = data.get('city')
-                                      region = data.get('region')
-                                  elif name == "myip.com" and "ip" in data:
-                                      cc = data.get('cc')
-                                      ip = data.get('ip')
-                                  elif name == "httpbin" and "origin" in data:
-                                      ip = data.get('origin', '')
-                                      # httpbin doesn't provide country, we'll get it later if needed
-                                  elif name == "ipify" and "ip" in data:
-                                      ip = data.get('ip', '')
-                                      
-                                  if ip and ip != "unknown":
-                                      # If we don't have country from the response, try to get it from ip-api.com separately
-                                      if not cc:
-                                          try:
-                                              geo_resp = requests.get(f"http://ip-api.com/json/{ip}", timeout=10, verify=False)
-                                              if geo_resp.status_code == 200:
-                                                  geo_data = geo_resp.json()
-                                                  if geo_data.get('status') == 'success':
-                                                      cc = geo_data.get('countryCode')
-                                                      tz = geo_data.get('timezone')
-                                                      city = geo_data.get('city')
-                                                      region = geo_data.get('regionName')
-                                          except:
-                                              pass
-                                      print(f"      -> SUCCESS: Pinged {name} via {proto.upper()}")
-                                      return build_success_dict(pinfo, proto, cc or 'US', cc or 'US', ip, city or '', region or '', tz or 'UTC')
-                          except Exception as e:
-                              print(f"         - {name} failed: {type(e).__name__}")
-                      if attempt < max_retries - 1:
-                          print(f"      -> Retrying {proto.upper()} (attempt {attempt+2}/{max_retries}) after 2s...")
-                          time.sleep(2)
+                              if ip and ip != "unknown":
+                                  print(f"      -> SUCCESS: Pinged {name} via {proto.upper()}")
+                                  return build_success_dict(pinfo, proto, cc or 'US', cc or 'US', ip, city or '', region or '', tz or 'UTC')
+                      except Exception as e:
+                          print(f"         - {name} failed: {type(e).__name__}")
                           
               return {'working': False, **pinfo}
-
-          def verify_scrapeops_key(api_key):
-              """Directly verify ScrapeOps API key by calling their account endpoint."""
-              try:
-                  resp = requests.get(
-                      "https://api.scrapeops.io/v1/account",
-                      params={"api_key": api_key},
-                      timeout=15
-                  )
-                  if resp.status_code == 200:
-                      data = resp.json()
-                      if data.get("status") == "success":
-                          print(f"[ScrapeOps] API key verified successfully (plan: {data.get('plan', 'unknown')})")
-                          return True
-                      else:
-                          print(f"[ScrapeOps] API key verification failed: {data.get('message', 'unknown error')}")
-                          return False
-                  else:
-                      print(f"[ScrapeOps] API key verification HTTP {resp.status_code}")
-                      return False
-              except Exception as e:
-                  print(f"[ScrapeOps] API key verification exception: {e}")
-                  return False
 
           def parse_generic_proxy(proxy_str):
               import re
@@ -849,7 +800,7 @@ jobs:
                           'server': f"{hst}:{prt}", 'url': f"http://{new_user}:{pwd}@{hst}:{prt}"
                       }
                       
-                      res = validate_proxy(pinfo, max_retries=2)
+                      res = validate_proxy(pinfo)
                       if res['working']:
                           actual_cc = (res.get('country_code') or '').upper()
                           if actual_cc == current_expected_cc:
@@ -892,7 +843,7 @@ jobs:
                       print(f"      -> Failed to parse robust proxy string format: {raw_p}")
                       continue
                       
-                  res = validate_proxy(pinfo, max_retries=2)
+                  res = validate_proxy(pinfo)
                   if res['working']:
                       actual_cc = (res.get('country_code') or '').upper()
                       if actual_cc == current_expected_cc or fallback_country_input == "No Fallback":
@@ -948,7 +899,7 @@ jobs:
                           'server': f"{host}:{port}", 'url': f"http://{user}:{pwd}@{host}:{port}"
                       }
                       
-                      res = validate_proxy(pinfo, max_retries=2)
+                      res = validate_proxy(pinfo)
                       if res['working']:
                           actual_cc = (res.get('country_code') or '').upper()
                           if actual_cc == current_expected_cc:
@@ -972,14 +923,6 @@ jobs:
                           sys.exit(1)
 
           elif scrapeops_keys:
-              # First, verify the API key directly
-              print("[ScrapeOps] Verifying API key directly...")
-              # Use the first key for verification
-              test_key = scrapeops_keys[0]
-              if not verify_scrapeops_key(test_key):
-                  print("[ScrapeOps] API key verification failed. The key may be invalid or expired. Aborting.")
-                  sys.exit(1)
-
               for attempt in range(MAX_ATTEMPTS):
                   current_expected_cc = cc_input.upper()
                   api_cc_param = cc_input.lower()
@@ -1001,34 +944,30 @@ jobs:
                   sess1 = f"t{task_index}p{str(uuid.uuid4())[:4]}"
                   user1 = proxy_user + (f".sticky_session={sess1}" if sticky else "")
                   
-                  # Try both HTTP and HTTPS proxy schemes
-                  for proto in ['http', 'https']:
-                      pinfo = {
-                          'username': user1, 'password': current_key, 'host': 'residential-proxy.scrapeops.io',
-                          'port': 8181, 'server': 'residential-proxy.scrapeops.io:8181', 
-                          'url': f"{proto}://{user1}:{current_key}@residential-proxy.scrapeops.io:8181"
-                      }
-                      
-                      res = validate_proxy(pinfo, max_retries=3)
-                      if res['working']:
-                          actual_cc = (res.get('country_code') or '').upper()
-                          if actual_cc == current_expected_cc:
-                              active_proxy = res
-                              active_proxy['proxy_type_label'] = 'scrapeops'
-                              use_proxy = True
-                              print(f"SUCCESS: ScrapeOps PRIMARY proxy active [{res['working_protocol'].upper()}] -> IP: {res['ip']} | CC: {actual_cc}")
-                              break
-                          else:
-                              print(f"      -> WARNING: ScrapeOps IP Country '{actual_cc}' != expected '{current_expected_cc}'. Retrying...")
-                              time.sleep(2)
+                  pinfo = {
+                      'username': user1, 'password': current_key, 'host': 'residential-proxy.scrapeops.io',
+                      'port': 8181, 'server': 'residential-proxy.scrapeops.io:8181', 
+                      'url': f"http://{user1}:{current_key}@residential-proxy.scrapeops.io:8181"
+                  }
+                  
+                  res = validate_proxy(pinfo)
+                  if res['working']:
+                      actual_cc = (res.get('country_code') or '').upper()
+                      if actual_cc == current_expected_cc:
+                          active_proxy = res
+                          active_proxy['proxy_type_label'] = 'scrapeops'
+                          use_proxy = True
+                          print(f"SUCCESS: ScrapeOps PRIMARY proxy active [{res['working_protocol'].upper()}] -> IP: {res['ip']} | CC: {actual_cc}")
+                          break
                       else:
-                          if attempt < MAX_ATTEMPTS - 1:
-                              time.sleep(2)
-                          else:
-                              print("FATAL: All ScrapeOps attempts failed to ping. Aborting script.")
-                              sys.exit(1)
-                  if active_proxy:
-                      break
+                          print(f"      -> WARNING: ScrapeOps IP Country '{actual_cc}' != expected '{current_expected_cc}'. Retrying...")
+                          time.sleep(2)
+                  else:
+                      if attempt < MAX_ATTEMPTS - 1:
+                          time.sleep(2)
+                      else:
+                          print("FATAL: All ScrapeOps attempts failed to ping. Aborting script.")
+                          sys.exit(1)
 
           if proxy_input and not without_proxy and not active_proxy:
               print("FATAL: Failed to parse or connect to any provided proxies. Aborting script.")
@@ -1149,7 +1088,7 @@ jobs:
               "CH"="223"; "ID"="111"; "IT"="118"; "NL"="176"; "PL"="191";
               "AR"="11"; "CL"="46"; "CO"="51"; "IN"="113"; "JP"="122";
               "KR"="134"; "CN"="45"; "TW"="237"; "RU"="203"; "TR"="235";
-              "SA"="205"; "AE"="224"; "ZA"="209"; "KE"="129";
+              "SA"="205"; "AE"="224"; "ZA"="209"; "NG"="178"; "KE"="129";
               "PH"="185"; "TH"="227"; "MY"="167"; "SG"="215"; "HK"="104";
               "PT"="193"; "RO"="200"; "HU"="109"; "CZ"="75"; "SK"="214";
               "UA"="241"; "GR"="98"; "SE"="221"; "NO"="177"; "DK"="61";

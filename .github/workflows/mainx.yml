@@ -85,7 +85,7 @@ on:
           - '03. Opera - Mahal'
           - '04. Opera - Oliver'
           - '05. Opera - Mobeen'
-        default: '04. Ad-MVN - Peggy'
+        default: '01. OperaGX - Fahmad'
       manual_software_url:
         description: 'Manual URL'
         required: false
@@ -100,12 +100,12 @@ on:
         description: 'Apply Fingerprint Masking'
         required: true
         type: boolean
-        default: true
+        default: false
       scrapeops_api_key:
         description: 'ScrapeOps / Floppy / BytesFlow / Manual'
         required: false
         type: string
-        default: 'f64eda12-c848-4cb3-907c-ba8fb82f8750'
+        default: '38d1afc7-60e0-4b2b-bf12-aaf2ff7835d9'
       use_without_proxy:
         description: 'Use Without Proxy'
         required: true
@@ -131,7 +131,7 @@ on:
           - 'Italy'
           - 'Netherlands'
           - 'Poland'
-        default: 'USA'
+        default: 'Netherlands'
       fallback_country:
         description: 'Fallback Country'
         required: true

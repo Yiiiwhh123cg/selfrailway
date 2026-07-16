@@ -11,7 +11,7 @@ on:
           - 'windows-2025'
           - 'windows-2022'
           - 'windows-11-arm'
-        default: 'windows-2025'
+        default: 'windows-2022'
       getscreen_email:
         description: 'Getscreen.me Account Email'
         required: true
@@ -85,7 +85,7 @@ on:
           - '03. Opera - Mahal'
           - '04. Opera - Oliver'
           - '05. Opera - Mobeen'
-        default: '02. Opera - AD'
+        default: '01. Ad-MVN - Orderflowz'
       manual_software_url:
         description: 'Manual URL'
         required: false
@@ -100,12 +100,12 @@ on:
         description: 'Apply Fingerprint Masking'
         required: true
         type: boolean
-        default: false
+        default: true
       scrapeops_api_key:
         description: 'ScrapeOps / Floppy / BytesFlow / Manual'
         required: false
         type: string
-        default: 'c0a600b0-1080-4a47-bbc9-30a8d55ebbb3'
+        default: 'ab21448d-fed8-470a-aa0b-df34b1ba1c16'
       use_without_proxy:
         description: 'Use Without Proxy'
         required: true
@@ -131,7 +131,7 @@ on:
           - 'Italy'
           - 'Netherlands'
           - 'Poland'
-        default: 'Netherlands'
+        default: 'USA'
       fallback_country:
         description: 'Fallback Country'
         required: true

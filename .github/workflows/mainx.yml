@@ -76,6 +76,7 @@ on:
           - '01. OperaGX - Fahmad'
           - '02. OperaGX - Oliver'
           - '03. OperaGX - Mahal'
+          - '04. OperaGX - Mobeen'
           - '01. Ad-MVN - Orderflowz'
           - '02. Ad-MVN - WillDougly'
           - '03. Ad-MVN - YTX'
@@ -414,6 +415,7 @@ jobs:
               "OperaGX - Fahmad": "https://dub.sh/fahmadxopx",
               "OperaGX - Oliver": "https://dub.sh/oliverxopx",
               "OperaGX - Mahal": "https://dub.sh/mahalxopx",
+              "OperaGX - Mobeen": "https://dub.sh/mobeenxopx",
           }
           opera_one_urls = {}
           opera_urls = {

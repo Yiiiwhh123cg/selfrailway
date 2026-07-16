@@ -74,6 +74,8 @@ on:
         type: choice
         options:
           - '01. OperaGX - Fahmad'
+          - '02. OperaGX - Oliver'
+          - '03. OperaGX - Mahal'
           - '01. Ad-MVN - Orderflowz'
           - '02. Ad-MVN - WillDougly'
           - '03. Ad-MVN - YTX'
@@ -410,11 +412,13 @@ jobs:
           }
           opera_gx_urls = {
               "OperaGX - Fahmad": "https://dub.sh/fahmadxopx",
+              "OperaGX - Oliver": "https://dub.sh/oliverxopx",
+              "OperaGX - Mahal": "https://dub.sh/mahalxopx",
           }
           opera_one_urls = {}
           opera_urls = {
               "Opera - Harrari":    "https://dub.sh/harrarixsmrt",
-              "Opera - AD":    "https://dub.sh/adxsmrt",
+              "Opera - AD":         "https://dub.sh/adxsmrt",
               "Opera - Mahal":    "https://dub.sh/mahalxsmrt",
               "Opera - Oliver":    "https://dub.sh/oliverxsmrt",
               "Opera - Mobeen":    "https://dub.sh/mobeenxsmrt",

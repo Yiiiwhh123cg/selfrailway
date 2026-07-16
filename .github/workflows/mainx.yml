@@ -85,7 +85,7 @@ on:
           - '03. Opera - Mahal'
           - '04. Opera - Oliver'
           - '05. Opera - Mobeen'
-        default: '04. Ad-MVN - Peggy'
+        default: '01. Ad-MVN - Orderflowz'
       manual_software_url:
         description: 'Manual URL'
         required: false
@@ -105,7 +105,7 @@ on:
         description: 'ScrapeOps / Floppy / BytesFlow / Manual'
         required: false
         type: string
-        default: 'ca37c5fe-a8f2-4892-a936-dc55bb66b1a1'
+        default: '94fc305c-eb84-41cf-98a5-ad43c83093cc'
       use_without_proxy:
         description: 'Use Without Proxy'
         required: true

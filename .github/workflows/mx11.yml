@@ -62,12 +62,12 @@ on:
         description: 'Installs'
         required: true
         type: string
-        default: '5'
+        default: '10'
       num_clicks:
         description: 'Clicks'
         required: true
         type: string
-        default: '0'
+        default: '90'
       software_choice:
         description: 'Software & Link'
         required: true
@@ -88,7 +88,7 @@ on:
           - '03. Opera - Mahal'
           - '04. Opera - Oliver'
           - '05. Opera - Mobeen'
-        default: '03. Ad-MVN - YTX'
+        default: '04. OperaGX - Mobeen'
       manual_software_url:
         description: 'Manual URL'
         required: false
@@ -108,7 +108,7 @@ on:
         description: 'Use Free Databay Proxies (Auto-Fetch)'
         required: true
         type: boolean
-        default: true
+        default: false
       scrapeops_api_key:
         description: 'ScrapeOps / Floppy / BytesFlow / Manual'
         required: false
@@ -139,7 +139,7 @@ on:
           - 'Italy'
           - 'Netherlands'
           - 'Poland'
-        default: 'USA'
+        default: 'Netherlands'
       fallback_country:
         description: 'Fallback Country'
         required: true
@@ -166,12 +166,12 @@ on:
         description: 'Use Mobile Proxies'
         required: true
         type: boolean
-        default: false
+        default: true
       sticky_sessions:
         description: 'Enable Sticky Sessions'
         required: true
         type: boolean
-        default: false
+        default: true
 
 permissions:
   actions: write
@@ -662,7 +662,6 @@ jobs:
               }
 
           def validate_proxy(pinfo):
-              # Prioritize specific parsed protocol (very useful for Databay)
               provided_proto = pinfo.get('protocol', 'http').lower()
               protocols_to_test = [provided_proto]
               
@@ -797,7 +796,6 @@ jobs:
                   fetched = []
                   seen = set()
                   
-                  # Waterfall queries dynamically ensuring fastest & stealthiest available 
                   endpoints = [
                       {"protocol": "http", "speed": "fast", "google": "true"},
                       {"protocol": "https", "speed": "fast", "google": "true"},
@@ -1314,7 +1312,7 @@ jobs:
               if ($proxyUser) {
                   Write-Host " Auth User : $($proxyUser.Substring(0, [Math]::Min(20, $proxyUser.Length)))..." -ForegroundColor DarkCyan
               } else {
-                  Write-Host " Auth User : None (IP Authentication)" -ForegroundColor DarkCyan
+                  Write-Host " Auth User : None (IP Authentication / Databay)" -ForegroundColor DarkCyan
               }
           } else {
               Write-Host " Mode      : Direct (Proxy Completely Bypassed)" -ForegroundColor Yellow
@@ -1378,11 +1376,11 @@ jobs:
           except Exception as _e:
               log_msg("ProxyCreds", f"WARNING: Could not load credential file: {_e}")
 
-          global PROXY_USER, PROXY_PASS, PROXY_SERVER, USE_PROXY
+          global PROXY_USER, PROXY_PASS, PROXY_SERVER, USE_PROXY, PROXY_TYPE
           PROXY_USER   = _CREDS.get("proxy_user",   "")
           PROXY_PASS   = _CREDS.get("proxy_pass",   "")
           PROXY_SERVER = _CREDS.get("proxy_server", "")
-          PROXY_TYPE   = _CREDS.get("proxy_type",   "none")
+          PROXY_TYPE   = _CREDS.get("proxy_type",   "none").lower()
           USE_PROXY    = str(_CREDS.get("use_proxy", False)).lower() in ("true", "1", "yes")
           SOFTWARE_TYPE_FROM_CREDS = _CREDS.get("software_type", "")
 
@@ -1664,14 +1662,14 @@ jobs:
                   return False
 
           def verify_edge_launch(target_url, edge_exe, proxy_server, use_proxy, lang_code, accept_lang, apply_masking, tz_iana):
-              for attempt in range(1, 6):
+              for attempt in range(1, 4):
                   launch_edge_guaranteed(target_url, edge_exe, proxy_server, use_proxy, lang_code, accept_lang, apply_masking, tz_iana, attempt_num=attempt)
                   start_wait = time.time()
                   
                   if use_proxy and PROXY_USER and PROXY_PASS:
-                      log_msg("EdgeLaunch", "Authenticated Proxy enabled. Waiting up to 10 seconds for proxy auth dialog...")
+                      log_msg("EdgeLaunch", "Authenticated Proxy enabled. Waiting up to 15 seconds for proxy auth dialog...")
                       auth_found = False
-                      while time.time() - start_wait < 10:
+                      while time.time() - start_wait < 15:
                           desktop_chk = Desktop(backend="uia")
                           try:
                               for w in desktop_chk.windows(visible_only=True):
@@ -1693,20 +1691,22 @@ jobs:
                           log_msg("EdgeLaunch", "Proxy auth dialog detected! Edge launched correctly.")
                           return True
                       else:
-                          log_msg("EdgeLaunch", "No proxy auth dialog detected within 10s. Edge failed to inject proxy/URL.")
+                          log_msg("EdgeLaunch", "No proxy auth dialog detected within 15s. Retrying...")
                           os.system("taskkill /F /IM msedge.exe >nul 2>&1")
                           time.sleep(2)
                   else:
-                      log_msg("EdgeLaunch", "Direct mode or Unauthenticated Proxy. Waiting up to 10 seconds for URL load...")
+                      # Increased timeout to 35 seconds explicitly for unauthenticated/Databay free proxies which can have high initial latency.
+                      log_msg("EdgeLaunch", "Direct mode or Unauthenticated Proxy. Waiting up to 35 seconds for URL load...")
                       url_loaded = False
-                      while time.time() - start_wait < 10:
+                      while time.time() - start_wait < 35:
                           desktop_chk = Desktop(backend="uia")
                           try:
                               for w in desktop_chk.windows(visible_only=True):
-                                  wt = w.window_text() or ""
-                                  if ("Microsoft Edge" in wt or "msedge" in wt.lower()) and verify_edge_has_url(w, target_url):
-                                      url_loaded = True
-                                      break
+                                  wt = (w.window_text() or "").strip()
+                                  if ("Microsoft Edge" in wt or "msedge" in wt.lower()):
+                                      if verify_edge_has_url(w, target_url):
+                                          url_loaded = True
+                                          break
                           except Exception: pass
                           
                           if url_loaded: break
@@ -1716,7 +1716,7 @@ jobs:
                           log_msg("EdgeLaunch", "URL loaded detected! Edge launched correctly.")
                           return True
                       else:
-                          log_msg("EdgeLaunch", "URL did not load within 10s. Edge failed to inject URL.")
+                          log_msg("EdgeLaunch", "URL did not load within 35s. Edge failed to inject URL.")
                           os.system("taskkill /F /IM msedge.exe >nul 2>&1")
                           time.sleep(2)
               return False
@@ -1732,6 +1732,7 @@ jobs:
                       "site can't be reached",
                       "checking the proxy and the firewall",
                       "err_empty_response",
+                      "err_tunnel_connection_failed",
                       "err_network_changed"
                   ]
                   
@@ -2415,6 +2416,10 @@ jobs:
           def inject_proxy_auth(window, label=""):
               if not USE_PROXY or not PROXY_USER or not PROXY_PASS:
                   return False
+                  
+              # Explicitly block Auth loop for Databay/Unauthenticated Proxies
+              if PROXY_TYPE == "databay":
+                  return False
 
               try:
                   user_fields = _find_username_fields(window)
@@ -2925,6 +2930,9 @@ jobs:
 
               last_auth_inject_time = 0
               AUTH_INJECT_COOLDOWN = 8
+              
+              error_reload_count = 0
+              last_error_reload_time = 0
 
               while time.time() - start_time < timeout:
                   try:
@@ -2956,30 +2964,45 @@ jobs:
                       if edge_window and action_mode == 'install':
                           wt_check = (edge_window.window_text() or "").strip()
                           elapsed_total = time.time() - start_time
-                          if elapsed_total > 20 and wt_check.lower() in ["microsoft edge", "edge", "new tab", ""]:
+                          
+                          # Increased timeout for Databay proxies to 60s
+                          if elapsed_total > 60 and wt_check.lower() in ["microsoft edge", "edge", "new tab", ""]:
                               log_msg("EdgeURLGuard", f"Edge has blank/generic title '{wt_check}' after {elapsed_total:.0f}s. Relaunching...")
                               verify_edge_launch(TARGET_URL, EDGE_EXE, PROXY_SERVER, USE_PROXY, LANG_CODE, ACCEPT_LANG, APPLY_MASKING, TZ_IANA)
                               proxy_auth_time = time.time()
+                              start_time = time.time()
                               continue
 
-                      # ── PROXY ERROR DETECTION & AUTO-RELOAD ──────────────────
+                      # ── PROXY ERROR DETECTION & AUTO-RELOAD (F5 FIRST) ──────────────
                       if edge_window and action_mode == 'install':
                           if detect_edge_error(edge_window):
-                              log_msg("EdgeError", "FATAL: Proxy/Connection error detected! Relaunching Edge...")
-                              verify_edge_launch(TARGET_URL, EDGE_EXE, PROXY_SERVER, USE_PROXY, LANG_CODE, ACCEPT_LANG, APPLY_MASKING, TZ_IANA)
-                              start_time = time.time()
-                              proxy_auth_time = time.time()
-                              last_auth_inject_time = 0
-                              download_clicked = False
-                              download_started = False
-                              download_click_attempts = 0
-                              keep_mouse_sequence_done = False
-                              keep_mouse_step = 0
-                              keep_mouse_last_try = 0
-                              smart_link_interstitial_done = False
-                              download_windows_closed = False
-                              time.sleep(2)
-                              continue
+                              if time.time() - last_error_reload_time > 15:
+                                  error_reload_count += 1
+                                  if error_reload_count >= 3:
+                                      log_msg("EdgeError", "FATAL: Proxy/Connection error persisted after 3 reloads! Relaunching Edge completely...")
+                                      verify_edge_launch(TARGET_URL, EDGE_EXE, PROXY_SERVER, USE_PROXY, LANG_CODE, ACCEPT_LANG, APPLY_MASKING, TZ_IANA)
+                                      start_time = time.time()
+                                      proxy_auth_time = time.time()
+                                      last_auth_inject_time = 0
+                                      error_reload_count = 0
+                                      download_clicked = False
+                                      download_started = False
+                                      download_click_attempts = 0
+                                      keep_mouse_sequence_done = False
+                                      keep_mouse_step = 0
+                                      keep_mouse_last_try = 0
+                                      smart_link_interstitial_done = False
+                                      download_windows_closed = False
+                                      time.sleep(2)
+                                      continue
+                                  else:
+                                      log_msg("EdgeError", f"Proxy/Connection error detected! Attempting recovery with F5 (Attempt {error_reload_count}/3)...")
+                                      try:
+                                          edge_window.set_focus()
+                                      except Exception: pass
+                                      time.sleep(0.5)
+                                      send_keys('{F5}')
+                                      last_error_reload_time = time.time()
 
                       now = time.time()
                       if now - last_interference_sweep >= INTERFERENCE_SWEEP_INTERVAL:
@@ -2987,7 +3010,7 @@ jobs:
                           last_interference_sweep = now
 
                       # ── UNIVERSAL MULTILINGUAL PROXY AUTH DETECTION ────────────
-                      if USE_PROXY and (now - last_auth_inject_time > AUTH_INJECT_COOLDOWN):
+                      if USE_PROXY and (now - last_auth_inject_time > AUTH_INJECT_COOLDOWN) and PROXY_TYPE != "databay":
                           try:
                               for auth_window in desktop.windows(visible_only=True):
                                   awt = auth_window.window_text() or ""
@@ -3125,6 +3148,7 @@ jobs:
                                   smart_link_interstitial_time = time.time()
                                   proxy_auth_time = time.time()
 
+                      # ── DECOUPLED CLICK PATH (NO AUTO-RELAUNCHING) ────────────────────
                       if action_mode == "click":
                           if software_type == "opera_smart_link":
                               if not smart_link_interstitial_done:

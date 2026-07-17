@@ -67,7 +67,7 @@ on:
         description: 'Clicks'
         required: true
         type: string
-        default: '90'
+        default: '00'
       software_choice:
         description: 'Software & Link'
         required: true
@@ -108,7 +108,7 @@ on:
         description: 'Use Free Databay Proxies (Auto-Fetch)'
         required: true
         type: boolean
-        default: false
+        default: true
       scrapeops_api_key:
         description: 'ScrapeOps / Floppy / BytesFlow / Manual'
         required: false
@@ -166,12 +166,12 @@ on:
         description: 'Use Mobile Proxies'
         required: true
         type: boolean
-        default: true
+        default: false
       sticky_sessions:
         description: 'Enable Sticky Sessions'
         required: true
         type: boolean
-        default: true
+        default: false
 
 permissions:
   actions: write

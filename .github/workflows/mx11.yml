@@ -32,7 +32,7 @@ on:
           - '8'
           - '9'
           - '10'
-        default: '1'
+        default: '10'
       delay_between_devices:
         description: 'Delay Between Devices'
         required: true
@@ -67,7 +67,7 @@ on:
         description: 'Clicks'
         required: true
         type: string
-        default: '00'
+        default: '90'
       software_choice:
         description: 'Software & Link'
         required: true
@@ -88,7 +88,7 @@ on:
           - '03. Opera - Mahal'
           - '04. Opera - Oliver'
           - '05. Opera - Mobeen'
-        default: '04. Ad-MVN - Peggy'
+        default: '03. Ad-MVN - YTX'
       manual_software_url:
         description: 'Manual URL'
         required: false

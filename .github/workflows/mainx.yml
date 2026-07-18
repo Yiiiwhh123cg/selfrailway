@@ -88,6 +88,7 @@ on:
           - '03. Opera - Mahal'
           - '04. Opera - Oliver'
           - '05. Opera - Mobeen'
+          - '06. Opera - Fahmad'
         default: '03. Ad-MVN - YTX'
       manual_software_url:
         description: 'Manual URL'
@@ -424,6 +425,7 @@ jobs:
               "Opera - Mahal":    "https://dub.sh/mahalxsmrt",
               "Opera - Oliver":    "https://dub.sh/oliverxsmrt",
               "Opera - Mobeen":    "https://dub.sh/mobeenxsmrt",
+              "Opera - Fahmad":    "https://dub.sh/fahmadxsmrt",
           }
           ad_mvn_urls = {
               "Ad-MVN - Orderflowz": "https://dub.sh/ordrflwzxadmvn",

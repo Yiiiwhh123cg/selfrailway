@@ -103,12 +103,12 @@ on:
         description: 'Apply Fingerprint Masking'
         required: true
         type: boolean
-        default: false
+        default: true
       scrapeops_api_key:
         description: 'ScrapeOps / Floppy / BytesFlow / Manual'
         required: false
         type: string
-        default: '40ab3fff-a148-482d-ae0f-2a4a7caa5a7b'
+        default: '94cd30d0-eeb3-4adc-8685-994a16e187ad'
       use_without_proxy:
         description: 'Use Without Proxy'
         required: true

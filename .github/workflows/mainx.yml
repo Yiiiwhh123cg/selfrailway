@@ -62,12 +62,12 @@ on:
         description: 'Installs'
         required: true
         type: string
-        default: '10'
+        default: '25'
       num_clicks:
         description: 'Clicks'
         required: true
         type: string
-        default: '90'
+        default: '75'
       software_choice:
         description: 'Software & Link'
         required: true
@@ -89,7 +89,7 @@ on:
           - '04. Opera - Oliver'
           - '05. Opera - Mobeen'
           - '06. Opera - Fahmad'
-        default: '03. Ad-MVN - YTX'
+        default: '01. Ad-MVN - Orderflowz'
       manual_software_url:
         description: 'Manual URL'
         required: false
@@ -109,7 +109,7 @@ on:
         description: 'ScrapeOps / Floppy / BytesFlow / Manual'
         required: false
         type: string
-        default: 'e85dc405-d1bf-4061-b1ce-cc884f74fe91'
+        default: '29f4e366-6a56-46f6-a512-b0c3ea2866bc'
       use_without_proxy:
         description: 'Use Without Proxy'
         required: true

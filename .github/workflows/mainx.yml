@@ -62,12 +62,12 @@ on:
         description: 'Installs'
         required: true
         type: string
-        default: '15'
+        default: '5'
       num_clicks:
         description: 'Clicks'
         required: true
         type: string
-        default: '85'
+        default: '95'
       software_choice:
         description: 'Software & Link'
         required: true
@@ -90,7 +90,7 @@ on:
           - '04. Opera - Oliver'
           - '05. Opera - Mobeen'
           - '06. Opera - Fahmad'
-        default: '01. Ad-MVN - Orderflowz'
+        default: '02. OFG Opera - Ahmad'
       manual_software_url:
         description: 'Manual URL'
         required: false

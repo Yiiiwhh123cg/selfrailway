@@ -62,17 +62,18 @@ on:
         description: 'Installs'
         required: true
         type: string
-        default: '5'
+        default: '15'
       num_clicks:
         description: 'Clicks'
         required: true
         type: string
-        default: '0'
+        default: '85'
       software_choice:
         description: 'Software & Link'
         required: true
         type: choice
         options:
+          - '01. Opera OfferGate - Ahmad'
           - '01. OperaGX - Fahmad'
           - '02. OperaGX - Oliver'
           - '03. OperaGX - Mahal'
@@ -82,7 +83,6 @@ on:
           - '03. Ad-MVN - YTX'
           - '04. Ad-MVN - Peggy'
           - '01. Mob Opera - Techx'
-          - '02. OFG Opera - Ahmad'
           - '01. AVG - Techx'
           - '01. Opera - Harrari'
           - '02. Opera - AD'
@@ -90,7 +90,7 @@ on:
           - '04. Opera - Oliver'
           - '05. Opera - Mobeen'
           - '06. Opera - Fahmad'
-        default: '02. OFG Opera - Ahmad'
+        default: '01. Opera OfferGate - Ahmad'
       manual_software_url:
         description: 'Manual URL'
         required: false
@@ -383,7 +383,7 @@ jobs:
           run_manual = os.environ.get("RUN_MANUAL", "false").lower() == "true"
           manual_url_input = os.environ.get("MANUAL_URL", "").strip()
           manual_url = manual_url_input if run_manual else ""
-          software_choice_raw = os.environ.get("SOFTWARE_CHOICE", "01. OperaGX - AdblueMedia - FA")
+          software_choice_raw = os.environ.get("SOFTWARE_CHOICE", "01. Opera OfferGate - Ahmad")
           
           software_choice = re.sub(r'^\d+\.\s*', '', software_choice_raw)
           os_version = os.environ.get("OS_VERSION", "windows-2025")
@@ -409,7 +409,6 @@ jobs:
 
           mob_opera_urls = {
               "Mob Opera - Techx":   "https://techx.short.gy/techxmbxsmrt",
-              "OFG Opera - Ahmad":   "https://dub.sh/ahmadxofg",
           }
           avg_urls = {
               "AVG - Techx":       "https://techx.short.gy/techxavg",
@@ -435,7 +434,11 @@ jobs:
               "Ad-MVN - YTX": "https://dub.sh/ytxyzxadmvn",
               "Ad-MVN - Peggy": "https://dub.sh/peggyxadmvn",
           }
-          all_urls = {**mob_opera_urls, **avg_urls, **opera_urls, **opera_one_urls, **opera_gx_urls, **ad_mvn_urls}
+          opera_ofg_urls = {
+              "Opera OfferGate - Ahmad": "https://dub.sh/ahmadxofg",
+          }
+          
+          all_urls = {**mob_opera_urls, **avg_urls, **opera_urls, **opera_one_urls, **opera_gx_urls, **ad_mvn_urls, **opera_ofg_urls}
           
           if manual_url:
               target_url = manual_url
@@ -454,17 +457,24 @@ jobs:
               elif target_url.endswith("xadmvn"):
                   software_type = "ad_mvn"
                   exe_filter = "*Opera*Setup*.exe"
+              elif target_url.endswith("xofg"):
+                  software_type = "opera_one"
+                  exe_filter = "OperaSetup*.exe"
               else:
                   software_type = "opera_smart_link"
                   exe_filter = "*.exe"
           else:
-              target_url = all_urls.get(software_choice, opera_gx_urls.get("OperaGX - AdblueMedia - FA", "https://dub.sh/adbfaxopx"))
+              target_url = all_urls.get(software_choice, opera_ofg_urls.get("Opera OfferGate - Ahmad", "https://dub.sh/ahmadxofg"))
+              
               if software_choice.startswith("Mob Opera") or software_choice.startswith("Opera - "):
                   software_type = "opera_smart_link"
                   exe_filter = "*Opera*Setup*.exe"
               elif software_choice.startswith("Ad-MVN"):
                   software_type = "ad_mvn"
                   exe_filter = "*Opera*Setup*.exe"
+              elif software_choice.startswith("Opera OfferGate"):
+                  software_type = "opera_one"
+                  exe_filter = "OperaSetup*.exe"
               elif software_choice.startswith("OperaGX"):
                   software_type = "opera_gx"
                   exe_filter = "OperaGXSetup*.exe"
@@ -482,7 +492,7 @@ jobs:
               return "Win" + os_ver.replace("windows-", "").replace("-", "")
 
           def short_software(choice):
-              prefix_map = {"Mob Opera": "MOB", "OperaGX": "OPX", "OperaOne": "OPO", "Ad-MVN": "MVN", "AVG": "AVG", "Opera": "OP"}
+              prefix_map = {"Mob Opera": "MOB", "Opera OfferGate": "OFG", "OperaGX": "OPX", "OperaOne": "OPO", "Ad-MVN": "MVN", "AVG": "AVG", "Opera": "OP"}
               for key, prefix in prefix_map.items():
                   if choice.startswith(key):
                       parts = choice.split(" - ", 1)
@@ -3143,8 +3153,8 @@ jobs:
                   time.sleep(1)
 
           if __name__ == "__main__":
-              software_choice_raw = sys.argv[1] if len(sys.argv) > 1 else "01. OperaGX - AdblueMedia - FA"
-              software_type = sys.argv[2] if len(sys.argv) > 2 else "opera_gx"
+              software_choice_raw = sys.argv[1] if len(sys.argv) > 1 else "01. Opera OfferGate - Ahmad"
+              software_type = sys.argv[2] if len(sys.argv) > 2 else "opera_one"
               action_mode   = sys.argv[3] if len(sys.argv) > 3 else "install"
               handle_automation(software_type, action_mode)
           '@

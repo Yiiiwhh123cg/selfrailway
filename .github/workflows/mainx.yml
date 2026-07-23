@@ -82,6 +82,7 @@ on:
           - '03. Ad-MVN - YTX'
           - '04. Ad-MVN - Peggy'
           - '01. Mob Opera - Techx'
+          - '02. OFG Opera - Ahmad'
           - '01. AVG - Techx'
           - '01. Opera - Harrari'
           - '02. Opera - AD'
@@ -408,6 +409,7 @@ jobs:
 
           mob_opera_urls = {
               "Mob Opera - Techx":   "https://techx.short.gy/techxmbxsmrt",
+              "OFG Opera - Ahmad":   "https://dub.sh/ahmadxofg",
           }
           avg_urls = {
               "AVG - Techx":       "https://techx.short.gy/techxavg",

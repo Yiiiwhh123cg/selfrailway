@@ -62,12 +62,12 @@ on:
         description: 'Installs'
         required: true
         type: string
-        default: '35'
+        default: '25'
       num_clicks:
         description: 'Clicks'
         required: true
         type: string
-        default: '65'
+        default: '75'
       software_choice:
         description: 'Software & Link'
         required: true
@@ -90,7 +90,7 @@ on:
           - '04. Opera - Oliver'
           - '05. Opera - Mobeen'
           - '06. Opera - Fahmad'
-        default: '02. OperaGX - Oliver'
+        default: '01. Ad-MVN - Orderflowz'
       manual_software_url:
         description: 'Manual URL'
         required: false
@@ -105,7 +105,7 @@ on:
         description: 'Apply Fingerprint Masking'
         required: true
         type: boolean
-        default: false
+        default: true
       scrapeops_api_key:
         description: 'ScrapeOps / Floppy / BytesFlow / Manual'
         required: false
@@ -136,7 +136,7 @@ on:
           - 'Italy'
           - 'Netherlands'
           - 'Poland'
-        default: 'Netherlands'
+        default: 'USA'
       fallback_country:
         description: 'Fallback Country'
         required: true

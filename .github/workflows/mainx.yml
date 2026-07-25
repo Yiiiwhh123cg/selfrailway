@@ -90,7 +90,7 @@ on:
           - '04. Opera - Oliver'
           - '05. Opera - Mobeen'
           - '06. Opera - Fahmad'
-        default: '01. Ad-MVN - Orderflowz'
+        default: '02. Opera - AD'
       manual_software_url:
         description: 'Manual URL'
         required: false
@@ -105,12 +105,12 @@ on:
         description: 'Apply Fingerprint Masking'
         required: true
         type: boolean
-        default: true
+        default: false
       scrapeops_api_key:
         description: 'ScrapeOps / Floppy / BytesFlow / Manual'
         required: false
         type: string
-        default: 'b093a985-4914-45fc-aae3-622b792a2d45'
+        default: '2269bdd3-d403-4c02-9df1-bdba6947fe73'
       use_without_proxy:
         description: 'Use Without Proxy'
         required: true
@@ -136,7 +136,7 @@ on:
           - 'Italy'
           - 'Netherlands'
           - 'Poland'
-        default: 'USA'
+        default: 'Netherlands'
       fallback_country:
         description: 'Fallback Country'
         required: true

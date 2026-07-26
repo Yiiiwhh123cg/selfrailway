@@ -136,7 +136,7 @@ on:
           - 'Italy'
           - 'Netherlands'
           - 'Poland'
-        default: 'USA'
+        default: 'Germany'
       fallback_country:
         description: 'Fallback Country'
         required: true

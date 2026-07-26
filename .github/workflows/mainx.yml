@@ -158,7 +158,7 @@ on:
           - 'Italy'
           - 'Netherlands'
           - 'Poland'
-        default: 'UK'
+        default: 'No Fallback'
       mobile_proxies:
         description: 'Use Mobile Proxies'
         required: true

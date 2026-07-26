@@ -108,7 +108,7 @@ on:
         description: 'Use Free Databay Proxies (Auto-Fetch)'
         required: true
         type: boolean
-        default: false
+        default: true
       scrapeops_api_key:
         description: 'ScrapeOps / Floppy / BytesFlow / Manual'
         required: false
@@ -171,7 +171,7 @@ on:
         description: 'Enable Sticky Sessions'
         required: true
         type: boolean
-        default: false
+        default: true
 
 permissions:
   actions: write

@@ -110,7 +110,7 @@ on:
         description: 'ScrapeOps / Floppy / BytesFlow / Manual'
         required: false
         type: string
-        default: '7b18ab98-e7dc-4e3d-9430-1988bb041ef3'
+        default: 'd6c1d235-2807-43b7-a547-813f0a0795e7'
       use_without_proxy:
         description: 'Use Without Proxy'
         required: true

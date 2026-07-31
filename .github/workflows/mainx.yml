@@ -90,7 +90,7 @@ on:
           - '04. Opera - Oliver'
           - '05. Opera - Mobeen'
           - '06. Opera - Fahmad'
-        default: '01. OperaGX - Fahmad'
+        default: '06. Opera - Fahmad'
       manual_software_url:
         description: 'Manual URL'
         required: false

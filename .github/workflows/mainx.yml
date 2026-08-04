@@ -108,7 +108,7 @@ on:
         type: boolean
         default: false
       scrapeops_api_key:
-        description: 'ScrapeOps / Floppy / BytesFlow / Redscrape / Manual'
+        description: 'ScrapeOps / Floppy / BytesFlow / Redscrape / GoLogin / Manual'
         required: false
         type: string
         default: 'geolocation://vxixxKDxhWGtIqfP:HKmQi7J6vGTScCiI@geo.floppydata.com:10080:Netherlands geolocation://gompHydVa5HMU1ws:hKC10sYoQIyvI4qb@geo.floppydata.com:10080:Netherlands geolocation://6oA60mEyWR6q2Zsp:3F2sENhNRYNvS9DF@geo.floppydata.com:10080:Netherlands geolocation://ar3oYa3kpbMogYsq:CCj94DRcNTokUnjh@geo.floppydata.com:10080:Netherlands geolocation://Z20JyDbszuzH5sEt:zWDeu0jHXdAZ4049@geo.floppydata.com:10080:Netherlands geolocation://yVtdqqw9J328c8Jr:Z5CaF1zyinTB0a0o@geo.floppydata.com:10080:Netherlands geolocation://c3RpOUyIcXQpHBT7:HUCCI19TnaQZAnoi@geo.floppydata.com:10080:Netherlands geolocation://RyRZnEAuuUs5TgzG:z2rnWUhDAVAaEphN@geo.floppydata.com:10080:Netherlands geolocation://JjHGKz5h0U40oore:HAuECJvhCdeoycKs@geo.floppydata.com:10080:Netherlands geolocation://0ylfRqTlUNSUMcz4:SDPZb5Pmei9RuyV7@geo.floppydata.com:10080:Netherlands geolocation://zQGJKMaTYvSEEZyz:OUpJq5Pz2KLTgaqm@geo.floppydata.com:10080:Netherlands geolocation://kmi4eyBDWmvLV86P:7PvbuhKilgWGXzyy@geo.floppydata.com:10080:Netherlands geolocation://XEnBzeDgOIU4hJb3:XYxxCGyhGKCfOB8N@geo.floppydata.com:10080:Netherlands geolocation://I11VOamZeWvOpGUp:hKh9UIsxRHDgk96n@geo.floppydata.com:10080:Netherlands geolocation://mc4APnObFaJ9S3ec:kv1hGsjCqX2UOh7l@geo.floppydata.com:10080:Netherlands geolocation://5Sppi0Yw0gcGTJf6:FYVeTnCx48gjZuk0@geo.floppydata.com:10080:Netherlands geolocation://cL7Z0xo7r5xsdPWJ:qle3rp7nxbpasBqy@geo.floppydata.com:10080:Netherlands geolocation://AcFdRxMEo1C3bUNh:hsSEFZOKTBiwnPbZ@geo.floppydata.com:10080:Netherlands geolocation://dGaYXDhQncJDlhra:RfVTd2Qy3vYxdBvN@geo.floppydata.com:10080:Netherlands geolocation://iuu9tVzqGrsxnUeY:DAzVMpfzWoeu2eJ0@geo.floppydata.com:10080:Netherlands geolocation://NmEkms02MoLkDS8m:01b8LiBJbuvaE9Fl@geo.floppydata.com:10080:Netherlands geolocation://vpiDz02BoffvX5p4:V5k5v22GAssqOZmI@geo.floppydata.com:10080:Netherlands geolocation://aAoCKoKG7W3yvMEH:Ag1WFv6DwHILnG2L@geo.floppydata.com:10080:Netherlands geolocation://KfB93zsbnXLVntBy:A5Wz6te2ThEnKgK2@geo.floppydata.com:10080:Netherlands geolocation://OWNntCutT2gTHkV7:nvj9hEcStOzAVx3J@geo.floppydata.com:10080:Netherlands geolocation://yPhprB4dfZflvGS7:T2XVqoA0UVcrBtEG@geo.floppydata.com:10080:Netherlands geolocation://G4iz7HpPH5CL2dmM:Vh8oEiVneHPr5i3H@geo.floppydata.com:10080:Netherlands geolocation://yEOGSCtoBnBUxgdo:UXeHPibm4CLD7dG1@geo.floppydata.com:10080:Netherlands geolocation://c3OflSok5hKPV7rh:saK8qh3xd8yHmNbC@geo.floppydata.com:10080:Netherlands geolocation://ytYA8Y3kdXor2eoP:Aw2ngHjN8vcWEq0X@geo.floppydata.com:10080:Netherlands geolocation://AfROPFgFZsy7CKN8:8OZHSJpslrvCze0r@geo.floppydata.com:10080:Netherlands geolocation://RY59YVTyYBJfPSOT:V2y5N3T4zrAjtnBB@geo.floppydata.com:10080:Netherlands geolocation://6SYrFkGfZZ4ARNQX:zXoEkAryQFxEMRcM@geo.floppydata.com:10080:Netherlands geolocation://qqS7YgTk6VtqW5Fz:RZeQKS1SLrCw6LoL@geo.floppydata.com:10080:Netherlands geolocation://qsRkC6VgTqlJL5rR:HtdpuqJgdXL2geGQ@geo.floppydata.com:10080:Netherlands geolocation://M7spyWdd5Bch2tum:Egi8qB2v6dS8RALa@geo.floppydata.com:10080:Netherlands geolocation://3xGCnrYEUgsrrEVO:2Iel5aV99ShzzcKo@geo.floppydata.com:10080:Netherlands geolocation://lrgW65CcHvm2zA9L:nuWglByQcpSuRsMU@geo.floppydata.com:10080:Netherlands geolocation://qkONoSivzxK7S1JS:xAR3KgObVTykNK2q@geo.floppydata.com:10080:Netherlands geolocation://RjgVo0XwfiM3Afcn:6M1cFYW4hADPPUTU@geo.floppydata.com:10080:Netherlands geolocation://lICN7phgomousYsf:EzFijrtWYafArp07@geo.floppydata.com:10080:Netherlands geolocation://JB6PitkHBKM8LrAH:eZkaieNdDn8LwiMF@geo.floppydata.com:10080:Netherlands geolocation://lMHqnctZy12P5g2C:xI8dpo2WZEUHISdI@geo.floppydata.com:10080:Netherlands geolocation://J3DJcab3T0r1vHSB:IT13jcdeVGWLqtZ6@geo.floppydata.com:10080:Netherlands geolocation://mrGYPS9llIJUZHDD:cu3fnFAnOuywwS7s@geo.floppydata.com:10080:Netherlands geolocation://rrpjLQlRhFOexdcR:DIbiGmu0TYncoy9U@geo.floppydata.com:10080:Netherlands geolocation://zk1UA4VrcBAA1e4t:F1yewNizpu64H4Mn@geo.floppydata.com:10080:Netherlands geolocation://EjvODWE7TOzf2enu:8mVhcFZl1gfyehDm@geo.floppydata.com:10080:Netherlands geolocation://1xfZRcpETvHqQfZJ:yuSG8sQDw2oIwh3S@geo.floppydata.com:10080:Netherlands geolocation://vFsqodshI0HPw7Lc:zQBVWTdn8wOSspQB@geo.floppydata.com:10080:Netherlands geolocation://KprZxzsIVZ13pQcd:RwaYjzQ5zt9FUWV4@geo.floppydata.com:10080:Netherlands geolocation://S0WJArc0HQJuS2xu:WQNO8TcOj5SnuEWP@geo.floppydata.com:10080:Netherlands geolocation://r2Oqgr6LD42eRv5m:GeP5PBLZv1XJOUcJ@geo.floppydata.com:10080:Netherlands geolocation://IQerPzp1gtXSvv0b:zuvFa06tS8LELemF@geo.floppydata.com:10080:Netherlands geolocation://zqqux2igNWZYiNAZ:TB4zy17UDL2t2D8w@geo.floppydata.com:10080:Netherlands geolocation://ItKXxaHNLWdi6qLR:pLtHToyMTJTxl8sM@geo.floppydata.com:10080:Netherlands geolocation://l9jv6TZxTnqp2fA8:BWqGZBLZiuixXRjb@geo.floppydata.com:10080:Netherlands geolocation://vEgcVJEpUKEW4XTl:MBjhK4udIdQuA5WR@geo.floppydata.com:10080:Netherlands geolocation://3tE0tO9KcNGsS1hm:XafsEfdhMkiKGZwy@geo.floppydata.com:10080:Netherlands geolocation://gKhKIo0sSUBocE7m:9g1vpxnrdZxigC1S@geo.floppydata.com:10080:Netherlands geolocation://GX0Xl2oGwnmlaOqx:l3DVRIiB4msnJM1l@geo.floppydata.com:10080:Netherlands geolocation://DVAcNpeGDjQtG4hB:uqvOw1lr0DxeDTtc@geo.floppydata.com:10080:Netherlands geolocation://7p5UzWSWTOrWaWKm:UbmgWqdClGWxAZaO@geo.floppydata.com:10080:Netherlands geolocation://orgO1e8wHYRJEBuq:nNFPnbyVOOHxSBs9@geo.floppydata.com:10080:Netherlands geolocation://LKyWUgItkP5BNPY4:BWluZPAiXacuussC@geo.floppydata.com:10080:Netherlands geolocation://vXtAr5DAIC4ICxIG:n3oie0dQ4dZVpdFW@geo.floppydata.com:10080:Netherlands geolocation://JG3BOIvtAFWCSivo:XiuTaQ3e7uBeraC4@geo.floppydata.com:10080:Netherlands geolocation://fg41BoE3E9o7i3oF:DwkQ8s7zEJfkD8uV@geo.floppydata.com:10080:Netherlands geolocation://cABsJj1O3WrepXPt:gtX0ozhfr1PtPzHL@geo.floppydata.com:10080:Netherlands geolocation://M4P9zyMOrR88hviT:kH1jpeBpQfc4K2oO@geo.floppydata.com:10080:Netherlands geolocation://PKSU4AX460eTGJZ2:DE7FD09sIhCpUQ83@geo.floppydata.com:10080:Netherlands geolocation://GcjTz8KsS4USpufV:hdm2hHu6ieCr2JAD@geo.floppydata.com:10080:Netherlands geolocation://4J2IM6sTRai9ncxy:hgZYg32SAmF2bPB1@geo.floppydata.com:10080:Netherlands geolocation://JX20qOxynI9PHVTZ:ZD9ncHzKuaBQxmgx@geo.floppydata.com:10080:Netherlands geolocation://Ojy155JDYtJusV3i:ZR4tWSFgrNga8ivv@geo.floppydata.com:10080:Netherlands geolocation://6zaIQqWbazYw4O0g:5oe4gIAyHYPg3fG3@geo.floppydata.com:10080:Netherlands geolocation://7tvKG8htSu34PNTu:x2pXcJ0rSeuHeoZo@geo.floppydata.com:10080:Netherlands geolocation://5QYinDXwnKmw51If:mcms27uAnQT1Bpd6@geo.floppydata.com:10080:Netherlands geolocation://SP1DXDkDjF1VIGlh:Kpe758pMgIFXxD1s@geo.floppydata.com:10080:Netherlands geolocation://DDSwwArVbypXTTsT:xKiYrGgBrfcuTVzL@geo.floppydata.com:10080:Netherlands geolocation://sSaCfflmiUWqhIap:4ih7yna7RWCmxJN7@geo.floppydata.com:10080:Netherlands geolocation://0B06oiPIQ5H3AsSh:AQQ7SoDliAG9px74@geo.floppydata.com:10080:Netherlands geolocation://lHtjVlEC2HvFiIdb:Dq8KhDYgM05nibA2@geo.floppydata.com:10080:Netherlands geolocation://y3ecoJe2gnWIYMAd:qQZtAp5yrbPqxihP@geo.floppydata.com:10080:Netherlands geolocation://8cThby3W9oBKwtwU:LzE5ZNHLcwXGfLuq@geo.floppydata.com:10080:Netherlands geolocation://9mU9qZBX6vnNtMOY:cbze9gtuFaSFn0lj@geo.floppydata.com:10080:Netherlands geolocation://Bfz6WswQbWUywlwP:RQxex5T6q1Vuxoql@geo.floppydata.com:10080:Netherlands geolocation://JzIuyjvbkEolAS8I:V41BXOFbeBTSW3ak@geo.floppydata.com:10080:Netherlands geolocation://Nb6WaUVmhc0fOCgC:zrAzY989fprsdOPM@geo.floppydata.com:10080:Netherlands geolocation://SdzjWGHUds2hwy1m:29vHvmys7gGnhtVj@geo.floppydata.com:10080:Netherlands geolocation://cuz2UX8Pst3xHfkr:nc0RUhUr2l4T54zX@geo.floppydata.com:10080:Netherlands geolocation://ymbp8lZMg7rBAafL:QURi54ATt1z1mVeA@geo.floppydata.com:10080:Netherlands geolocation://Ut5kHx7bdPDc0hS8:IIsMbKDYI0GIX17a@geo.floppydata.com:10080:Netherlands geolocation://0eQCsR3sMbV82vjW:PoXQkhvdrKCsNc2f@geo.floppydata.com:10080:Netherlands geolocation://zwlpPFge5waUHR8w:EHI9Rqs2qffKM1wQ@geo.floppydata.com:10080:Netherlands geolocation://EUeRFddmUNbIPCBN:0op4cuSgOdqZdwQ6@geo.floppydata.com:10080:Netherlands geolocation://d01uWUkVFtmku7d8:POoNooWaUq5xb3TY@geo.floppydata.com:10080:Netherlands geolocation://5rASQhivqj8DbzgP:10xZtpceTAwqyIOu@geo.floppydata.com:10080:Netherlands geolocation://oO9Hv01nhAhoQxPP:ylcn9ea9tCaDTaog@geo.floppydata.com:10080:Netherlands geolocation://XEwdDCNsta5IcjuB:1PzWBC93nsmJR0LS@geo.floppydata.com:10080:Netherlands geolocation://FtQHCYks9Ba41nux:aZq6SAipzoOEXzk0@geo.floppydata.com:10080:Netherlands geolocation://kul6G0NYswSrdo0G:KaJ25TtNLGdESs7W@geo.floppydata.com:10080:Netherlands geolocation://bnCOIzW0QY1OLST9:2EU8rgBzc955h28i@geo.floppydata.com:10080:Netherlands geolocation://wfnJ5uv5IDU7owkA:vootW6bu0o3hLspv@geo.floppydata.com:10080:Netherlands geolocation://fsw4PSAzOmg9jPoo:WpvZwasZbwHqbLgL@geo.floppydata.com:10080:Netherlands geolocation://WvpOGw3kcDUSQWJA:eoUeIxMgZzy5Blpp@geo.floppydata.com:10080:Netherlands geolocation://X2babP0suDK75XRD:cNSbVPOr5t7rMFy1@geo.floppydata.com:10080:Netherlands geolocation://8VSqx55GHhn5KJxu:siVgiHJFWC6vr7Tq@geo.floppydata.com:10080:Netherlands geolocation://AO1bXlqopNS6iB50:ubtVEQgbspIJjf2q@geo.floppydata.com:10080:Netherlands geolocation://IZCRtqzBdV2AE74E:74aErrzC2btBYiEq@geo.floppydata.com:10080:Netherlands geolocation://pK0I9I3JRpkzJTqp:29KeNXSjhVACJiW5@geo.floppydata.com:10080:Netherlands geolocation://4pA3kwcpM5Tg8irb:MWHPPtiuMtNRQCN4@geo.floppydata.com:10080:Netherlands geolocation://1kwTXP3NhaYgADTA:7piTqYTxBpiTfPqG@geo.floppydata.com:10080:Netherlands geolocation://LHYxufybIv10pnzD:vusO7YssURn33x6q@geo.floppydata.com:10080:Netherlands geolocation://lX5lQCF872Hcycly:n5Z5B7CU7RgIh3Iz@geo.floppydata.com:10080:Netherlands geolocation://E2yGqCxuqFAi5yZ6:oBLGqTX8tbEBdqk0@geo.floppydata.com:10080:Netherlands geolocation://BwLEvGPPzgjHqMsV:L0bM18dEvMzDv335@geo.floppydata.com:10080:Netherlands geolocation://UUEi8B4M2RdPVTwr:etMshxcIpoHIAzPm@geo.floppydata.com:10080:Netherlands geolocation://PFsAYhe7R3UwB1xK:ClDAnNwfB2WfUCti@geo.floppydata.com:10080:Netherlands geolocation://Gknj6L2DL8MAW6TB:rAdmZbPkHLhtuU5O@geo.floppydata.com:10080:Netherlands geolocation://TbKhtyCFAzIl043R:beRzs0uWtTV32kCi@geo.floppydata.com:10080:Netherlands geolocation://W8xUOC8hQovYhKRj:yKOCaeZr1AzxnOH3@geo.floppydata.com:10080:Netherlands geolocation://VElj4UEvJ9XvjH9R:ozvpykVjFnUlGZ7v@geo.floppydata.com:10080:Netherlands geolocation://XMnunmUIQs98oYPb:4I6XusmhARTgUyDC@geo.floppydata.com:10080:Netherlands geolocation://6ZPv5RZWwCYhhcgU:UoG1qH0g1XVjSrVZ@geo.floppydata.com:10080:Netherlands geolocation://TG6ifYRLxdr1qHQW:XlUgpyD7wvsZ1mdl@geo.floppydata.com:10080:Netherlands geolocation://TNRUC5bKnayA0KZo:DGGZLMkx5ZR9pasy@geo.floppydata.com:10080:Netherlands geolocation://5JEbZJ3RSYB6Xh6A:vW3dvrRmDWojeuNl@geo.floppydata.com:10080:Netherlands geolocation://kE1EmpWEkRAhWTv8:cEZRkURMFMgrp4f3@geo.floppydata.com:10080:Netherlands geolocation://Zmc16Tp7VYkqf3mJ:df0eavc0lBUjthOs@geo.floppydata.com:10080:Netherlands geolocation://vvCFUOk6GMYeSWcF:m7Fo0DlkOYWr4Yn8@geo.floppydata.com:10080:Netherlands geolocation://SrqNOyU4aWPPRYyL:6Uow84gskKGJcI0A@geo.floppydata.com:10080:Netherlands geolocation://L5zX7oGe73SOxGTG:9ltomRqw01myfV7f@geo.floppydata.com:10080:Netherlands geolocation://RXrXzBnSILacQTm7:90zN4jLAQLxY97uY@geo.floppydata.com:10080:Netherlands geolocation://QXW1m6pPIHQaseC1:QDQycLri27irmsvp@geo.floppydata.com:10080:Netherlands geolocation://TgNb3LQRA8M2ANsq:OmL6s3hFSAq7sxZt@geo.floppydata.com:10080:Netherlands geolocation://RyjBiInQiUBOIiIL:P8NUhwgtT9mwNYGh@geo.floppydata.com:10080:Netherlands geolocation://CtUyaxOJhq8IHtxK:O0hlTaNM4oRyojAE@geo.floppydata.com:10080:Netherlands geolocation://WytwxUYSRtGCFg2D:vaBGTuBIdkb85Pga@geo.floppydata.com:10080:Netherlands geolocation://dXwZpyfFmaSDnTgH:eGVfKHdTYqaO7I1P@geo.floppydata.com:10080:Netherlands geolocation://joxOC3yiAiIUHNpf:hxIx3Ul3wFxYstjj@geo.floppydata.com:10080:Netherlands geolocation://FgoqoyjM0ccLdbFB:932F267nssavjPPI@geo.floppydata.com:10080:Netherlands geolocation://hy7iNJfO5JmNJAIM:T9kAk0vANcc3kOIL@geo.floppydata.com:10080:Netherlands geolocation://6Ybhvj9wwFSQx7fH:D3qLldxM2NyeDrUR@geo.floppydata.com:10080:Netherlands geolocation://wsBkjO1tb7yo0f1A:1rDANe9TlXeODxGt@geo.floppydata.com:10080:Netherlands geolocation://1D1lDPOOR5TDV736:ChYRk2tF9low3Jjh@geo.floppydata.com:10080:Netherlands geolocation://pBUYe7hoLgV5QYFt:LyfqTbcjvlEqBkFG@geo.floppydata.com:10080:Netherlands geolocation://op4dBPl3AAH2qN5R:NK3X8QUXZfYupIju@geo.floppydata.com:10080:Netherlands geolocation://avqE0VppB3oD9X1z:84WX00Gzde3IBgQb@geo.floppydata.com:10080:Netherlands geolocation://mrfSJsxJQAQ01gaZ:M7CXSRMcdUcnUflk@geo.floppydata.com:10080:Netherlands geolocation://GNIhPSc5b7kThnNu:LjTwdFQxcVWdeMRr@geo.floppydata.com:10080:Netherlands geolocation://UZo2TySbMOw6xKm7:TI3Q9urHY6c5y5QS@geo.floppydata.com:10080:Netherlands geolocation://87LWRTpmR5Q5s1mg:ClXhZSOJQUnEv07t@geo.floppydata.com:10080:Netherlands geolocation://ygyVtoKgDLUuI6Xm:kC5P1tbwVlvc1xHj@geo.floppydata.com:10080:Netherlands geolocation://5SlCzFMlHp8C0eg2:PnEF6EUGNJ0EfYEZ@geo.floppydata.com:10080:Netherlands geolocation://xJbs8XnSKYzURBNI:KpVleyenMSJ3KSLA@geo.floppydata.com:10080:Netherlands geolocation://iWUXc1DjNPXooHIa:Eepb1EYMQv2RpplN@geo.floppydata.com:10080:Netherlands geolocation://GcXHcH0f3gd0ibW8:YYYqME2A46fZ0mxM@geo.floppydata.com:10080:Netherlands geolocation://zONwFZ5YWRdHVNEl:WIhLKEKlbKDuhcQz@geo.floppydata.com:10080:Netherlands geolocation://pcgOY9E5NbCQSmNa:w33wWwveycaw0DYW@geo.floppydata.com:10080:Netherlands geolocation://WP9kjkbKuLwTMQUk:ExkTEwYi1CGB02JA@geo.floppydata.com:10080:Netherlands geolocation://zg8XrilMNT0NZ9Mo:syVDWBR3ocS8uuNd@geo.floppydata.com:10080:Netherlands geolocation://oUpeXp2oMPJqSKwf:zUz8ThIOrFkhqLW9@geo.floppydata.com:10080:Netherlands geolocation://MIK8E4Q97dPsUlN2:g6xywg9bbh2XQdpn@geo.floppydata.com:10080:Netherlands geolocation://iaGyomobojMCatCH:erAiLW4S41Euq8zC@geo.floppydata.com:10080:Netherlands geolocation://0Dl5SCpsR7NmJs2f:6tzw5Jzn2JwMHYAf@geo.floppydata.com:10080:Netherlands geolocation://s0VYn04UVvtmeXDZ:zYWDTzsfRjvCxEEb@geo.floppydata.com:10080:Netherlands geolocation://ahanRWBUh6IZmkce:4YiKxeDI4B5TQ9Q0@geo.floppydata.com:10080:Netherlands geolocation://JrNfU1wXgxaOBBgC:jtRN6TqWnV0X4Nnr@geo.floppydata.com:10080:Netherlands geolocation://3h8Ugpjrlpz5mpGw:5561r1lcOruMMsYp@geo.floppydata.com:10080:Netherlands geolocation://ReVKYMwEHa3mpnx5:Xjh2IrSly8DJVPwV@geo.floppydata.com:10080:Netherlands geolocation://DdhjXCjjHCEICXHh:hb6wZbaOJIdqt91W@geo.floppydata.com:10080:Netherlands geolocation://Yzj6P6FPb6Q5e2So:GPAtBDy1QuaiHLeA@geo.floppydata.com:10080:Netherlands geolocation://Y84gomFSDmrm4bCO:dgxBA1tCRHgONpih@geo.floppydata.com:10080:Netherlands geolocation://7Iw8iFF8bXmDvVAy:Ohwd6Tge9hzxuzoB@geo.floppydata.com:10080:Netherlands geolocation://XD9scPHQeEpRKn43:jpEn59E2BWCVIVEP@geo.floppydata.com:10080:Netherlands geolocation://CkqLOfIIrydIv4wV:qKq4DshMZuBWLnCo@geo.floppydata.com:10080:Netherlands geolocation://jsO3v0gP5YOyKND2:AuXZiJpbzmCoJFdW@geo.floppydata.com:10080:Netherlands geolocation://XjQoEBAEwMQzJix3:fWncDeqEHoesxgrJ@geo.floppydata.com:10080:Netherlands geolocation://5jJEOlhwziLX2vKy:7FFUpK6UTTNNpnpW@geo.floppydata.com:10080:Netherlands geolocation://Nt23n1MJfwsE5gdB:yf3HmJc9f73xyPZx@geo.floppydata.com:10080:Netherlands geolocation://bKq6og2HkqTL5VnX:kwVUAVY59XjgxL2p@geo.floppydata.com:10080:Netherlands geolocation://2QdFtuf8HRBIX8xp:3XKuIZ14JSpka01x@geo.floppydata.com:10080:Netherlands geolocation://mNvh6IuVOISiVJle:NFzO1Woh0U8HUS74@geo.floppydata.com:10080:Netherlands geolocation://YqxFRkeEyglzWQBB:KPT1KMUjaOhOOwOx@geo.floppydata.com:10080:Netherlands geolocation://K7DS4O1bA6SSEn7X:APKKI8NH9MkSOaLp@geo.floppydata.com:10080:Netherlands geolocation://p202KUVRwWaV7E3m:5UOwri4bwQSsokdF@geo.floppydata.com:10080:Netherlands geolocation://pWJkO5npF6WovYWs:YPj3oH5oUjggnGDQ@geo.floppydata.com:10080:Netherlands geolocation://6cXEAidcui38qICV:TxVlDbUiRFBRRYBg@geo.floppydata.com:10080:Netherlands geolocation://XwR2DEsqAZOuuJnO:gUmyIYCYCEpDEL2K@geo.floppydata.com:10080:Netherlands geolocation://1fjn866HvrTVTOxq:RkoENXnrnGwvPrTS@geo.floppydata.com:10080:Netherlands geolocation://6svwEuVZbmSfJCmx:6Minbbszy8DaDFEf@geo.floppydata.com:10080:Netherlands geolocation://0XGO6vHtXpXzYKp0:kL5qGzQHzlKUKKZw@geo.floppydata.com:10080:Netherlands geolocation://HTk3rVreDAcYbDfW:eQEGkHpWmBpzHTXd@geo.floppydata.com:10080:Netherlands geolocation://93HgRvy1tIh7jaRq:eZ18jimPyDpT2A2u@geo.floppydata.com:10080:Netherlands geolocation://VikhCjrswx1JvhzG:T8IJlirH30Ed5fMq@geo.floppydata.com:10080:Netherlands geolocation://PTG4aAtI1PwwuLnI:NatbtsfaZSj8jnlv@geo.floppydata.com:10080:Netherlands geolocation://jYoa107W49BU6GkX:oeXj53uY50nNOGAb@geo.floppydata.com:10080:Netherlands geolocation://krOofps8pSKKeLPw:5bMWXYVUIF1Rf6cq@geo.floppydata.com:10080:Netherlands geolocation://TCHOy1QRGJfM9MPS:hAbVUGALNWE9nD8R@geo.floppydata.com:10080:Netherlands'
@@ -251,8 +251,12 @@ jobs:
           scrapeops_re = re.compile(r"^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$", re.IGNORECASE)
           floppy_re = re.compile(r"^[A-Za-z0-9_]{30,80}$")
           redscrape_re = re.compile(r"^[0-9a-f]{32}$", re.IGNORECASE)
+          gologin_re = re.compile(r"^ey[A-Za-z0-9_-]+\.[A-Za-z0-9_-]+\.[A-Za-z0-9_-]+$")
 
           for p in raw_proxies:
+              if gologin_re.match(p):
+                  valid_keys.append(p)
+                  continue
               if "bytesflows.com" in p.lower() or ":" in p or "@" in p or "://" in p or "." in p:
                   if len(p) > 5 and re.search(r'[a-zA-Z0-9]', p):
                       valid_keys.append(p)
@@ -762,18 +766,22 @@ jobs:
           scrapeops_keys = []
           floppy_keys = []
           redscrape_keys = []
+          gologin_keys = []
           
           if proxy_input and not without_proxy:
               SCRAPEOPS_KEY_RE = re.compile(r'^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$', re.IGNORECASE)
               FLOPPY_KEY_RE = re.compile(r'^[A-Za-z0-9_]{30,80}$')
               REDSCRAPE_KEY_RE = re.compile(r'^[0-9a-f]{32}$', re.IGNORECASE)
+              GOLOGIN_KEY_RE = re.compile(r'^ey[A-Za-z0-9_-]+\.[A-Za-z0-9_-]+\.[A-Za-z0-9_-]+$')
               
               raw_items = proxy_input.split()
               for item in raw_items:
                   item = item.strip()
                   if not item: continue
                   
-                  if "bytesflows.com" in item.lower():
+                  if GOLOGIN_KEY_RE.match(item):
+                      gologin_keys.append(item)
+                  elif "bytesflows.com" in item.lower():
                       bytesflow_proxies.append(item)
                   elif REDSCRAPE_KEY_RE.match(item):
                       redscrape_keys.append(item)
@@ -794,7 +802,84 @@ jobs:
 
           if without_proxy:
               print("Proxy disabled manually.")
-              
+
+          # ══════════════════════════════════════════════════════════════════════
+          # GOLOGIN RESIDENTIAL PROXY GENERATION - Using GoLogin API Key
+          # ══════════════════════════════════════════════════════════════════════
+          elif gologin_keys:
+              GOLOGIN_API_BASE = "https://api.gologin.com"
+              for attempt in range(MAX_ATTEMPTS):
+                  current_expected_cc = cc_input.upper()
+                  if attempt >= 7 and fallback_country_input != "No Fallback":
+                      fallback_cc = country_map.get(fallback_country_input, "us").upper()
+                      if current_expected_cc != fallback_cc:
+                          current_expected_cc = fallback_cc
+                          print(f"      -> Fallback: Switching to selected fallback country {current_expected_cc}...")
+                          
+                  key_idx = (absolute_idx // 15 + attempt) % len(gologin_keys)
+                  current_key = gologin_keys[key_idx]
+                  print(f"[GoLogin] Generating Residential Proxy using API Key ending in ...{current_key[-8:]} (Attempt {attempt+1}/{MAX_ATTEMPTS})")
+                  
+                  headers = {
+                      "Authorization": f"Bearer {current_key}",
+                      "Content-Type": "application/json"
+                  }
+                  
+                  payload = {
+                      "countryCode": current_expected_cc.lower(),
+                      "isMobile": "false",
+                      "isDC": "false",
+                      "customName": f"Runner_P{task_index}_{str(uuid.uuid4())[:4]}"
+                  }
+                  
+                  try:
+                      resp = requests.post(f"{GOLOGIN_API_BASE}/users-proxies/mobile-proxy", headers=headers, json=payload, timeout=15, verify=False)
+                      if resp.status_code in [200, 201]:
+                          data = resp.json()
+                          
+                          host = data.get("host") or data.get("ip") or data.get("server") or "proxy.gologin.com"
+                          port = data.get("port") or data.get("httpPort") or 8080
+                          username = data.get("username") or data.get("user") or data.get("login") or ""
+                          password = data.get("password") or data.get("pass") or ""
+                          
+                          pinfo = {
+                              'username': username,
+                              'password': password,
+                              'host': host,
+                              'port': int(port),
+                              'server': f"{host}:{port}",
+                              'url': f"http://{username}:{password}@{host}:{port}" if username else f"http://{host}:{port}"
+                          }
+                          
+                          res = validate_proxy(pinfo)
+                          if res['working']:
+                              actual_cc = (res.get('country_code') or '').upper()
+                              if actual_cc == current_expected_cc or fallback_country_input == "No Fallback":
+                                  active_proxy = res
+                                  active_proxy['proxy_type_label'] = 'gologin'
+                                  use_proxy = True
+                                  print(f"SUCCESS: GoLogin PRIMARY residential proxy active [{res['working_protocol'].upper()}] -> IP: {res['ip']} | CC: {actual_cc}")
+                                  break
+                              else:
+                                  print(f"      -> WARNING: GoLogin IP Country '{actual_cc}' != expected '{current_expected_cc}'. Retrying...")
+                                  time.sleep(2)
+                          else:
+                              if attempt < MAX_ATTEMPTS - 1:
+                                  time.sleep(2)
+                              else:
+                                  print("FATAL: Failed to validate GoLogin residential proxy after attempts. Aborting script.")
+                                  sys.exit(1)
+                      else:
+                          print(f"      -> GoLogin API request failed with status {resp.status_code}: {resp.text[:100]}")
+                          time.sleep(2)
+                  except Exception as e:
+                      print(f"      -> GoLogin API error: {e}")
+                      if attempt < MAX_ATTEMPTS - 1:
+                          time.sleep(2)
+                      else:
+                          print("FATAL: Failed to connect to GoLogin API after attempts. Aborting script.")
+                          sys.exit(1)
+
           elif bytesflow_proxies:
               print(f"[BytesFlow] Parsing provided proxy and dynamically assigning parameters...")
               for attempt in range(MAX_ATTEMPTS):
@@ -854,9 +939,6 @@ jobs:
                       print("FATAL: Could not cleanly parse the BytesFlow provided format. Aborting script.")
                       sys.exit(1)
 
-          # ══════════════════════════════════════════════════════════════════════
-          # REDSCRAPE API INTEGRATION - Generate proxies using API key
-          # ══════════════════════════════════════════════════════════════════════
           elif redscrape_keys:
               REDSCRAPE_API_BASE = "https://api.redscrape.com"
               REDSCRAPE_FALLBACK_BASE = "https://redscrape.com/api"
@@ -866,7 +948,6 @@ jobs:
               
               print(f"[Redscrape] Using API Key: ...{current_key[-8:]}")
               
-              # ── Step 1: Try to get credentials from redscrape API ──────────
               proxy_password = None
               proxy_host = "dc0f.redscrape.com"
               proxy_port = 7777
@@ -877,7 +958,6 @@ jobs:
                   "Content-Type": "application/json"
               }
               
-              # Try credentials endpoints with multiple auth methods
               creds_endpoints = [
                   f"{REDSCRAPE_API_BASE}/v1/credentials",
                   f"{REDSCRAPE_API_BASE}/v1/account",
@@ -911,7 +991,6 @@ jobs:
                       except Exception:
                           continue
               
-              # ── Step 2: If no credentials, try proxy generation endpoints ──
               if not proxy_password:
                   print(f"[Redscrape] Credentials API unavailable. Trying proxy generation endpoints...")
                   
@@ -982,7 +1061,6 @@ jobs:
                           except Exception:
                               continue
               
-              # ── Step 3: If still no credentials, extract from existing proxy strings ──
               if not proxy_password:
                   print(f"[Redscrape] API unavailable. Checking for existing redscrape proxy strings in input...")
                   for mp in manual_proxies:
@@ -995,7 +1073,6 @@ jobs:
                               print(f"      -> Extracted credentials from existing proxy string: host={proxy_host}, port={proxy_port}")
                               break
               
-              # ── Step 4: If still no credentials, try API key as password (last resort) ──
               if not proxy_password:
                   print(f"[Redscrape] WARNING: Could not retrieve credentials from API or existing strings.")
                   print(f"[Redscrape] Attempting to use API key as proxy password (last resort fallback)...")
@@ -1003,7 +1080,6 @@ jobs:
               
               print(f"[Redscrape] Credentials resolved. Host={proxy_host}, Port={proxy_port}")
               
-              # ── Step 5: Generate and validate proxies ──────────────────────
               for attempt in range(MAX_ATTEMPTS):
                   current_expected_cc = cc_input.upper()
                   if attempt >= 7 and fallback_country_input != "No Fallback":
@@ -1017,8 +1093,6 @@ jobs:
                   session_id = random.randint(10000000, 99999999)
                   session_duration = 300
                   
-                  # Construct username in redscrape format:
-                  # session-{duration}-id-{session_id}-{country}[-mobile]
                   if sticky:
                       username = f"session-{session_duration}-id-{session_id}-{current_expected_cc}"
                   else:
@@ -1397,9 +1471,6 @@ jobs:
           ACTION_MODE: ${{ matrix.action_mode }}
           APPLY_MASKING: ${{ inputs.apply_masking }}
         run: |
-          # ══════════════════════════════════════════════════════════════════════
-          # DYNAMIC DOWNLOAD RESTRICTION (CLICK PATH SAFETY)
-          # ══════════════════════════════════════════════════════════════════════
           $edgePolicy = "HKLM:\SOFTWARE\Policies\Microsoft\Edge"
           if (-not (Test-Path $edgePolicy)) { New-Item -Path $edgePolicy -Force | Out-Null }
           if ($env:ACTION_MODE -eq "click") {
@@ -1450,9 +1521,6 @@ jobs:
           Write-Host "[Dependencies] Installing python UIA modules (pywinauto, pyautogui, etc)..." -ForegroundColor DarkGray
           python -m pip install pywinauto pyautogui pygetwindow keyboard --quiet
 
-          # ══════════════════════════════════════════════════════════════════════
-          # Write proxy credentials and inputs to a temp file so Python reads them safely
-          # ══════════════════════════════════════════════════════════════════════
           $credFile = "$env:TEMP\proxy_creds.json"
           $credObj  = @{
               proxy_user    = $proxyUser
@@ -1481,7 +1549,6 @@ jobs:
               t = time.strftime('%H:%M:%S')
               print(f"[{t}][{tag}] {msg}", flush=True)
 
-          # ── Load inputs & proxy credentials from the JSON file written by PowerShell ──
           _CRED_FILE = os.path.join(tempfile.gettempdir(), "proxy_creds.json")
           _CREDS = {}
           try:

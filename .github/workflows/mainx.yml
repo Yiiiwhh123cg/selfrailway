@@ -91,7 +91,7 @@ on:
           - '05. Opera - Mobeen'
           - '06. Opera - Fahmad'
           - '07. Opera - Peggy'
-        default: '04. OperaGX - Mobeen'
+        default: '01. Opera - Harrari'
       manual_software_url:
         description: 'Manual URL'
         required: false

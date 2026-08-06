@@ -62,12 +62,12 @@ on:
         description: 'Installs'
         required: true
         type: string
-        default: '15'
+        default: '10'
       num_clicks:
         description: 'Clicks'
         required: true
         type: string
-        default: '175'
+        default: '190'
       software_choice:
         description: 'Software & Link'
         required: true
@@ -91,7 +91,7 @@ on:
           - '05. Opera - Mobeen'
           - '06. Opera - Fahmad'
           - '07. Opera - Peggy'
-        default: '07. Opera - Peggy'
+        default: '01. Opera - Harrari'
       manual_software_url:
         description: 'Manual URL'
         required: false

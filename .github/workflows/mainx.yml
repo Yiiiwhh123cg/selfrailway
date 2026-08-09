@@ -78,6 +78,7 @@ on:
           - '02. OperaGX - Oliver'
           - '03. OperaGX - Mahal'
           - '04. OperaGX - Mobeen'
+          - '05. OperaGX - Tufayl'
           - '01. Ad-MVN - Orderflowz'
           - '02. Ad-MVN - WillDougly'
           - '03. Ad-MVN - YTX'
@@ -91,6 +92,7 @@ on:
           - '05. Opera - Mobeen'
           - '06. Opera - Fahmad'
           - '07. Opera - Peggy'
+          - '08. Opera - Tufayl'
         default: '06. Opera - Fahmad'
       manual_software_url:
         description: 'Manual URL'
@@ -424,6 +426,7 @@ jobs:
               "OperaGX - Oliver": "https://dub.sh/oliverxopx",
               "OperaGX - Mahal": "https://dub.sh/mahalxopx",
               "OperaGX - Mobeen": "https://dub.sh/mobeenxopx",
+              "OperaGX - Tufayl": "https://dub.sh/tufaylxopx",
           }
           opera_one_urls = {}
           opera_urls = {
@@ -434,6 +437,7 @@ jobs:
               "Opera - Mobeen":    "https://dub.sh/mobeenxsmrt",
               "Opera - Fahmad":    "https://dub.sh/fahmadxsmrt",
               "Opera - Peggy":    "https://dub.sh/peggyxsmrt",
+              "Opera - Tufayl":    "https://dub.sh/tufaylxsmrt",
           }
           ad_mvn_urls = {
               "Ad-MVN - Orderflowz": "https://dub.sh/ordrflwzxadmvn",

@@ -93,7 +93,7 @@ on:
           - '06. Opera - Fahmad'
           - '07. Opera - Peggy'
           - '08. Opera - Tufayl'
-        default: '08. Opera - Tufayl'
+        default: '02. OperaGX - Oliver'
       manual_software_url:
         description: 'Manual URL'
         required: false

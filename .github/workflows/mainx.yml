@@ -62,12 +62,12 @@ on:
         description: 'Installs'
         required: true
         type: string
-        default: '00'
+        default: '1'
       num_clicks:
         description: 'Clicks'
         required: true
         type: string
-        default: '10'
+        default: '00'
       software_choice:
         description: 'Software & Link'
         required: true
@@ -93,7 +93,7 @@ on:
           - '06. Opera - Fahmad'
           - '07. Opera - Peggy'
           - '08. Opera - Tufayl'
-        default: '02. OperaGX - Oliver'
+        default: '08. Opera - Tufayl'
       manual_software_url:
         description: 'Manual URL'
         required: false

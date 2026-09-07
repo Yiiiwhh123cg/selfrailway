@@ -93,7 +93,7 @@ on:
           - '06. Opera - Fahmad'
           - '07. Opera - Peggy'
           - '08. Opera - Tufayl'
-        default: '01. Ad-MVN - F.Ahmadx'
+        default: '01. Opera OfferGate - Ahmad'
       manual_software_url:
         description: 'Manual URL'
         required: false

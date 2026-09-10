@@ -20,12 +20,12 @@ on:
         description: 'Getscreen.me Account Email'
         required: true
         type: string
-        default: 'tx@ccmail.online' # Do not remove the single quotes
+        default: 'techx@ccmail.online' # Do not remove the single quotes
       gologin_email:
         description: 'GoLogin Account Email'
         required: true
         type: string
-        default: 'newgl1@mnb.net' # Do not remove the single quotes
+        default: 'lyrimu.lle.n62.0@gmail.com' # Do not remove the single quotes
       gologin_password:
         description: 'GoLogin Account Password'
         required: true
@@ -53,7 +53,7 @@ on:
           - '2 hour'
           - '4 hour'
           - '6 hour'
-        default: '6 hour'
+        default: '30 min'
       skip_cloudflare:
         description: 'Dont Install Cloudflare 1.1.1.1'
         required: false
@@ -63,7 +63,7 @@ on:
         description: 'Dont Install Gologin'
         required: false
         type: boolean
-        default: true
+        default: false
 
 jobs:
   prepare_matrix:

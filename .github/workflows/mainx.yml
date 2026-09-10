@@ -62,7 +62,7 @@ on:
         description: 'Installs'
         required: true
         type: string
-        default: '6'
+        default: '5'
       num_clicks:
         description: 'Clicks'
         required: true
@@ -108,12 +108,12 @@ on:
         description: 'Apply Fingerprint Masking'
         required: true
         type: boolean
-        default: true
+        default: false
       scrapeops_api_key:
         description: 'ScrapeOps / Floppy / BytesFlow / Redscrape / GoLogin / Manual'
         required: false
         type: string
-        default: 'geolocation://Oame0s1V9eoKESyO:0SRH1GJnMxqqvPXp@geo.floppydata.com:10080:Netherlands geolocation://VnPGCLgvErTbfHlv:flanBV2pbMYsotKz@geo.floppydata.com:10080:Germany geolocation://7TTAUC21YK4rEQ8q:A59RhFSBoZ180YOP@geo.floppydata.com:10080:United geolocation://dSAQm7T8e1Qj0A1g:PdWhIi0FOAuIjvaV@geo.floppydata.com:10080:France geolocation://rlwauvo4QZXPfnMx:zOrVq6lSPiRG8jTg@geo.floppydata.com:10080:Canada geolocation://7ic7DZsXbtbeN9Fv:7y3sKE0skDQqJimR@geo.floppydata.com:10080:Australia'
+        default: 'geolocation://yFUQKyRKxtfrOO6L:eh668LVQh4e3qYQ0@geo.floppydata.com:10080:United geolocation://3b5keGQflV2txyWH:MzeyORS9NnQxtyYp@geo.floppydata.com:10080:United geolocation://iUc0U4rdgRDJLJz2:4vcyDxTkE7ejDLYt@geo.floppydata.com:10080:United geolocation://yOgWGwiwTnzCdn8r:gdsV90rVgVSCB8e6@geo.floppydata.com:10080:United geolocation://GPBHjAgVLTa92o0j:tOpeBDB5BzKRTekV@geo.floppydata.com:10080:United'
       use_without_proxy:
         description: 'Use Without Proxy'
         required: true

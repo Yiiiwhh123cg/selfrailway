@@ -1,0 +1,12 @@
+{
+  "workflow_name": "Multi-Platform Proxy Monetizer",
+  "last_run_utc": "2026-09-11T07:05:58Z",
+  "platforms_enabled": {
+    "packetstream": true,
+    "pawns_app": false,
+    "repocket": false,
+    "proxyrack": true,
+    "bytelixir": false
+  },
+  "proxy_count": 1
+}

@@ -1,0 +1,249 @@
+name: Multi-Platform Proxy Monetizer
+
+on:
+  workflow_dispatch:
+    inputs:
+      gologin_proxies:
+        description: 'GoLogin / Floppydata Proxies (one per line)'
+        required: true
+        type: string
+        default: ''
+      packetstream_cid:
+        description: 'PacketStream CID (Optional - leave empty to skip)'
+        required: false
+        type: string
+        default: ''
+      pawns_email:
+        description: 'Pawns.app Email (Optional - leave empty to skip)'
+        required: false
+        type: string
+        default: ''
+      pawns_password:
+        description: 'Pawns.app Password (Optional - leave empty to skip)'
+        required: false
+        type: string
+        default: ''
+      repocket_email:
+        description: 'Repocket Email (Optional - leave empty to skip)'
+        required: false
+        type: string
+        default: ''
+      repocket_api_key:
+        description: 'Repocket API Key (Optional - leave empty to skip)'
+        required: false
+        type: string
+        default: ''
+      proxyrack_uuid:
+        description: 'Proxyrack Device UUID (Optional - leave empty to skip)'
+        required: false
+        type: string
+        default: ''
+      bytelixir_token:
+        description: 'ByteLixir User Token / Email (Optional - leave empty to skip)'
+        required: false
+        type: string
+        default: ''
+
+jobs:
+  run-monetizer:
+    runs-on: ubuntu-latest
+    timeout-minutes: 350 # Max allowable GitHub Actions runtime (under 6 hours)
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GH_PAT || github.token }}
+          fetch-depth: 0
+
+      - name: Save Last Inputs (Persist State by Workflow Name)
+        env:
+          WORKFLOW_NAME: ${{ github.workflow }}
+          PROXIES_INPUT: ${{ github.event.inputs.gologin_proxies }}
+          PS_CID: ${{ github.event.inputs.packetstream_cid }}
+          PAWNS_EMAIL: ${{ github.event.inputs.pawns_email }}
+          REPOCKET_EMAIL: ${{ github.event.inputs.repocket_email }}
+          PROXYRACK_UUID: ${{ github.event.inputs.proxyrack_uuid }}
+          BYTELIXIR_TOKEN: ${{ github.event.inputs.bytelixir_token }}
+        run: |
+          mkdir -p .state
+          # Sanitize workflow name to create a safe filename
+          SAFE_NAME=$(echo "$WORKFLOW_NAME" | tr '[:upper:]' '[:lower:]' | sed -E 's/[^a-z0-9_-]/_/g')
+          STATE_FILE=".state/${SAFE_NAME}_inputs.json"
+
+          # Write current run configuration (excluding passwords for safety)
+          cat <<EOF > "$STATE_FILE"
+          {
+            "workflow_name": "$WORKFLOW_NAME",
+            "last_run_utc": "$(date -u +"%Y-%m-%dT%H:%M:%SZ")",
+            "platforms_enabled": {
+              "packetstream": $([ -n "$PS_CID" ] && echo "true" || echo "false"),
+              "pawns_app": $([ -n "$PAWNS_EMAIL" ] && echo "true" || echo "false"),
+              "repocket": $([ -n "$REPOCKET_EMAIL" ] && echo "true" || echo "false"),
+              "proxyrack": $([ -n "$PROXYRACK_UUID" ] && echo "true" || echo "false"),
+              "bytelixir": $([ -n "$BYTELIXIR_TOKEN" ] && echo "true" || echo "false")
+            },
+            "proxy_count": $(echo "$PROXIES_INPUT" | grep -v '^$' | wc -l)
+          }
+          EOF
+
+          # Configure Git and push changes
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add "$STATE_FILE"
+          git commit -m "chore(state): update last inputs for ${WORKFLOW_NAME} [skip ci]" || echo "No state changes to commit"
+          git push origin main || git push origin HEAD || echo "State push skipped (no changes or permissions restricted)"
+
+      - name: Prepare Linux Kernel & Docker Dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y curl jq iptables iproute2
+          sudo modprobe tun
+
+      - name: Deploy Isolated Multi-Proxy Stack
+        env:
+          PROXIES: ${{ github.event.inputs.gologin_proxies }}
+          PS_CID: ${{ github.event.inputs.packetstream_cid }}
+          PAWNS_EMAIL: ${{ github.event.inputs.pawns_email }}
+          PAWNS_PASSWORD: ${{ github.event.inputs.pawns_password }}
+          REPOCKET_EMAIL: ${{ github.event.inputs.repocket_email }}
+          REPOCKET_API_KEY: ${{ github.event.inputs.repocket_api_key }}
+          PROXYRACK_UUID: ${{ github.event.inputs.proxyrack_uuid }}
+          BYTELIXIR_TOKEN: ${{ github.event.inputs.bytelixir_token }}
+        run: |
+          INDEX=1
+
+          echo "$PROXIES" | while IFS= read -r raw_line || [ -n "$raw_line" ]; do
+            # Trim whitespace and skip empty lines
+            line=$(echo "$raw_line" | xargs)
+            [ -z "$line" ] && continue
+
+            echo "=========================================================="
+            echo ">> Processing Proxy #$INDEX"
+            echo "=========================================================="
+
+            # Clean and parse GoLogin / standard format:
+            # Handles: geolocation://user:pass@host:port:Description or user:pass@host:port or host:port:user:pass
+            STRIPPED_LINE=$(echo "$line" | sed -E 's|^[a-zA-Z0-9]+://||')
+
+            if [[ "$STRIPPED_LINE" =~ ([^:@]+):([^@]+)@([^:]+):([0-9]+) ]]; then
+              # Format: user:pass@host:port
+              P_USER="${BASH_REMATCH[1]}"
+              P_PASS="${BASH_REMATCH[2]}"
+              P_HOST="${BASH_REMATCH[3]}"
+              P_PORT="${BASH_REMATCH[4]}"
+              PROXY_URL="http://${P_USER}:${P_PASS}@${P_HOST}:${P_PORT}"
+            elif [[ "$STRIPPED_LINE" =~ ([^:]+):([0-9]+):([^:]+):([^:]+) ]]; then
+              # Format: host:port:user:pass
+              P_HOST="${BASH_REMATCH[1]}"
+              P_PORT="${BASH_REMATCH[2]}"
+              P_USER="${BASH_REMATCH[3]}"
+              P_PASS="${BASH_REMATCH[4]}"
+              PROXY_URL="http://${P_USER}:${P_PASS}@${P_HOST}:${P_PORT}"
+            else
+              echo "[WARN] Could not parse proxy line format: $line. Skipping."
+              continue
+            fi
+
+            TUN_CONTAINER="tun_net_proxy_${INDEX}"
+
+            # 1. Create Isolated TUN Network Container for this specific proxy
+            docker run -d \
+              --name "$TUN_CONTAINER" \
+              --cap-add=NET_ADMIN \
+              --device /dev/net/tun \
+              xjasonlyu/tun2socks:latest \
+              -device tun0 \
+              -proxy "$PROXY_URL"
+
+            # Allow tunnel initialization
+            sleep 3
+
+            # 2. Verify External IP of this isolated network container
+            EXIT_IP=$(docker run --rm --net=container:"$TUN_CONTAINER" curlimages/curl:latest -s -m 10 https://api.ipify.org || echo "Unreachable")
+            echo "[Node #$INDEX] Verified Outbound IP: $EXIT_IP"
+
+            if [ "$EXIT_IP" = "Unreachable" ] || [ -z "$EXIT_IP" ]; then
+              echo "[ERROR] Proxy #$INDEX failed network test. Skipping platform deployment for this proxy."
+              continue
+            fi
+
+            # ----------------------------------------------------
+            # 3. Launch Platforms in THIS proxy's network container
+            # ----------------------------------------------------
+
+            # [A] PacketStream
+            if [ -n "$PS_CID" ]; then
+              docker run -d \
+                --name "packetstream_node_${INDEX}" \
+                --net=container:"$TUN_CONTAINER" \
+                -e CID="$PS_CID" \
+                packetstream/psclient:latest
+              echo "  [+] PacketStream started on Node #$INDEX"
+            else
+              echo "  [-] PacketStream skipped (no CID provided)"
+            fi
+
+            # [B] Pawns.app (IPRoyal)
+            if [ -n "$PAWNS_EMAIL" ] && [ -n "$PAWNS_PASSWORD" ]; then
+              docker run -d \
+                --name "pawns_node_${INDEX}" \
+                --net=container:"$TUN_CONTAINER" \
+                iproyal/pawns-cli:latest \
+                pawns-cli -email="$PAWNS_EMAIL" -password="$PAWNS_PASSWORD" -device-name="gh_proxy_${INDEX}" -accept-tos
+              echo "  [+] Pawns.app started on Node #$INDEX"
+            else
+              echo "  [-] Pawns.app skipped (no Email/Password provided)"
+            fi
+
+            # [C] Repocket
+            if [ -n "$REPOCKET_EMAIL" ] && [ -n "$REPOCKET_API_KEY" ]; then
+              docker run -d \
+                --name "repocket_node_${INDEX}" \
+                --net=container:"$TUN_CONTAINER" \
+                -e RP_EMAIL="$REPOCKET_EMAIL" \
+                -e RP_API_KEY="$REPOCKET_API_KEY" \
+                repocket/repocket:latest
+              echo "  [+] Repocket started on Node #$INDEX"
+            else
+              echo "  [-] Repocket skipped (no Email/API Key provided)"
+            fi
+
+            # [D] Proxyrack
+            if [ -n "$PROXYRACK_UUID" ]; then
+              docker run -d \
+                --name "proxyrack_node_${INDEX}" \
+                --net=container:"$TUN_CONTAINER" \
+                -e UUID="$PROXYRACK_UUID" \
+                proxyrack/pop:latest
+              echo "  [+] Proxyrack started on Node #$INDEX"
+            else
+              echo "  [-] Proxyrack skipped (no UUID provided)"
+            fi
+
+            # [E] ByteLixir
+            if [ -n "$BYTELIXIR_TOKEN" ]; then
+              docker run -d \
+                --name "bytelixir_node_${INDEX}" \
+                --net=container:"$TUN_CONTAINER" \
+                -e BYTELIXIR_TOKEN="$BYTELIXIR_TOKEN" \
+                bytelixir/bytelixir:latest
+              echo "  [+] ByteLixir started on Node #$INDEX"
+            else
+              echo "  [-] ByteLixir skipped (no Token provided)"
+            fi
+
+            INDEX=$((INDEX + 1))
+          done
+
+          echo "=========================================================="
+          echo "All active nodes initialized. Monitoring traffic..."
+          echo "=========================================================="
+
+          # Keepalive loop with status log every 2 minutes
+          for minute in $(seq 1 2 340); do
+            echo "----------------------------------------"
+            echo "Uptime: $minute / 340 minutes"
+            docker ps --format "table {{.Names}}\t{{.Status}}\t{{.Image}}"
+            sleep 120
+          done

@@ -8,6 +8,11 @@ on:
         required: true
         type: string
         default: ''
+      enable_proxyrack:
+        description: 'Enable Proxyrack Peer (Auto-generates UUIDs for dashboard)'
+        required: false
+        type: boolean
+        default: false
       packetstream_cid:
         description: 'PacketStream CID (Optional - leave empty to skip)'
         required: false
@@ -33,21 +38,16 @@ on:
         required: false
         type: string
         default: ''
-      proxyrack_uuid:
-        description: 'Proxyrack Device UUID (Optional - leave empty to skip)'
-        required: false
-        type: string
-        default: ''
       bytelixir_token:
-        description: 'ByteLixir User Token / Email (Optional - leave empty to skip)'
+        description: 'ByteLixir Token (Optional - leave empty to skip)'
         required: false
         type: string
         default: ''
 
 jobs:
-  run-monetizer:
+  monetize-proxies:
     runs-on: ubuntu-latest
-    timeout-minutes: 350 # Max allowable GitHub Actions runtime (under 6 hours)
+    timeout-minutes: 350 # Run continuously up to GitHub's max runner time (~5.8 hours)
 
     steps:
       - name: Checkout Repository
@@ -56,194 +56,214 @@ jobs:
           token: ${{ secrets.GH_PAT || github.token }}
           fetch-depth: 0
 
-      - name: Save Last Inputs (Persist State by Workflow Name)
+      - name: Install System Utilities & Setup TUN Module
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y curl jq iptables iproute2 xxd
+          sudo modprobe tun
+
+      - name: Save Workflow Run State
         env:
           WORKFLOW_NAME: ${{ github.workflow }}
           PROXIES_INPUT: ${{ github.event.inputs.gologin_proxies }}
+          ENABLE_PROXYRACK: ${{ github.event.inputs.enable_proxyrack }}
           PS_CID: ${{ github.event.inputs.packetstream_cid }}
           PAWNS_EMAIL: ${{ github.event.inputs.pawns_email }}
           REPOCKET_EMAIL: ${{ github.event.inputs.repocket_email }}
-          PROXYRACK_UUID: ${{ github.event.inputs.proxyrack_uuid }}
           BYTELIXIR_TOKEN: ${{ github.event.inputs.bytelixir_token }}
         run: |
           mkdir -p .state
-          # Sanitize workflow name to create a safe filename
-          SAFE_NAME=$(echo "$WORKFLOW_NAME" | tr '[:upper:]' '[:lower:]' | sed -E 's/[^a-z0-9_-]/_/g')
-          STATE_FILE=".state/${SAFE_NAME}_inputs.json"
+          SAFE_WORKFLOW_NAME=$(echo "$WORKFLOW_NAME" | tr '[:upper:]' '[:lower:]' | sed -E 's/[^a-z0-9_-]/_/g')
+          STATE_FILE=".state/${SAFE_WORKFLOW_NAME}_last_run.json"
 
-          # Write current run configuration (excluding passwords for safety)
           cat <<EOF > "$STATE_FILE"
           {
             "workflow_name": "$WORKFLOW_NAME",
-            "last_run_utc": "$(date -u +"%Y-%m-%dT%H:%M:%SZ")",
-            "platforms_enabled": {
+            "executed_at_utc": "$(date -u +"%Y-%m-%dT%H:%M:%SZ")",
+            "platforms": {
+              "proxyrack": $ENABLE_PROXYRACK,
               "packetstream": $([ -n "$PS_CID" ] && echo "true" || echo "false"),
               "pawns_app": $([ -n "$PAWNS_EMAIL" ] && echo "true" || echo "false"),
               "repocket": $([ -n "$REPOCKET_EMAIL" ] && echo "true" || echo "false"),
-              "proxyrack": $([ -n "$PROXYRACK_UUID" ] && echo "true" || echo "false"),
               "bytelixir": $([ -n "$BYTELIXIR_TOKEN" ] && echo "true" || echo "false")
             },
-            "proxy_count": $(echo "$PROXIES_INPUT" | grep -v '^$' | wc -l)
+            "raw_proxy_lines_count": $(echo "$PROXIES_INPUT" | grep -v '^[[:space:]]*$' | wc -l)
           }
           EOF
 
-          # Configure Git and push changes
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
           git add "$STATE_FILE"
-          git commit -m "chore(state): update last inputs for ${WORKFLOW_NAME} [skip ci]" || echo "No state changes to commit"
-          git push origin main || git push origin HEAD || echo "State push skipped (no changes or permissions restricted)"
+          git commit -m "chore: record state for ${WORKFLOW_NAME} [skip ci]" || echo "No changes to commit"
+          git push origin main || git push origin HEAD || echo "State push completed or skipped"
 
-      - name: Prepare Linux Kernel & Docker Dependencies
-        run: |
-          sudo apt-get update
-          sudo apt-get install -y curl jq iptables iproute2
-          sudo modprobe tun
-
-      - name: Deploy Isolated Multi-Proxy Stack
+      - name: Verify Proxies, Initialize Isolated Networks & Deploy Platforms
         env:
           PROXIES: ${{ github.event.inputs.gologin_proxies }}
+          ENABLE_PROXYRACK: ${{ github.event.inputs.enable_proxyrack }}
           PS_CID: ${{ github.event.inputs.packetstream_cid }}
           PAWNS_EMAIL: ${{ github.event.inputs.pawns_email }}
           PAWNS_PASSWORD: ${{ github.event.inputs.pawns_password }}
           REPOCKET_EMAIL: ${{ github.event.inputs.repocket_email }}
           REPOCKET_API_KEY: ${{ github.event.inputs.repocket_api_key }}
-          PROXYRACK_UUID: ${{ github.event.inputs.proxyrack_uuid }}
           BYTELIXIR_TOKEN: ${{ github.event.inputs.bytelixir_token }}
         run: |
-          INDEX=1
+          echo "## 🚀 Active Proxy Nodes & Dashboard Registration" >> $GITHUB_STEP_SUMMARY
+          echo "| Node Name | Country | External IP | Status | Proxyrack UUID |" >> $GITHUB_STEP_SUMMARY
+          echo "| :--- | :--- | :--- | :--- | :--- |" >> $GITHUB_STEP_SUMMARY
 
-          echo "$PROXIES" | while IFS= read -r raw_line || [ -n "$raw_line" ]; do
-            # Trim whitespace and skip empty lines
+          INDEX=0
+          ACTIVE_NODES_COUNT=0
+
+          while IFS= read -r raw_line || [ -n "$raw_line" ]; do
             line=$(echo "$raw_line" | xargs)
             [ -z "$line" ] && continue
+            INDEX=$((INDEX + 1))
 
-            echo "=========================================================="
-            echo ">> Processing Proxy #$INDEX"
-            echo "=========================================================="
+            echo ""
+            echo "================================================================="
+            echo " [CHECK] Testing Proxy Candidate #$INDEX..."
+            echo "================================================================="
 
-            # Clean and parse GoLogin / standard format:
-            # Handles: geolocation://user:pass@host:port:Description or user:pass@host:port or host:port:user:pass
-            STRIPPED_LINE=$(echo "$line" | sed -E 's|^[a-zA-Z0-9]+://||')
+            # Strip protocol prefixes like 'geolocation://', 'http://', 'socks5://'
+            STRIPPED=$(echo "$line" | sed -E 's|^[a-zA-Z0-9]+://||')
 
-            if [[ "$STRIPPED_LINE" =~ ([^:@]+):([^@]+)@([^:]+):([0-9]+) ]]; then
-              # Format: user:pass@host:port
+            if [[ "$STRIPPED" =~ ([^:@]+):([^@]+)@([^:]+):([0-9]+) ]]; then
               P_USER="${BASH_REMATCH[1]}"
               P_PASS="${BASH_REMATCH[2]}"
               P_HOST="${BASH_REMATCH[3]}"
               P_PORT="${BASH_REMATCH[4]}"
-              PROXY_URL="http://${P_USER}:${P_PASS}@${P_HOST}:${P_PORT}"
-            elif [[ "$STRIPPED_LINE" =~ ([^:]+):([0-9]+):([^:]+):([^:]+) ]]; then
-              # Format: host:port:user:pass
+              PROXY_CURL_URL="http://${P_USER}:${P_PASS}@${P_HOST}:${P_PORT}"
+            elif [[ "$STRIPPED" =~ ([^:]+):([0-9]+):([^:]+):([^:]+) ]]; then
               P_HOST="${BASH_REMATCH[1]}"
               P_PORT="${BASH_REMATCH[2]}"
               P_USER="${BASH_REMATCH[3]}"
               P_PASS="${BASH_REMATCH[4]}"
-              PROXY_URL="http://${P_USER}:${P_PASS}@${P_HOST}:${P_PORT}"
+              PROXY_CURL_URL="http://${P_USER}:${P_PASS}@${P_HOST}:${P_PORT}"
             else
-              echo "[WARN] Could not parse proxy line format: $line. Skipping."
+              echo "[SKIP] Unable to parse proxy line: $line"
               continue
             fi
 
-            TUN_CONTAINER="tun_net_proxy_${INDEX}"
+            # 1. Pre-flight Check: Test connectivity & fetch Geo IP metadata
+            GEO_RESPONSE=$(curl -x "$PROXY_CURL_URL" --connect-timeout 8 --max-time 15 -s http://ip-api.com/json/ || echo "{}")
+            PROXY_STATUS=$(echo "$GEO_RESPONSE" | jq -r '.status // "fail"')
 
-            # 1. Create Isolated TUN Network Container for this specific proxy
+            if [ "$PROXY_STATUS" != "success" ]; then
+              echo "❌ [DEAD PROXY] Proxy #$INDEX failed ping/connectivity test. Discarding."
+              continue
+            fi
+
+            # 2. Extract Geo details
+            NODE_IP=$(echo "$GEO_RESPONSE" | jq -r '.query')
+            NODE_COUNTRY=$(echo "$GEO_RESPONSE" | jq -r '.country')
+            NODE_COUNTRY_CODE=$(echo "$GEO_RESPONSE" | jq -r '.countryCode')
+            NODE_CITY=$(echo "$GEO_RESPONSE" | jq -r '.city')
+            
+            SAFE_IP=$(echo "$NODE_IP" | tr '.' '_')
+            NODE_NAME="${NODE_COUNTRY_CODE}_Node_${INDEX}_${SAFE_IP}"
+
+            echo "✅ [ACTIVE PROXY]"
+            echo "   • Node Identifier: $NODE_NAME"
+            echo "   • Location:        $NODE_CITY, $NODE_COUNTRY ($NODE_COUNTRY_CODE)"
+            echo "   • External IP:     $NODE_IP"
+
+            # 3. Create isolated network namespace via transparent TUN container
+            TUN_CONTAINER="tun_net_${NODE_NAME}"
+
             docker run -d \
               --name "$TUN_CONTAINER" \
               --cap-add=NET_ADMIN \
               --device /dev/net/tun \
               xjasonlyu/tun2socks:latest \
               -device tun0 \
-              -proxy "$PROXY_URL"
+              -proxy "$PROXY_CURL_URL"
 
-            # Allow tunnel initialization
             sleep 3
 
-            # 2. Verify External IP of this isolated network container
-            EXIT_IP=$(docker run --rm --net=container:"$TUN_CONTAINER" curlimages/curl:latest -s -m 10 https://api.ipify.org || echo "Unreachable")
-            echo "[Node #$INDEX] Verified Outbound IP: $EXIT_IP"
+            # ----------------------------------------------------
+            # 4. Deploy Platforms inside this Proxy's Network Namespace
+            # ----------------------------------------------------
+            PROXYRACK_UUID_DISPLAY="N/A"
 
-            if [ "$EXIT_IP" = "Unreachable" ] || [ -z "$EXIT_IP" ]; then
-              echo "[ERROR] Proxy #$INDEX failed network test. Skipping platform deployment for this proxy."
-              continue
+            # [A] Proxyrack Peer
+            if [ "$ENABLE_PROXYRACK" = "true" ]; then
+              # Generate standard 64-character hexadecimal UUID required by Proxyrack
+              PR_UUID=$(head -c 32 /dev/urandom | xxd -p | tr -d '\n')
+              PROXYRACK_UUID_DISPLAY="$PR_UUID"
+
+              docker run -d \
+                --name "proxyrack_${NODE_NAME}" \
+                --net=container:"$TUN_CONTAINER" \
+                -e UUID="$PR_UUID" \
+                -e DEVICE_NAME="$NODE_NAME" \
+                proxyrack/pop:latest
+
+              echo "  [+] Proxyrack started."
+              echo "      >> DEVICE UUID: $PR_UUID"
+              echo "      >> Add UUID at: https://peer.proxyrack.com/devices"
             fi
 
-            # ----------------------------------------------------
-            # 3. Launch Platforms in THIS proxy's network container
-            # ----------------------------------------------------
-
-            # [A] PacketStream
+            # [B] PacketStream
             if [ -n "$PS_CID" ]; then
               docker run -d \
-                --name "packetstream_node_${INDEX}" \
+                --name "packetstream_${NODE_NAME}" \
                 --net=container:"$TUN_CONTAINER" \
                 -e CID="$PS_CID" \
                 packetstream/psclient:latest
-              echo "  [+] PacketStream started on Node #$INDEX"
-            else
-              echo "  [-] PacketStream skipped (no CID provided)"
+              echo "  [+] PacketStream started."
             fi
 
-            # [B] Pawns.app (IPRoyal)
+            # [C] Pawns.app (IPRoyal)
             if [ -n "$PAWNS_EMAIL" ] && [ -n "$PAWNS_PASSWORD" ]; then
               docker run -d \
-                --name "pawns_node_${INDEX}" \
+                --name "pawns_${NODE_NAME}" \
                 --net=container:"$TUN_CONTAINER" \
                 iproyal/pawns-cli:latest \
-                pawns-cli -email="$PAWNS_EMAIL" -password="$PAWNS_PASSWORD" -device-name="gh_proxy_${INDEX}" -accept-tos
-              echo "  [+] Pawns.app started on Node #$INDEX"
-            else
-              echo "  [-] Pawns.app skipped (no Email/Password provided)"
+                pawns-cli -email="$PAWNS_EMAIL" -password="$PAWNS_PASSWORD" -device-name="$NODE_NAME" -accept-tos
+              echo "  [+] Pawns.app started."
             fi
 
-            # [C] Repocket
+            # [D] Repocket
             if [ -n "$REPOCKET_EMAIL" ] && [ -n "$REPOCKET_API_KEY" ]; then
               docker run -d \
-                --name "repocket_node_${INDEX}" \
+                --name "repocket_${NODE_NAME}" \
                 --net=container:"$TUN_CONTAINER" \
                 -e RP_EMAIL="$REPOCKET_EMAIL" \
                 -e RP_API_KEY="$REPOCKET_API_KEY" \
                 repocket/repocket:latest
-              echo "  [+] Repocket started on Node #$INDEX"
-            else
-              echo "  [-] Repocket skipped (no Email/API Key provided)"
-            fi
-
-            # [D] Proxyrack
-            if [ -n "$PROXYRACK_UUID" ]; then
-              docker run -d \
-                --name "proxyrack_node_${INDEX}" \
-                --net=container:"$TUN_CONTAINER" \
-                -e UUID="$PROXYRACK_UUID" \
-                proxyrack/pop:latest
-              echo "  [+] Proxyrack started on Node #$INDEX"
-            else
-              echo "  [-] Proxyrack skipped (no UUID provided)"
+              echo "  [+] Repocket started."
             fi
 
             # [E] ByteLixir
             if [ -n "$BYTELIXIR_TOKEN" ]; then
               docker run -d \
-                --name "bytelixir_node_${INDEX}" \
+                --name "bytelixir_${NODE_NAME}" \
                 --net=container:"$TUN_CONTAINER" \
                 -e BYTELIXIR_TOKEN="$BYTELIXIR_TOKEN" \
                 bytelixir/bytelixir:latest
-              echo "  [+] ByteLixir started on Node #$INDEX"
-            else
-              echo "  [-] ByteLixir skipped (no Token provided)"
+              echo "  [+] ByteLixir started."
             fi
 
-            INDEX=$((INDEX + 1))
-          done
+            ACTIVE_NODES_COUNT=$((ACTIVE_NODES_COUNT + 1))
+            echo "| \`$NODE_NAME\` | $NODE_COUNTRY ($NODE_COUNTRY_CODE) | \`$NODE_IP\` | 🟢 Running | \`$PROXYRACK_UUID_DISPLAY\` |" >> $GITHUB_STEP_SUMMARY
 
-          echo "=========================================================="
-          echo "All active nodes initialized. Monitoring traffic..."
-          echo "=========================================================="
+          done <<< "$PROXIES"
 
-          # Keepalive loop with status log every 2 minutes
+          echo ""
+          echo "================================================================="
+          echo "Deployment Completed: $ACTIVE_NODES_COUNT Active Node Stacks Online"
+          echo "================================================================="
+
+          if [ "$ACTIVE_NODES_COUNT" -eq 0 ]; then
+            echo "[ERROR] No active proxies were found. Exiting."
+            exit 1
+          fi
+
+          # Monitoring and health check loop
           for minute in $(seq 1 2 340); do
-            echo "----------------------------------------"
-            echo "Uptime: $minute / 340 minutes"
+            echo "--------------------------------------------------------"
+            echo "Heartbeat Check: Minute $minute / 340"
             docker ps --format "table {{.Names}}\t{{.Status}}\t{{.Image}}"
             sleep 120
           done

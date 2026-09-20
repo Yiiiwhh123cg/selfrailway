@@ -93,7 +93,7 @@ on:
           - '06. Opera - Fahmad'
           - '07. Opera - Peggy'
           - '08. Opera - Tufayl'
-        default: '01. Ad-MVN - F.Ahmadx'
+        default: '01. OperaGX - Fahmad'
       manual_software_url:
         description: 'Manual URL'
         required: false
@@ -108,12 +108,12 @@ on:
         description: 'Apply Fingerprint Masking'
         required: true
         type: boolean
-        default: true
+        default: false
       scrapeops_api_key:
         description: 'ScrapeOps / Floppy / BytesFlow / Redscrape / GoLogin / Manual'
         required: false
         type: string
-        default: 'geolocation://undefined:undefined@:80:United geolocation://mTEOta78VlY5Tju3:RzJ9UvUTBaocsXUo@geo.floppydata.com:10080:United geolocation://xCtaWfN4wsyKNdtJ:egPvwqcQ1BaxB42S@geo.floppydata.com:10080:United geolocation://TkzLEqJXsqonYzcC:P2IPkRRpwKk6KPFW@geo.floppydata.com:10080:United geolocation://9F3MMxxvawwQNitY:X5Gkffhy3S9xg150@geo.floppydata.com:10080:United'
+        default: 'geolocation://fzNQV4086lHmLmjg:26lnBJBb2WC9U01D@geo.floppydata.com:10080:Netherlands geolocation://29qlKemtaX3KoH7e:G5VhOWDIttBPCMUO@geo.floppydata.com:10080:Netherlands geolocation://r6AvXRpWV5fkmWYF:APvDkKJbi36vIn3E@geo.floppydata.com:10080:Netherlands geolocation://CzPl1FsZbvd7fKHt:trzpEBN1WbXPUo35@geo.floppydata.com:10080:Netherlands geolocation://z4G73nEPiMT2TTjF:0RXClWxaSURFIAYa@geo.floppydata.com:10080:Netherlands geolocation://hduseT14MG5JPDV7:0zAfDuatxK6lEA7n@geo.floppydata.com:10080:Netherlands'
       use_without_proxy:
         description: 'Use Without Proxy'
         required: true
@@ -139,7 +139,7 @@ on:
           - 'Italy'
           - 'Netherlands'
           - 'Poland'
-        default: 'USA'
+        default: 'Netherlands'
       fallback_country:
         description: 'Fallback Country'
         required: true

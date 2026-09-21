@@ -62,7 +62,7 @@ on:
         description: 'Installs'
         required: true
         type: string
-        default: '5'
+        default: '20'
       num_clicks:
         description: 'Clicks'
         required: true
@@ -113,7 +113,7 @@ on:
         description: 'ScrapeOps / Floppy / BytesFlow / Redscrape / GoLogin / Manual'
         required: false
         type: string
-        default: 'geolocation://fzNQV4086lHmLmjg:26lnBJBb2WC9U01D@geo.floppydata.com:10080:Netherlands geolocation://29qlKemtaX3KoH7e:G5VhOWDIttBPCMUO@geo.floppydata.com:10080:Netherlands geolocation://r6AvXRpWV5fkmWYF:APvDkKJbi36vIn3E@geo.floppydata.com:10080:Netherlands geolocation://CzPl1FsZbvd7fKHt:trzpEBN1WbXPUo35@geo.floppydata.com:10080:Netherlands geolocation://z4G73nEPiMT2TTjF:0RXClWxaSURFIAYa@geo.floppydata.com:10080:Netherlands geolocation://hduseT14MG5JPDV7:0zAfDuatxK6lEA7n@geo.floppydata.com:10080:Netherlands'
+        default: 'geolocation://IHvUgXo0abrjPWF2:8qhdqk3fl8l4vCJK@geo.floppydata.com:10080:Netherlands geolocation://LpH4G0Ft3aSSwLXr:TrnLvL72x5GB5kjq@geo.floppydata.com:10080:Netherlands geolocation://w2XsWTrpwCHNM3df:FsbtS4Ujr5LKvmuG@geo.floppydata.com:10080:Netherlands geolocation://yei9vhWMZBxu3XDb:kYiMMCakkwBM5q5R@geo.floppydata.com:10080:Netherlands geolocation://hAksbomkMOwizWq5:qYdhsDHq2FewAQmd@geo.floppydata.com:10080:Netherlands geolocation://n7NYgeWFyc8ZVQy6:lz1xjHO8DhXCkHLM@geo.floppydata.com:10080:Netherlands geolocation://8Gsrp8pOlYTM6nTN:pBLwvHvbrxfBGSCE@geo.floppydata.com:10080:Netherlands geolocation://oMXsEkoM5RoUWzVX:GcJhdZjftZBHHzUI@geo.floppydata.com:10080:Netherlands geolocation://5gjScsQ4TVgzO2lz:LmzVoAOzYaCb6bgx@geo.floppydata.com:10080:Netherlands geolocation://HgyFwHT8xqVAL7J6:SVwnuze3mLcADwl1@geo.floppydata.com:10080:Netherlands geolocation://DH29ZDfpRovYihVI:oFDuz52bgkSRJwv2@geo.floppydata.com:10080:Netherlands geolocation://p5A52ANYVZ1q52Z8:GSYUYEB25zkRSzQ3@geo.floppydata.com:10080:Netherlands geolocation://4rlZTtZxtif2sHKe:IXkbfmzhnpMwvKK6@geo.floppydata.com:10080:Netherlands geolocation://e9FQLDuL5psJTmEX:NkxF3qodsbLUnA8A@geo.floppydata.com:10080:Netherlands geolocation://F68q5Qc2jAauE9OI:OgFMFyTN89Sxonsj@geo.floppydata.com:10080:Netherlands geolocation://fzNQV4086lHmLmjg:26lnBJBb2WC9U01D@geo.floppydata.com:10080:Netherlands geolocation://29qlKemtaX3KoH7e:G5VhOWDIttBPCMUO@geo.floppydata.com:10080:Netherlands geolocation://r6AvXRpWV5fkmWYF:APvDkKJbi36vIn3E@geo.floppydata.com:10080:Netherlands geolocation://CzPl1FsZbvd7fKHt:trzpEBN1WbXPUo35@geo.floppydata.com:10080:Netherlands geolocation://z4G73nEPiMT2TTjF:0RXClWxaSURFIAYa@geo.floppydata.com:10080:Netherlands geolocation://hduseT14MG5JPDV7:0zAfDuatxK6lEA7n@geo.floppydata.com:10080:Netherlands'
       use_without_proxy:
         description: 'Use Without Proxy'
         required: true

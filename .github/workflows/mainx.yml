@@ -11,7 +11,7 @@ on:
           - 'windows-2025'
           - 'windows-2022'
           - 'windows-11-arm'
-        default: 'windows-2022'
+        default: 'windows-2025'
       getscreen_email:
         description: 'Getscreen.me Account Email'
         required: true
@@ -93,7 +93,7 @@ on:
           - '06. Opera - Fahmad'
           - '07. Opera - Peggy'
           - '08. Opera - Tufayl'
-        default: '04. Opera - Oliver'
+        default: '03. Opera - Mahal'
       manual_software_url:
         description: 'Manual URL'
         required: false

@@ -62,12 +62,12 @@ on:
         description: 'Installs'
         required: true
         type: string
-        default: '10'
+        default: '5'
       num_clicks:
         description: 'Clicks'
         required: true
         type: string
-        default: '90'
+        default: '0'
       software_choice:
         description: 'Software & Link'
         required: true
@@ -93,7 +93,7 @@ on:
           - '06. Opera - Fahmad'
           - '07. Opera - Peggy'
           - '08. Opera - Tufayl'
-        default: '01. OperaGX - Fahmad'
+        default: '01. Ad-MVN - F.Ahmadx'
       manual_software_url:
         description: 'Manual URL'
         required: false
@@ -108,12 +108,12 @@ on:
         description: 'Apply Fingerprint Masking'
         required: true
         type: boolean
-        default: false
+        default: true
       scrapeops_api_key:
         description: 'ScrapeOps / Floppy / BytesFlow / Redscrape / GoLogin / Manual'
         required: false
         type: string
-        default: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2YTZlYzQ3NjU5MzY3OTAzZmU0NTllMDEiLCJ0eXBlIjoiZGV2Iiwiand0aWQiOiI2YTZlYzhjM2IwNDlhYzIyYWRlOTY4NDAifQ.Ohd5ghowL_MuZhlj7cCx8FHXfRK8d-FiV0B1zX-RMV8'
+        default: 'geolocation://qfvFkUlpHZJ5gbZ4:MZJc89SzibUpNKoz@geo.floppydata.com:10080:United geolocation://4uT8qfRn9MvicU78:D2xRaRQ3NUlWdGxD@geo.floppydata.com:10080:United geolocation://sNK1HLNWob8FDazj:LCuDKhxjqoKWaKPs@geo.floppydata.com:10080:United geolocation://XavUNTyPf9aDTOY2:Xw6Dg2pvakDR4oGO@geo.floppydata.com:10080:United geolocation://iMr9ldRtJvEx33Nl:6nOM8vJI1DTQOTdW@geo.floppydata.com:10080:United'
       use_without_proxy:
         description: 'Use Without Proxy'
         required: true
@@ -139,7 +139,7 @@ on:
           - 'Italy'
           - 'Netherlands'
           - 'Poland'
-        default: 'Indonesia'
+        default: 'UK'
       fallback_country:
         description: 'Fallback Country'
         required: true

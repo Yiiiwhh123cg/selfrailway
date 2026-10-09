@@ -32,7 +32,7 @@ on:
           - '8'
           - '9'
           - '10'
-        default: '1'
+        default: '5'
       delay_between_devices:
         description: 'Delay Between Devices'
         required: true
@@ -62,12 +62,12 @@ on:
         description: 'Installs'
         required: true
         type: string
-        default: '5'
+        default: '3'
       num_clicks:
         description: 'Clicks'
         required: true
         type: string
-        default: '0'
+        default: '2'
       software_choice:
         description: 'Software & Link'
         required: true
@@ -113,7 +113,7 @@ on:
         description: 'ScrapeOps / Floppy / BytesFlow / Redscrape / GoLogin / Manual'
         required: false
         type: string
-        default: 'geolocation://qfvFkUlpHZJ5gbZ4:MZJc89SzibUpNKoz@geo.floppydata.com:10080:United geolocation://4uT8qfRn9MvicU78:D2xRaRQ3NUlWdGxD@geo.floppydata.com:10080:United geolocation://sNK1HLNWob8FDazj:LCuDKhxjqoKWaKPs@geo.floppydata.com:10080:United geolocation://XavUNTyPf9aDTOY2:Xw6Dg2pvakDR4oGO@geo.floppydata.com:10080:United geolocation://iMr9ldRtJvEx33Nl:6nOM8vJI1DTQOTdW@geo.floppydata.com:10080:United'
+        default: 'geolocation://GmOOatbciuOeUxgb:0yREzrqphv76Qzpr@geo.floppydata.com:10080:United geolocation://PzY5BUSkrtPVc4VE:sGK7DBwVN9GDfRxB@geo.floppydata.com:10080:United geolocation://mV6vnsE861q3eDsX:Hmtj50PvyEo1XqMc@geo.floppydata.com:10080:United geolocation://DO6qZJf7fILwJ8Mb:xu3CfHr9gkeZ7JYj@geo.floppydata.com:10080:United geolocation://Wkw2h6nDwCBiPBu9:3wz3zImzw2wvyDrG@geo.floppydata.com:10080:United'
       use_without_proxy:
         description: 'Use Without Proxy'
         required: true
@@ -139,7 +139,7 @@ on:
           - 'Italy'
           - 'Netherlands'
           - 'Poland'
-        default: 'UK'
+        default: 'USA'
       fallback_country:
         description: 'Fallback Country'
         required: true

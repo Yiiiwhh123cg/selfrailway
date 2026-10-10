@@ -417,7 +417,7 @@ jobs:
                   batch_delays[b] = 0
 
           mob_opera_urls = {
-              "Mob Opera - Techx": "https://techx.short.gy/techxmbxsmrt",
+              "Mob Opera - Techx": "https://dub.sh/techxmbxsmrt",
           }
           avg_urls = {
               "AVG - Techx": "https://techx.short.gy/techxavg",

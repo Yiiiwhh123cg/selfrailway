@@ -58,7 +58,7 @@ on:
         description: 'Dont Install Cloudflare 1.1.1.1'
         required: false
         type: boolean
-        default: false
+        default: true
       skip_gologin:
         description: 'Dont Install Gologin'
         required: false

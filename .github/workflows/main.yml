@@ -41,7 +41,7 @@ on:
           - '3'
           - '4'
           - '5'
-        default: '1'
+        default: '3'
       session_timeout:
         description: 'Session Timeout'
         required: true
@@ -58,7 +58,7 @@ on:
         description: 'Dont Install Cloudflare 1.1.1.1'
         required: false
         type: boolean
-        default: true
+        default: false
       skip_gologin:
         description: 'Dont Install Gologin'
         required: false

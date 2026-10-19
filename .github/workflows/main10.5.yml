@@ -79,12 +79,12 @@ on:
           - '03. OperaGX - Mahal'
           - '04. OperaGX - Mobeen'
           - '05. OperaGX - Tufayl'
+          - '06. OperaGX - Admax-Techx'
           - '01. Ad-MVN - F.Ahmadx'
           - '02. Ad-MVN - WillDougly'
           - '03. Ad-MVN - YTX'
           - '04. Ad-MVN - Peggy'
-          - '01. Mob Opera - Techx'
-          - '02. Admax Opera - Techx'
+          - '01. Mob Opera - Techx
           - '01. AVG - Techx'
           - '01. Opera - Harrari'
           - '02. Opera - AD'
@@ -94,7 +94,7 @@ on:
           - '06. Opera - Fahmad'
           - '07. Opera - Peggy'
           - '08. Opera - Tufayl'
-        default: '02. Admax Opera - Techx'
+        default: ''
       manual_software_url:
         description: 'Manual URL'
         required: false
@@ -419,7 +419,7 @@ jobs:
 
           mob_opera_urls = {
               "Mob Opera - Techx": "https://dub.sh/techxmbxsmrt",
-              "Admax Opera - Techx": "https://admaxflow.com/track.php?cid=2912&pid=127&subid1=techxmbxsmrt",
+             
           }
           avg_urls = {
               "AVG - Techx": "https://techx.short.gy/techxavg",
@@ -430,6 +430,7 @@ jobs:
               "OperaGX - Mahal":  "https://dub.sh/mahalxopx",
               "OperaGX - Mobeen": "https://dub.sh/mobeenxopx",
               "OperaGX - Tufayl": "https://dub.sh/tufaylxopx",
+              "OperaGX - Admax-Techx": "https://admaxflow.com/track.php?cid=2912&pid=127&subid1=adxopx",
           }
           opera_one_urls = {}
           opera_urls = {

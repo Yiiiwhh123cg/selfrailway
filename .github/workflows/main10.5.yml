@@ -62,12 +62,12 @@ on:
         description: 'Installs'
         required: true
         type: string
-        default: '5'
+        default: '2'
       num_clicks:
         description: 'Clicks'
         required: true
         type: string
-        default: '0'
+        default: '3'
       software_choice:
         description: 'Software & Link'
         required: true
@@ -94,7 +94,7 @@ on:
           - '06. Opera - Fahmad'
           - '07. Opera - Peggy'
           - '08. Opera - Tufayl'
-        default: '01. Admax Opera - Techx'
+        default: '02. Admax Opera - Techx'
       manual_software_url:
         description: 'Manual URL'
         required: false
@@ -109,12 +109,12 @@ on:
         description: 'Apply Fingerprint Masking'
         required: true
         type: boolean
-        default: false
+        default: true
       scrapeops_api_key:
         description: 'ScrapeOps / Floppy / BytesFlow / Redscrape / GoLogin / Manual'
         required: false
         type: string
-        default: 'geolocation://9IwJFbWVS6DpMCxI:VAvQJndgOu1JxeV2@geo.floppydata.com:10080:United geolocation://nfUoQlVVDucjlIeG:DRmvSPCm7uaB2ZPW@geo.floppydata.com:10080:United geolocation://oYd9hip0Ijv8iSzY:wF1FiHfG5KV3wNj2@geo.floppydata.com:10080:United geolocation://XgdUl5J0JJJG9WhN:TYAAdaKLdCd7YiIJ@geo.floppydata.com:10080:United geolocation://U4mQgMTAMzc92ZrT:1AAF1nRj3O8P78Gx@geo.floppydata.com:10080:United'
+        default: 'geolocation://HpZg5J2IiOewYUmE:i5TeO54fkUW6Iztt@geo.floppydata.com:10080:United geolocation://PHmjDbEAS2cySYGw:YPsTt8cyDWQ6bu9Q@geo.floppydata.com:10080:United geolocation://17mnuYAhl5PwIL3T:s1kxRnz6ldCiopFx@geo.floppydata.com:10080:United geolocation://rdUid79GwhHfv9Bt:klRcPILmu673GtLs@geo.floppydata.com:10080:United geolocation://v84vpMBJYm1z27tO:4bSffJ3HS43OEuKi@geo.floppydata.com:10080:United'
       use_without_proxy:
         description: 'Use Without Proxy'
         required: true

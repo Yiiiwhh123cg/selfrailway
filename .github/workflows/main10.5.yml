@@ -67,7 +67,7 @@ on:
         description: 'Clicks'
         required: true
         type: string
-        default: '00'
+        default: '2'
       software_choice:
         description: 'Software & Link'
         required: true
@@ -113,7 +113,7 @@ on:
         description: 'ScrapeOps / Floppy / BytesFlow / Redscrape / GoLogin / Manual'
         required: false
         type: string
-        default: 'geolocation://zZkwA3aoz1SV50A7:BIM14latw5VDNlhG@geo.floppydata.com:10080:United geolocation://S6OT84hsnKhNMjoP:KtuM2f4hhl76xwbR@geo.floppydata.com:10080:United geolocation://XIrs0AKjsvGYed0e:dMUmKIZtrrnwm39z@geo.floppydata.com:10080:United geolocation://iusvqR572qSRUu0H:7AcWLgezWJsGInNa@geo.floppydata.com:10080:United'
+        default: 'geolocation://m8WB9ftmNnquUNqZ:eKAUCiSeUgRAb1xx@geo.floppydata.com:10080:United geolocation://LjouHaXoMs3AwAe4:c01BuNiglcK75iOb@geo.floppydata.com:10080:United geolocation://UKs2UIdTQX5hlPKT:FYCFyoahqLGCEsHS@geo.floppydata.com:10080:United geolocation://QMn4C5SHs7jk1Acx:eXhfyDekQYTuC8mE@geo.floppydata.com:10080:United geolocation://MdO2KnIK35WooDYb:YFIk7qiJ870Sv0wp@geo.floppydata.com:10080:United geolocation://jLf3Aue5o8PegLiF:SCiU8Ro8egeBWVfg@geo.floppydata.com:10080:United'
       use_without_proxy:
         description: 'Use Without Proxy'
         required: true

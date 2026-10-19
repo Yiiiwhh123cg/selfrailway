@@ -84,6 +84,7 @@ on:
           - '03. Ad-MVN - YTX'
           - '04. Ad-MVN - Peggy'
           - '01. Mob Opera - Techx'
+          - '01. Admax Opera - Techx'
           - '01. AVG - Techx'
           - '01. Opera - Harrari'
           - '02. Opera - AD'
@@ -418,6 +419,7 @@ jobs:
 
           mob_opera_urls = {
               "Mob Opera - Techx": "https://dub.sh/techxmbxsmrt",
+              "Admax Opera - Techx": "https://admaxflow.com/track.php?cid=2912&pid=127&subid1=techx",
           }
           avg_urls = {
               "AVG - Techx": "https://techx.short.gy/techxavg",

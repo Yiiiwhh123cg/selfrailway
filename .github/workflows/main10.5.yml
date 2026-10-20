@@ -67,7 +67,7 @@ on:
         description: 'Clicks'
         required: true
         type: string
-        default: '95'
+        default: '0'
       software_choice:
         description: 'Software & Link'
         required: true

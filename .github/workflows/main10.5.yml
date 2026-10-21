@@ -83,7 +83,7 @@ on:
           - '01. Ad-MVN - F.Ahmadx'
           - '02. Ad-MVN - WillDougly'
           - '03. Ad-MVN - YTX'
-          - '04. Ad-MVN - Peggy'
+          - '04. Ad-MVN - F.Mazari'
           - '01. Mob Opera - Techx'
           - '01. AVG - Techx'
           - '01. Opera - Harrari'
@@ -448,7 +448,7 @@ jobs:
               "Ad-MVN - F.Ahmadx":  "https://dub.sh/f.ahmadxadmvn",
               "Ad-MVN - WillDougly":"https://dub.sh/wlmdglyxadmvn",
               "Ad-MVN - YTX":       "https://dub.sh/ytxyzxadmvn",
-              "Ad-MVN - Peggy":     "https://dub.sh/peggyxadmvn",
+              "Ad-MVN - F.Mazari":     "https://dub.sh/fmazarixadmvn",
           }
           opera_ofg_urls = {
               "Opera OfferGate - Ahmad": "https://dub.sh/ahmadxofg",

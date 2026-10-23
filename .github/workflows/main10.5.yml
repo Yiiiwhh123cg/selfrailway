@@ -95,7 +95,7 @@ on:
           - '07. Opera - Peggy'
           - '08. Opera - Tufayl'
           
-        default: '06. OperaGX - Admax-Techx'
+        default: '04. Ad-MVN - F.Mazari'
       manual_software_url:
         description: 'Manual URL'
         required: false

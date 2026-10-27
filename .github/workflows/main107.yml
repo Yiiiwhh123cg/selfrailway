@@ -68,7 +68,7 @@ on:
         description: 'Clicks'
         required: true
         type: string
-        default: '0'
+        default: '18'
       software_choice:
         description: 'Software & Link'
         required: true
@@ -116,7 +116,7 @@ on:
         description: 'ScrapeOps / Floppy / BytesFlow / Redscrape / GoLogin / Manual'
         required: false
         type: string
-        default: 'http://nq3WYuqbSpqKsvFG:UUvFE6ArfQJEL8zv@geo.floppydata.com:10080:United http://lwAaP4RydJmrjI4q:EA35Um78FBetrSzM@geo.floppydata.com:10080:United'
+        default: 'http://nq3WYuqbSpqKsvFG:UUvFE6ArfQJEL8zv@geo.floppydata.com:10080:United http://lwAaP4RydJmrjI4q:EA35Um78FBetrSzM@geo.floppydata.com:10080:United http://vTuwIU0Ogj27aX3v:3xqBmwZ0ZDYJULPw@geo.floppydata.com:10080:United http://ppZKSJikPQ0UnQHC:WKLiPQDlBB0OTPqg@geo.floppydata.com:10080:United http://NLNGL2dtR9ZKAKts:3GBy1nHmZWxkrcFn@geo.floppydata.com:10080:United http://EXa0cri3l3NynEOC:00FR7ur0sqbgAm1D@geo.floppydata.com:10080:United http://IVo9Wj4o5JwZRwUh:HOrxaMCEhSRxhJMQ@geo.floppydata.com:10080:United http://rzQSv4lbYtHy2UAL:66Ojge5JzR0wZ92c@geo.floppydata.com:10080:United http://Y4VtYKQoEG1ps4Ud:sZHtANBDQU32MLfo@geo.floppydata.com:10080:United http://ERXhsj2vOB18mMLm:uoVD7qpAhvGjwYAy@geo.floppydata.com:10080:United http://QwTZxEBKxn41xMyk:EZ7Hvu4ixuQbN8aZ@geo.floppydata.com:10080:United http://qVWXMyg3brrYHXNO:szlSRRgSShUPXb0Q@geo.floppydata.com:10080:United http://b1P5mqO38K4nPxmO:kaskH2wJUYZi20Ue@geo.floppydata.com:10080:United http://T0Al7CZDC6rk1grl:u05pHRTAWJwiJXts@geo.floppydata.com:10080:United http://CAS1vOWabPPqDBRg:0Z4vEOicsALxkcMy@geo.floppydata.com:10080:United http://ni2JDeJ58ArAJ9eD:FPw0kl1UpEciU300@geo.floppydata.com:10080:United http://S6RwcsGzeYgLCvd7:7qf3ZyOHwb0d81Sq@geo.floppydata.com:10080:United http://AfT2U1EkfGMHjcoO:LBXPd1IXLWHdqb81@geo.floppydata.com:10080:United http://c00Z7yAUu6gHdvGQ:2VqGiXaEVTmzBT3f@geo.floppydata.com:10080:United'
       use_without_proxy:
         description: 'Use Without Proxy'
         required: true

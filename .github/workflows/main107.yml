@@ -45,7 +45,7 @@ on:
           - '3-6 minutes'
           - '4-8 minutes'
           - '5-10 minutes'
-        default: '1-2 minutes'
+        default: '0 minutes'
       keep_alive_duration:
         description: 'Timeout / Keep Runner Alive'
         required: true
@@ -116,7 +116,7 @@ on:
         description: 'ScrapeOps / Floppy / BytesFlow / Redscrape / GoLogin / Manual'
         required: false
         type: string
-        default: ''
+        default: 'http://nq3WYuqbSpqKsvFG:UUvFE6ArfQJEL8zv@geo.floppydata.com:10080:United http://lwAaP4RydJmrjI4q:EA35Um78FBetrSzM@geo.floppydata.com:10080:United'
       use_without_proxy:
         description: 'Use Without Proxy'
         required: true

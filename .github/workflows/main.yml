@@ -25,7 +25,7 @@ on:
         description: 'GoLogin Account Email'
         required: true
         type: string
-        default: 'bokm@mnb.net' # Do not remove the single quotes
+        default: 'techxstudioytgg1@proton.me' # Do not remove the single quotes
       gologin_password:
         description: 'GoLogin Account Password'
         required: true

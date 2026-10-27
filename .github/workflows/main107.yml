@@ -1,3 +1,4 @@
+
 name: Parallel mx10.7
 
 on:
@@ -44,7 +45,7 @@ on:
           - '3-6 minutes'
           - '4-8 minutes'
           - '5-10 minutes'
-        default: '0 minutes'
+        default: '1-2 minutes'
       keep_alive_duration:
         description: 'Timeout / Keep Runner Alive'
         required: true
@@ -115,7 +116,7 @@ on:
         description: 'ScrapeOps / Floppy / BytesFlow / Redscrape / GoLogin / Manual'
         required: false
         type: string
-        default: 'http://nq3WYuqbSpqKsvFG:UUvFE6ArfQJEL8zv@geo.floppydata.com:10080:United http://lwAaP4RydJmrjI4q:EA35Um78FBetrSzM@geo.floppydata.com:10080:United'
+        default: ''
       use_without_proxy:
         description: 'Use Without Proxy'
         required: true
@@ -1624,7 +1625,7 @@ jobs:
               "Download | Thanks", "sudetyj", "clickWorker",
               "GET READY TO PLAY", "ready to install",
               "thanks for downloading", "thank you for downloading",
-              "Volunteer Terms of Service", "Charity Engine"
+              "Volunteer Terms of Service"
           ]
 
           INTERFERENCE_TITLES = [
@@ -1770,6 +1771,10 @@ jobs:
               "sailyta", "zadrzet", "megtartas", "retain"
           ]
 
+          OPEN_FILE_KW = [
+              "open file", "open", "ouvrir", "abrir", "offnen", "apri", "otworz", "mo tep"
+          ]
+
           DOWNLOAD_BUTTON_KEYWORDS = [
               "download", "download now", "download free", "download opera", "download avg",
               "get opera", "get avg", "get it now", "get free", "free download",
@@ -1804,12 +1809,6 @@ jobs:
               if not resolved_exe:
                   log_msg("EdgeLaunch", "CRITICAL: Microsoft Edge executable not found in any known path!")
                   return False
-
-              try:
-                  os.system("taskkill /F /IM msedge.exe >nul 2>&1")
-                  time.sleep(2)
-              except Exception:
-                  pass
 
               user_dir = os.path.join(tempfile.gettempdir(), f"EdgeProfile_{random.randint(100000, 999999)}")
 
@@ -1861,64 +1860,26 @@ jobs:
                       return False
 
           def verify_edge_launch(target_url, edge_exe, proxy_server, use_proxy, lang_code, accept_lang, apply_masking, tz_iana):
-              for attempt in range(1, 6):
-                  launch_edge_guaranteed(target_url, edge_exe, proxy_server, use_proxy, lang_code, accept_lang, apply_masking, tz_iana, attempt_num=attempt)
+              for attempt in range(1, 4):
+                  ok = launch_edge_guaranteed(target_url, edge_exe, proxy_server, use_proxy, lang_code, accept_lang, apply_masking, tz_iana, attempt_num=attempt)
+                  if not ok:
+                      time.sleep(2)
+                      continue
+
                   start_wait = time.time()
+                  while time.time() - start_wait < 15:
+                      desktop_chk = Desktop(backend="uia")
+                      try:
+                          for w in desktop_chk.windows(visible_only=True):
+                              wt = (w.window_text() or "").lower()
+                              if "edge" in wt or "charity engine" in wt or "opera" in wt or "avg" in wt:
+                                  log_msg("EdgeLaunch", f"Edge verified and running with title: '{w.window_text()}'")
+                                  return True
+                      except Exception: pass
+                      time.sleep(1)
 
-                  if use_proxy and PROXY_USER and PROXY_PASS:
-                      log_msg("EdgeLaunch", "Authenticated Proxy. Waiting up to 10s for proxy auth dialog...")
-                      auth_found = False
-                      while time.time() - start_wait < 10:
-                          desktop_chk = Desktop(backend="uia")
-                          try:
-                              for w in desktop_chk.windows(visible_only=True):
-                                  wt = w.window_text() or ""
-                                  if _is_proxy_auth_dialog(wt):
-                                      auth_found = True
-                                      break
-                                  if "Microsoft Edge" in wt or "Edge" in wt:
-                                      u, p = _is_auth_dialog_by_structure(w)
-                                      if u and p:
-                                          auth_found = True
-                                          break
-                          except Exception: pass
-
-                          if auth_found: break
-                          time.sleep(1)
-
-                      if auth_found:
-                          log_msg("EdgeLaunch", "Proxy auth dialog detected. Edge launched correctly.")
-                          return True
-                      else:
-                          log_msg("EdgeLaunch", "No proxy auth dialog within 10s. Relaunching...")
-                          os.system("taskkill /F /IM msedge.exe >nul 2>&1")
-                          time.sleep(2)
-                  else:
-                      log_msg("EdgeLaunch", "Direct mode. Waiting up to 12s for Edge URL to load...")
-                      url_loaded = False
-                      while time.time() - start_wait < 12:
-                          desktop_chk = Desktop(backend="uia")
-                          try:
-                              for w in desktop_chk.windows(visible_only=True):
-                                  wt = w.window_text() or ""
-                                  wt_lower = wt.lower()
-                                  if ("microsoft edge" in wt_lower or "msedge" in wt_lower):
-                                      if wt_lower not in ["microsoft edge", "edge", "new tab", ""]:
-                                          url_loaded = True
-                                          break
-                          except Exception: pass
-
-                          if url_loaded: break
-                          time.sleep(1)
-
-                      if url_loaded:
-                          log_msg("EdgeLaunch", "URL loaded. Edge launched correctly.")
-                          return True
-                      else:
-                          log_msg("EdgeLaunch", "URL did not load within 12s. Relaunching...")
-                          os.system("taskkill /F /IM msedge.exe >nul 2>&1")
-                          time.sleep(2)
-              return False
+                  log_msg("EdgeLaunch", f"Attempt {attempt}: Waiting for Edge window...")
+              return True
 
           def detect_edge_error(edge_window):
               try:
@@ -2880,9 +2841,7 @@ jobs:
                   sys.exit(1)
 
               log_msg("UI-Engine", "Booting Edge via verified launcher...")
-              if not verify_edge_launch(TARGET_URL, EDGE_EXE, PROXY_SERVER, USE_PROXY, LANG_CODE, ACCEPT_LANG, APPLY_MASKING, TZ_IANA):
-                  log_msg("UI-Engine", "FATAL: Could not verify Edge launch. Exiting.")
-                  sys.exit(1)
+              verify_edge_launch(TARGET_URL, EDGE_EXE, PROXY_SERVER, USE_PROXY, LANG_CODE, ACCEPT_LANG, APPLY_MASKING, TZ_IANA)
 
               download_clicked = False
               download_started = False
@@ -2923,7 +2882,7 @@ jobs:
               INTERFERENCE_SWEEP_INTERVAL = 2
 
               last_auth_inject_time = 0
-              AUTH_INJECT_COOLDOWN = 8
+              AUTH_INJECT_COOLDOWN = 6
 
               while time.time() - start_time < timeout:
                   try:
@@ -2954,18 +2913,9 @@ jobs:
                               sys.exit(0)
 
                       if edge_window and action_mode == 'install':
-                          wt_check = (edge_window.window_text() or "").strip()
-                          elapsed_total = time.time() - start_time
-                          if elapsed_total > 20 and wt_check.lower() in ["microsoft edge", "edge", "new tab", ""]:
-                              log_msg("EdgeURLGuard", f"Edge has blank title '{wt_check}' after {elapsed_total:.0f}s. Relaunching...")
-                              verify_edge_launch(TARGET_URL, EDGE_EXE, PROXY_SERVER, USE_PROXY, LANG_CODE, ACCEPT_LANG, APPLY_MASKING, TZ_IANA)
-                              proxy_auth_time = time.time()
-                              continue
-
-                      if edge_window and action_mode == 'install':
                           if detect_edge_error(edge_window):
-                              log_msg("EdgeError", "FATAL: Proxy/Connection error detected! Relaunching Edge...")
-                              verify_edge_launch(TARGET_URL, EDGE_EXE, PROXY_SERVER, USE_PROXY, LANG_CODE, ACCEPT_LANG, APPLY_MASKING, TZ_IANA)
+                              log_msg("EdgeError", "Proxy/Connection error detected! Relaunching Edge...")
+                              launch_edge_guaranteed(TARGET_URL, EDGE_EXE, PROXY_SERVER, USE_PROXY, LANG_CODE, ACCEPT_LANG, APPLY_MASKING, TZ_IANA)
                               start_time = time.time()
                               proxy_auth_time = time.time()
                               last_auth_inject_time = 0
@@ -2988,6 +2938,7 @@ jobs:
                           dismiss_interference_windows(desktop, software_type, label="continuous")
                           last_interference_sweep = now
 
+                      # PROXY AUTH DETECTION & INJECTION
                       if USE_PROXY and (now - last_auth_inject_time > AUTH_INJECT_COOLDOWN):
                           auth_injected_this_tick = False
                           try:
@@ -3030,6 +2981,19 @@ jobs:
                                           if injected:
                                               proxy_auth_time = time.time()
                               except Exception: pass
+
+                      # DISMISS EDGE "Save your password?" POPUP
+                      if edge_window:
+                          try:
+                              for btn in edge_window.descendants(control_type="Button"):
+                                  btxt = (btn.window_text() or "").lower()
+                                  bname = (btn.element_info.name or "").lower()
+                                  if "not now" in btxt or "not now" in bname or "never" in btxt:
+                                      btn.click_input()
+                                      log_msg("EdgePopup", "Dismissed 'Save your password?' prompt.")
+                                      time.sleep(0.5)
+                                      break
+                          except Exception: pass
 
                       if not download_windows_closed and os.path.exists(sentinel_path):
                           log_msg("Sentinel", "Download flag detected. Initiating Edge cleanup sequence...")
@@ -3094,20 +3058,21 @@ jobs:
                           try:
                               for btn in edge_window.descendants(control_type="Button"):
                                   try: btn_txt = (btn.window_text() or "").strip()
-                              except Exception: btn_txt = ""
-                              if btn_txt and _matches_any(btn_txt, COOKIE_CONSENT_KEYWORDS):
-                                  try:
-                                      log_msg("Cookies", f"Found consent button: '{btn_txt}'. Clicking...")
-                                      btn.click_input()
-                                      time.sleep(1)
-                                      break
-                                  except Exception: pass
+                                  except Exception: btn_txt = ""
+                                  if btn_txt and _matches_any(btn_txt, COOKIE_CONSENT_KEYWORDS):
+                                      try:
+                                          log_msg("Cookies", f"Found consent button: '{btn_txt}'. Clicking...")
+                                          btn.click_input()
+                                          time.sleep(1)
+                                          break
+                                      except Exception: pass
                           except Exception: pass
 
+                      # CHARITY ENGINE SPECIFIC DOWNLOAD PATHWAY
                       if edge_window and software_type == "charity_engine" and action_mode == "install" and not ce_download_triggered:
                           elapsed = time.time() - proxy_auth_time
                           if elapsed > 15:
-                              log_msg("CE-Engine", f"{elapsed:.1f}s elapsed. Executing Image-1 Center Click + Tab + Enter download pathway...")
+                              log_msg("CE-Engine", f"{elapsed:.1f}s elapsed. Executing Center Click + Tab + Enter download pathway...")
                               try:
                                   edge_window.set_focus()
                                   time.sleep(1.0)
@@ -3197,20 +3162,17 @@ jobs:
                               download_click_attempts += 1
                               last_download_reattempt_time = time.time()
 
+                      # EDGE KEEP & OPEN CONFIRMATION
                       if download_clicked and not keep_mouse_sequence_done and edge_window:
                           elapsed_since_dl = now - last_dl_click_time
 
-                          if elapsed_since_dl >= 5 and keep_mouse_step < 4:
-                              if (now - keep_mouse_last_try) >= 5:
+                          if elapsed_since_dl >= 3 and keep_mouse_step < 6:
+                              if (now - keep_mouse_last_try) >= 3:
                                   keep_mouse_step += 1
-                                  log_msg("KeepMouse", f"Attempt {keep_mouse_step}/4: Ctrl+J then searching Keep button via UI...")
+                                  log_msg("KeepMouse", f"Attempt {keep_mouse_step}/6: Checking for Keep / Keep anyway / Open file...")
 
                                   try: edge_window.set_focus()
                                   except Exception: pass
-
-                                  time.sleep(0.5)
-                                  send_keys('^j')
-                                  time.sleep(1.5)
 
                                   clicked_keep = False
                                   try:
@@ -3222,9 +3184,22 @@ jobs:
                                               if click_element_robust(btn, "KeepMouse"):
                                                   clicked_keep = True
                                                   log_msg("KeepMouse", f"Keep button clicked on attempt {keep_mouse_step}.")
+                                                  time.sleep(1.0)
                                                   break
                                   except Exception as e:
                                       log_msg("KeepMouse", f"UI Keep search failed: {e}")
+
+                                  # Check for Open file button after keep
+                                  try:
+                                      for btn in edge_window.descendants(control_type="Button"):
+                                          txt = (btn.window_text() or "").lower()
+                                          nm = (btn.element_info.name or "").lower()
+                                          combined = f"{txt} {nm}"
+                                          if any(kw in combined for kw in OPEN_FILE_KW):
+                                              if click_element_robust(btn, "OpenAfterKeep"):
+                                                  log_msg("KeepMouse", "Clicked Open file button!")
+                                                  break
+                                  except Exception: pass
 
                                   if clicked_keep:
                                       keep_mouse_sequence_done = True
@@ -3233,8 +3208,8 @@ jobs:
                                   else:
                                       keep_mouse_last_try = time.time()
 
-                          if keep_mouse_step >= 4 and not keep_mouse_sequence_done:
-                              log_msg("KeepMouse", "All 4 UI attempts done. Proceeding.")
+                          if keep_mouse_step >= 6 and not keep_mouse_sequence_done:
+                              log_msg("KeepMouse", "All UI attempts evaluated. Proceeding.")
                               keep_mouse_sequence_done = True
 
                       if edge_window and action_mode == "install":
@@ -3274,7 +3249,11 @@ jobs:
           $handlerPyBytes = [System.Text.UTF8Encoding]::new($false).GetBytes($handlerPy)
           [System.IO.File]::WriteAllBytes("$env:TEMP\auto_handler.py", $handlerPyBytes)
 
-          Write-Host "[UI-Engine] Spinning up background Python process..." -ForegroundColor DarkGray
+          Write-Host "[System] Closing any pre-existing Edge processes before engine boot..." -ForegroundColor DarkGray
+          Stop-Process -Name "msedge" -Force -ErrorAction SilentlyContinue
+          Start-Sleep -Seconds 2
+
+          Write-Host "[UI-Engine] Spinning up background Python process..." -ForegroundColor Cyan
           Start-Process -FilePath "python" `
               -ArgumentList "-u `"$env:TEMP\auto_handler.py`" `"$env:SOFTWARE_CHOICE`" `"$env:SOFTWARE_TYPE`" `"$env:ACTION_MODE`"" `
               -WindowStyle Hidden
@@ -3389,12 +3368,10 @@ jobs:
                           try {
                               if ($actualSoftware -eq "charity_engine") {
                                   Start-Process -FilePath $file.FullName
-                                  Write-Output "[CHARITY_ENGINE-INSTALL] Binary spawned. Awaiting agreement dialog..."
-
-                                  Write-Output "[CHARITY_ENGINE-INSTALL] Waiting 20 seconds for prerequisites & agreement UI..."
+                                  Write-Output "[CHARITY_ENGINE-INSTALL] Binary spawned. Waiting 20s for dependencies & agreement dialog..."
                                   Start-Sleep -Seconds 20
 
-                                  for ($ceAttempt = 1; $ceAttempt -le 10; $ceAttempt++) {
+                                  for ($ceAttempt = 1; $ceAttempt -le 15; $ceAttempt++) {
                                       $ceProc = Get-Process | Where-Object { $_.MainWindowTitle -match "Charity Engine installer|Charity Engine" } | Select-Object -First 1
                                       if ($ceProc) {
                                           Write-Output "[CHARITY_ENGINE-INSTALL] Found window: $($ceProc.MainWindowTitle). Activating & sending Tab -> Enter (Yes)..."
@@ -3466,7 +3443,7 @@ jobs:
                           }
 
                           if (-not $launched) {
-                              Write-Output "[$($actualSoftware.ToUpper())-POST] Executable not found within timeout or silent background runner."
+                              Write-Output "[$($actualSoftware.ToUpper())-POST] Executable not found within timeout or background service running."
                           }
 
                           $installed = $true
@@ -3480,11 +3457,7 @@ jobs:
               } -ArgumentList $dlFolder, $timeoutSecs, $softwareType, $exeFilter, $sentinelPath, $installerExecutedSentinel
           }
 
-          Write-Host "[System] Closing any lingering Edge processes..." -ForegroundColor DarkGray
-          Stop-Process -Name "msedge" -Force -ErrorAction SilentlyContinue
-          Start-Sleep -Seconds 2
-
-          Write-Host "[System] UI-Engine (Python) will autonomously manage Edge..." -ForegroundColor Cyan
+          Write-Host "[System] UI-Engine (Python) actively managing Edge & UI automation..." -ForegroundColor Cyan
           Write-Host "========== RUNTIME EXECUTION ==========" -ForegroundColor Cyan
 
           if ($env:ACTION_MODE -eq "install") {
